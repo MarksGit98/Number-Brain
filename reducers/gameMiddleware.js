@@ -14,6 +14,9 @@ const producerMiddleWare = (rawStore) => {
             payload: action.payload,
           });
           if (rawStore.selectedSymbol !== null) {
+            // Check for validity of the operation here and either approve or deny it
+            //Add paylod of new number formed by operation
+
             rawStore.dispatch({
               type: "performOperation",
             });
