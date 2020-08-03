@@ -10,7 +10,8 @@ const initialState = {
   bigNumber=10,
   selectedSymbol=null,
   selectedTile1=null,
-  selectedTile2=null
+  selectedTile2=null,
+  won=false
 };
 
 export default (state = initialState, action) => {
@@ -42,13 +43,18 @@ export default (state = initialState, action) => {
             tile2: selectedTile2
           }],
           symbols: {
+            ...symbols,
             add: selectedSymbol = "+" ? add-- : add,
             minus: selectedSymbol = "+" ? minus-- : minus,
             multiply: selectedSymbol = "+" ? multiply-- : multiply,
             divide: selectedSymbol = "+" ? divide-- : divide
+          },
+          selectedSymbol: null,
+          selectedTile1: null,
+          selectedTile2: null
           }
-          }
-        }
+      }
+      
     default:
       return state;
   }
