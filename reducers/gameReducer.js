@@ -1,65 +1,54 @@
 const initialState = {
   tiles=[],
-    symbols={
-        plus: 1,
-        minus: 1,
-        multiply: 1,
-        divide: 1
-    },
-    bigNumber=10,
-    selectedSymbol=null,
-    selectedTile1=null,
-    selectedTile2=null
+  symbols={
+      add: 1,
+      subtract: 1,
+      multiply: 1,
+      divide: 1
+  },
+  turnHistory=[],
+  bigNumber=10,
+  selectedSymbol=null,
+  selectedTile1=null,
+  selectedTile2=null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case "selectTile": {
+        case "selectTile1": {
             return {
-                ...state, 
-                
+              ...state, 
+              selectedTile1: action.payload
             }
       }
-    case "newQuoteData": {
-      return {
-        ...state,
-        tickerInfo: {
-          ...state.tickerInfo,
-          quoteInfo: action.payload,
-        },
-      };
-    }
-    case "newTickerData": {
-      return {
-        ...state,
-        ticker: action.payload.symbol,
-        tickerInfo: {
-          ...state.tickerInfo,
-          ...action.payload.data,
-        },
-      };
-    }
-    case "newIndexData": {
-      return {
-        ...state,
-        indexes: action.payload,
-      };
-    }
-    case "newHistoryData": {
-      return {
-        ...state,
-        tickerInfo: {
-          ...state.tickerInfo,
-          historyInfo: action.payload,
-        },
-      };
-    }
-    case "newChartRange": {
-      return {
-        ...state,
-        chartRange: action.payload,
-      };
-    }
+      case "selectTile2": {
+            return {
+              ...state, 
+              selectedTile2: action.payload
+            }
+      }
+      case "selectSymbol": {
+        return {
+          ...state,
+          selectedSymbol: action.payload
+        }
+      }
+      case "performOperation": {
+        return {
+          ...state, 
+          turnHistory: [...turnHistory, {
+            tile1: selectedTile1,
+            symbol: selectedSymbol,
+            tile2: selectedTile2
+          }],
+          symbols: {
+            add: selectedSymbol = "+" ? add-- : add,
+            minus: selectedSymbol = "+" ? minus-- : minus,
+            multiply: selectedSymbol = "+" ? multiply-- : multiply,
+            divide: selectedSymbol = "+" ? divide-- : divide
+          }
+          }
+        }
     default:
       return state;
   }
