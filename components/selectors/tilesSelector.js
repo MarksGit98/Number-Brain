@@ -1,3 +1,3 @@
-export const tileSelector = (state) => {
+export const tilesSelector = (state) => {
   return state.tiles;
 };
