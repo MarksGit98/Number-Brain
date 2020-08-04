@@ -1,31 +1,22 @@
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
-
+import { useSelector } from "react-redux";
+import { styles } from "./styles/styles";
+import { tilesSelector } from "./selectors/tileSelector";
 export const GameScreen = () => {
+  const tiles = useSelector(tilesSelector());
   return (
     <SafeAreaView style={styles.mainView}>
       <View bottom="20%" style={styles.tiles}>
         <Text style={styles.bigNumber}>62</Text>
       </View>
       <View style={styles.row}>
-        <View style={styles.tiles}>
-          <Text style={styles.smallNumber}>1</Text>
-        </View>
-        <View style={styles.tiles}>
-          <Text style={styles.smallNumber}>2</Text>
-        </View>
-        <View style={styles.tiles}>
-          <Text style={styles.smallNumber}>3</Text>
-        </View>
-        <View style={styles.tiles}>
-          <Text style={styles.smallNumber}>4</Text>
-        </View>
-        <View style={styles.tiles}>
-          <Text style={styles.smallNumber}>2</Text>
-        </View>
-        <View style={styles.tiles}>
-          <Text style={styles.smallNumber}>8</Text>
-        </View>
+        {tiles &&
+          tiles.map((tile) => (
+            <View style={styles.tiles}>
+              <Text style={styles.smallNumber}>{tile}</Text>
+            </View>
+          ))}
       </View>
       <View top="20%" style={styles.row}>
         <View style={styles.tiles}>
@@ -44,30 +35,3 @@ export const GameScreen = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  bigNumber: {
-    fontSize: 90,
-    justifyContent: "center",
-  },
-  smallNumber: {
-    fontSize: 42,
-    marginRight: 10,
-    marginLeft: 10,
-  },
-  mainView: {
-    backgroundColor: "purple",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  tiles: {
-    backgroundColor: "yellow",
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-});

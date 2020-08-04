@@ -9,8 +9,8 @@ const initialState = {
   turnHistory=[],
   bigNumber=10,
   selectedSymbol=null,
-  selectedTile1=null,
-  selectedTile2=null,
+  selectedTile1={value: null, index: null},
+  selectedTile2={value: null, index: null},
   won=false
 };
 
@@ -35,12 +35,19 @@ export default (state = initialState, action) => {
         }
       }
       case "performOperation": {
+        newTiles = [];
+        for (let i = 0; i < tiles.length; i++){
+          if (i !== selectedTile1.index && i !== selectedTile2.index) {
+              newTiles.push(tiles[i])
+            }
+        }
         return {
           ...state, 
+          tiles: [...newTiles, action.paylod],
           turnHistory: [...turnHistory, {
-            tile1: selectedTile1,
+            tile1: selectedTile1.value,
             symbol: selectedSymbol,
-            tile2: selectedTile2
+            tile2: selectedTile2.value
           }],
           symbols: {
             ...symbols,
@@ -50,8 +57,8 @@ export default (state = initialState, action) => {
             divide: selectedSymbol = "+" ? divide-- : divide
           },
           selectedSymbol: null,
-          selectedTile1: null,
-          selectedTile2: null
+          selectedTile1: {value: null, index: null},
+          selectedTile2: {value: null, index: null}
           }
       }
       
