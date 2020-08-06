@@ -20,6 +20,16 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+  SelectedTile1: {
+    backgroundColor: "red",
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  SelectedTile2: {
+    backgroundColor: "blue",
+    marginLeft: 10,
+    marginRight: 10,
+  },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",

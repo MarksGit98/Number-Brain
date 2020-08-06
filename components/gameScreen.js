@@ -9,12 +9,20 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
-import { tilesSelector, bigNumberSelector } from "./selectors/stateSelectors";
+import {
+  tilesSelector,
+  bigNumberSelector,
+  tile1Selector,
+  tile2Selector,
+} from "./selectors/stateSelectors";
 import { useSelectTile } from "./dispatches/dispatchOperations";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const tiles = useSelector(tilesSelector);
   const bigNumber = useSelector(bigNumberSelector);
+  const index1 = useSelector(tile1Selector).index;
+  const index2 = useSelector(tile2Selector).index;
+
   return (
     <SafeAreaView style={styles.mainView}>
       <View bottom="20%" style={styles.tiles}>
@@ -27,7 +35,15 @@ export const GameScreen = () => {
               key={index}
               onPress={() => dispatch({ type: "selectTile", payload: index })}
             >
-              <View style={styles.tiles}>
+              <View
+                style={
+                  index !== index1
+                    ? styles.tiles
+                    : index !== index2
+                    ? styles.SelectedTile1
+                    : styles.SelectedTile2
+                }
+              >
                 <Text style={styles.smallNumber}>{tile}</Text>
               </View>
             </TouchableHighlight>

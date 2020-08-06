@@ -19,7 +19,13 @@ export default function App() {
     gameStore.dispatch({ type: "initializeRound", payload: CURRENT_ROUND });
   }, []);
 
-  //useEffect(() => {}, [gameStore.getState().selectedTile2]);
+  useEffect(() => {
+    console.log(1);
+    if (gameStore.getState().selectedTile2.value !== null) {
+      console.log(2);
+      gameStore.dispatch({ type: "performOperation", payload: CURRENT_ROUND });
+    }
+  }, [gameStore.getState().selectedTile2.value]);
 
   return (
     <Provider store={gameStore}>

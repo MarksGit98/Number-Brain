@@ -3,22 +3,31 @@ export const gameMiddleware = (rawStore) => {
     //Trigger dispatches here
     switch (action.type) {
       case "selectTile": {
-        console.log(rawStore.getState());
         if (rawStore.getState().selectedTile1.value === null) {
           rawStore.dispatch({
             type: "selectTile1",
             payload: action.payload,
           });
-        } else if (rawStore.getState().selectedTile2.value === null) {
+          break;
+        } else if (rawStore.getState().selectedTile1.index === action.payload) {
+          rawStore.dispatch({
+            type: "selectTile1",
+            payload: null,
+          });
+          break;
+        } else if (
+          rawStore.getState().selectedTile2.value === null &&
+          action.payload !== rawStore.getState().selectedTile1.index
+        ) {
           rawStore.dispatch({
             type: "selectTile2",
             payload: action.payload,
           });
+        } else {
+          break;
         }
       }
       case "performOperation": {
-        console.log(rawStore.getState().selectedTile1);
-        console.log(rawStore.getState().selectedTile2);
         if (rawStore.getState().selectedSymbol !== null) {
           // Check for validity of the operation here and either approve or deny it
           //Add paylod of new number formed by operation
@@ -62,9 +71,12 @@ export const gameMiddleware = (rawStore) => {
             });
           }
         }
+        break;
+      }
+      case "test": {
+        console.log(3);
       }
       default:
-        console.log(rawStore.getState());
         rawStore.dispatch(action);
     }
   };
