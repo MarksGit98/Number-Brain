@@ -29,8 +29,8 @@ export const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedTile2: {
-          value: state.tiles[action.payload],
-          index: action.payload,
+          value: action.payload !== null ? state.tiles[action.payload] : null,
+          index: action.payload !== null ? action.payload : null,
         },
       };
     }
@@ -79,6 +79,20 @@ export const gameReducer = (state = initialState, action) => {
         selectedSymbol: null,
         selectedTile1: { value: null, index: null },
         selectedTile2: { value: null, index: null },
+      };
+    }
+    case "resetOnInvalidOperation": {
+      return {
+        ...state,
+        selectedTile1: { value: null, index: null },
+        selectedTile2: { value: null, index: null },
+        selectedSymbol: null,
+      };
+    }
+    case "wonRound": {
+      return {
+        ...state,
+        won: true,
       };
     }
     case "initalizeRound": {

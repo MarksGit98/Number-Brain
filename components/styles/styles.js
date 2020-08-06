@@ -15,20 +15,21 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  tiles: {
+  UnselectedTile: {
     backgroundColor: "yellow",
+  },
+  tile: {
     marginLeft: 10,
     marginRight: 10,
   },
   SelectedTile1: {
     backgroundColor: "red",
-    marginLeft: 10,
-    marginRight: 10,
   },
   SelectedTile2: {
     backgroundColor: "blue",
-    marginLeft: 10,
-    marginRight: 10,
+  },
+  SelectedSymbol: {
+    backgroundColor: "green",
   },
   row: {
     flexDirection: "row",

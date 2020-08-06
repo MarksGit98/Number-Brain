@@ -14,6 +14,7 @@ import {
   bigNumberSelector,
   tile1Selector,
   tile2Selector,
+  symbolSelector,
 } from "./selectors/stateSelectors";
 import { useSelectTile } from "./dispatches/dispatchOperations";
 export const GameScreen = () => {
@@ -22,10 +23,11 @@ export const GameScreen = () => {
   const bigNumber = useSelector(bigNumberSelector);
   const index1 = useSelector(tile1Selector).index;
   const index2 = useSelector(tile2Selector).index;
+  const symbol = useSelector(symbolSelector);
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <View bottom="20%" style={styles.tiles}>
+      <View bottom="20%" style={[styles.tile, styles.UnselectedTile]}>
         <Text style={styles.bigNumber}>{bigNumber}</Text>
       </View>
       <View style={styles.row}>
@@ -37,11 +39,11 @@ export const GameScreen = () => {
             >
               <View
                 style={
-                  index !== index1
-                    ? styles.tiles
-                    : index !== index2
-                    ? styles.SelectedTile1
-                    : styles.SelectedTile2
+                  index === index1
+                    ? [styles.tile, styles.SelectedTile1]
+                    : index === index2
+                    ? [styles.tile, styles.SelectedTile2]
+                    : [styles.tile, styles.UnselectedTile]
                 }
               >
                 <Text style={styles.smallNumber}>{tile}</Text>
@@ -53,28 +55,52 @@ export const GameScreen = () => {
         <TouchableHighlight
           onPress={() => dispatch({ type: "selectSymbol", payload: "+" })}
         >
-          <View style={styles.tiles}>
+          <View
+            style={
+              symbol === "+"
+                ? [styles.tile, styles.SelectedSymbol]
+                : [styles.tile, styles.UnselectedTile]
+            }
+          >
             <Text style={styles.smallNumber}>+</Text>
           </View>
         </TouchableHighlight>
         <TouchableHighlight
           onPress={() => dispatch({ type: "selectSymbol", payload: "-" })}
         >
-          <View style={styles.tiles}>
+          <View
+            style={
+              symbol === "-"
+                ? [styles.tile, styles.SelectedSymbol]
+                : [styles.tile, styles.UnselectedTile]
+            }
+          >
             <Text style={styles.smallNumber}>-</Text>
           </View>
         </TouchableHighlight>
         <TouchableHighlight
           onPress={() => dispatch({ type: "selectSymbol", payload: "*" })}
         >
-          <View style={styles.tiles}>
+          <View
+            style={
+              symbol === "*"
+                ? [styles.tile, styles.SelectedSymbol]
+                : [styles.tile, styles.UnselectedTile]
+            }
+          >
             <Text style={styles.smallNumber}>x</Text>
           </View>
         </TouchableHighlight>
         <TouchableHighlight
           onPress={() => dispatch({ type: "selectSymbol", payload: "/" })}
         >
-          <View style={styles.tiles}>
+          <View
+            style={
+              symbol === "/"
+                ? [styles.tile, styles.SelectedSymbol]
+                : [styles.tile, styles.UnselectedTile]
+            }
+          >
             <Text style={styles.smallNumber}>/</Text>
           </View>
         </TouchableHighlight>

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { GameScreen } from "./components/gameScreen";
-import { StyleSheet, Text, View } from "react-native";
 import { gameMiddleware } from "./reducers/gameMiddleware";
 import { gameReducer } from "./reducers/gameReducer";
 import { CURRENT_ROUND } from "./settings/userSettings";
@@ -19,13 +18,7 @@ export default function App() {
     gameStore.dispatch({ type: "initializeRound", payload: CURRENT_ROUND });
   }, []);
 
-  useEffect(() => {
-    console.log(1);
-    if (gameStore.getState().selectedTile2.value !== null) {
-      console.log(2);
-      gameStore.dispatch({ type: "performOperation", payload: CURRENT_ROUND });
-    }
-  }, [gameStore.getState().selectedTile2.value]);
+  useEffect(() => {}, []);
 
   return (
     <Provider store={gameStore}>

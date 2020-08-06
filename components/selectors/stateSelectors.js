@@ -13,3 +13,7 @@ export const tile1Selector = (state) => {
 export const tile2Selector = (state) => {
   return state.selectedTile2;
 };
+
+export const symbolSelector = (state) => {
+  return state.selectedSymbol;
+};
