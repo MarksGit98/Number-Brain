@@ -41,18 +41,28 @@ export const gameReducer = (state = initialState, action) => {
       };
     }
     case "performOperation": {
+      const index1 = state.selectedTile1.index;
+      const index2 = state.selectedTile2.index;
       const newTiles = [];
       for (let i = 0; i < state.tiles.length; i++) {
-        if (
-          i !== state.selectedTile1.index &&
-          i !== state.selectedTile2.index
-        ) {
+        if (i !== index1 && i !== index2) {
           newTiles.push(state.tiles[i]);
         }
       }
       return {
         ...state,
-        tiles: [...newTiles, action.payload],
+        tiles:
+          index2 > 1
+            ? [
+                ...newTiles.slice(0, index2 - 1),
+                action.payload,
+                ...newTiles.slice(index2 - 1),
+              ]
+            : [
+                ...newTiles.slice(0, index2),
+                action.payload,
+                ...newTiles.slice(index2),
+              ],
         turnHistory: [
           ...state.turnHistory,
           {
