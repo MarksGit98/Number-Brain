@@ -115,10 +115,19 @@ export const gameMiddleware = (rawStore) => {
               });
             }
           }
+          if (rawStore.getState().tiles.length === 1) {
+            dispatch({ type: "checkForWin" });
+          }
         }
         break;
       }
-
+      case "checkForWin": {
+        if (rawStore.getState().tiles[0] === rawStore.getState().bigNumber) {
+          rawStore.dispatch({
+            type: "wonRound",
+          });
+        }
+      }
       default:
         rawStore.dispatch(action);
     }

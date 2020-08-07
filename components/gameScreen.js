@@ -15,6 +15,7 @@ import {
   tile1Selector,
   tile2Selector,
   symbolSelector,
+  wonSelector,
 } from "./selectors/stateSelectors";
 import { useSelectTile } from "./dispatches/dispatchOperations";
 export const GameScreen = () => {
@@ -24,11 +25,14 @@ export const GameScreen = () => {
   const index1 = useSelector(tile1Selector).index;
   const index2 = useSelector(tile2Selector).index;
   const symbol = useSelector(symbolSelector);
-
+  const won = useSelector(wonSelector);
   return (
     <SafeAreaView style={styles.mainView}>
       <View bottom="20%" style={[styles.tile, styles.UnselectedTile]}>
         <Text style={styles.bigNumber}>{bigNumber}</Text>
+      </View>
+      <View>
+        <Text style={styles.bigNumber}>{won === true ? "WON" : ""}</Text>
       </View>
       <View style={styles.row}>
         {tiles &&

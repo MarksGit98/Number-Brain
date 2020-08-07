@@ -17,3 +17,7 @@ export const tile2Selector = (state) => {
 export const symbolSelector = (state) => {
   return state.selectedSymbol;
 };
+
+export const wonSelector = (state) => {
+  return state.won;
+};
