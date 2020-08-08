@@ -36,6 +36,12 @@ export const gameMiddleware = (rawStore) => {
           dispatch({
             type: "performOperation",
           });
+        } else {
+          console.log("5");
+          rawStore.dispatch({
+            type: "selectTile1",
+            payload: action.payload,
+          });
         }
         break;
       }

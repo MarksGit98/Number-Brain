@@ -5,9 +5,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   smallNumber: {
-    fontSize: 42,
-    marginRight: 10,
-    marginLeft: 10,
+    fontSize: 28,
   },
   mainView: {
     backgroundColor: "purple",
@@ -21,6 +19,16 @@ export const styles = StyleSheet.create({
   tile: {
     marginLeft: 10,
     marginRight: 10,
+    height: 47,
+    width: 47,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  bigTile: {
+    height: 150,
+    width: 150,
+    justifyContent: "center",
+    alignItems: "center",
   },
   SelectedTile1: {
     backgroundColor: "red",

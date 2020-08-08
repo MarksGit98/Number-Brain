@@ -28,7 +28,7 @@ export const GameScreen = () => {
   const won = useSelector(wonSelector);
   return (
     <SafeAreaView style={styles.mainView}>
-      <View bottom="20%" style={[styles.tile, styles.UnselectedTile]}>
+      <View bottom="10%" style={[styles.bigTile, styles.UnselectedTile]}>
         <Text style={styles.bigNumber}>{bigNumber}</Text>
       </View>
       <View>
