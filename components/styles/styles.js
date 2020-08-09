@@ -43,4 +43,9 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  backButton: {
+    top: 120,
+    height: 50,
+    width: 50,
+  },
 });

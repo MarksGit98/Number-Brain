@@ -1,11 +1,10 @@
 import React from "react";
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
-  Button,
-  TouchableHighlight,
+  TouchableWithoutFeedback,
+  Image,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
@@ -37,7 +36,7 @@ export const GameScreen = () => {
       <View style={styles.row}>
         {tiles &&
           tiles.map((tile, index) => (
-            <TouchableHighlight
+            <TouchableWithoutFeedback
               key={index}
               onPress={() => dispatch({ type: "selectTile", payload: index })}
             >
@@ -52,11 +51,11 @@ export const GameScreen = () => {
               >
                 <Text style={styles.smallNumber}>{tile}</Text>
               </View>
-            </TouchableHighlight>
+            </TouchableWithoutFeedback>
           ))}
       </View>
       <View top="20%" style={styles.row}>
-        <TouchableHighlight
+        <TouchableWithoutFeedback
           onPress={() => dispatch({ type: "selectSymbol", payload: "+" })}
         >
           <View
@@ -68,8 +67,8 @@ export const GameScreen = () => {
           >
             <Text style={styles.smallNumber}>+</Text>
           </View>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
           onPress={() => dispatch({ type: "selectSymbol", payload: "-" })}
         >
           <View
@@ -81,8 +80,8 @@ export const GameScreen = () => {
           >
             <Text style={styles.smallNumber}>-</Text>
           </View>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
           onPress={() => dispatch({ type: "selectSymbol", payload: "*" })}
         >
           <View
@@ -94,8 +93,8 @@ export const GameScreen = () => {
           >
             <Text style={styles.smallNumber}>x</Text>
           </View>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
           onPress={() => dispatch({ type: "selectSymbol", payload: "/" })}
         >
           <View
@@ -107,8 +106,14 @@ export const GameScreen = () => {
           >
             <Text style={styles.smallNumber}>/</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableWithoutFeedback>
       </View>
+      <TouchableWithoutFeedback>
+        <Image
+          style={styles.backButton}
+          source={require("../assets/back-arrow.png")}
+        />
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };

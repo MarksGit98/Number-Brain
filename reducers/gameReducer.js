@@ -41,6 +41,7 @@ export const gameReducer = (state = initialState, action) => {
       };
     }
     case "performOperation": {
+      console.log(state.turnHistory.pop());
       const index1 = state.selectedTile1.index;
       const index2 = state.selectedTile2.index;
       const newTiles = [];
@@ -51,6 +52,15 @@ export const gameReducer = (state = initialState, action) => {
       }
       return {
         ...state,
+        turnHistory: [
+          ...state.turnHistory,
+          {
+            tile1: state.selectedTile1.value,
+            symbol: state.selectedSymbol,
+            tile2: state.selectedTile2.value,
+            tiles: state.tiles,
+          },
+        ],
         tiles:
           index2 > 1
             ? [
@@ -63,14 +73,6 @@ export const gameReducer = (state = initialState, action) => {
                 action.payload,
                 ...newTiles.slice(index2),
               ],
-        turnHistory: [
-          ...state.turnHistory,
-          {
-            tile1: state.selectedTile1.value,
-            symbol: state.selectedSymbol,
-            tile2: state.selectedTile2.value,
-          },
-        ],
         symbols: {
           ...state.symbols,
           add: (state.selectedSymbol = "+"
