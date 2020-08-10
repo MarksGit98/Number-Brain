@@ -127,12 +127,21 @@ export const gameMiddleware = (rawStore) => {
         }
         break;
       }
+      case "reverseTurn": {
+        if (rawStore.getState().turnHistory.length > 0) {
+          rawStore.dispatch({
+            type: "reverseTurn",
+          });
+        }
+        break;
+      }
       case "checkForWin": {
         if (rawStore.getState().tiles[0] === rawStore.getState().bigNumber) {
           rawStore.dispatch({
             type: "wonRound",
           });
         }
+        break;
       }
       default:
         rawStore.dispatch(action);

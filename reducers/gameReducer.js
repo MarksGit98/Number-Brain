@@ -41,7 +41,6 @@ export const gameReducer = (state = initialState, action) => {
       };
     }
     case "performOperation": {
-      console.log(state.turnHistory.pop());
       const index1 = state.selectedTile1.index;
       const index2 = state.selectedTile2.index;
       const newTiles = [];
@@ -62,7 +61,7 @@ export const gameReducer = (state = initialState, action) => {
           },
         ],
         tiles:
-          index2 > 1
+          index2 > 0
             ? [
                 ...newTiles.slice(0, index2 - 1),
                 action.payload,
@@ -96,6 +95,16 @@ export const gameReducer = (state = initialState, action) => {
     case "resetOnInvalidOperation": {
       return {
         ...state,
+        selectedTile1: { value: null, index: null },
+        selectedTile2: { value: null, index: null },
+        selectedSymbol: null,
+      };
+    }
+    case "reverseTurn": {
+      const prevTurn = state.turnHistory.pop();
+      return {
+        ...state,
+        tiles: prevTurn.tiles,
         selectedTile1: { value: null, index: null },
         selectedTile2: { value: null, index: null },
         selectedSymbol: null,

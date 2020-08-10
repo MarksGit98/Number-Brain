@@ -108,7 +108,9 @@ export const GameScreen = () => {
           </View>
         </TouchableWithoutFeedback>
       </View>
-      <TouchableWithoutFeedback>
+      <TouchableWithoutFeedback
+        onPress={() => dispatch({ type: "reverseTurn" })}
+      >
         <Image
           style={styles.backButton}
           source={require("../assets/back-arrow.png")}
