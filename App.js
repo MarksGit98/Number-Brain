@@ -18,8 +18,6 @@ export default function App() {
     gameStore.dispatch({ type: "initializeRound", payload: CURRENT_ROUND });
   }, []);
 
-  useEffect(() => {}, []);
-
   return (
     <Provider store={gameStore}>
       <GameScreen />

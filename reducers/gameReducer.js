@@ -1,13 +1,9 @@
+import { puzzles } from "../puzzles/puzzles";
 const initialState = {
-  tiles: [1, 2, 3, 4, 8, 2],
-  symbols: {
-    add: 1,
-    subtract: 1,
-    multiply: 1,
-    divide: 1,
-  },
+  tiles: puzzles.hard.level1.tiles,
+  symbols: puzzles.hard.level1.symbols,
   turnHistory: [],
-  bigNumber: 62,
+  bigNumber: puzzles.hard.level1.bigNumber,
   selectedSymbol: null,
   selectedTile1: { value: null, index: null },
   selectedTile2: { value: null, index: null },
