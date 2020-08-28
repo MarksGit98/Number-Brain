@@ -17,6 +17,7 @@ import {
   wonSelector,
 } from "./selectors/stateSelectors";
 import { useSelectTile } from "./dispatches/dispatchOperations";
+import { Symbols } from "./symbols";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const tiles = useSelector(tilesSelector);
@@ -54,68 +55,7 @@ export const GameScreen = () => {
             </TouchableWithoutFeedback>
           ))}
       </View>
-      <View top="20%" style={styles.row}>
-        <TouchableWithoutFeedback
-          onPress={() => dispatch({ type: "selectSymbol", payload: "+" })}
-        >
-          <View
-            style={
-              symbol === "+"
-                ? [styles.tile, styles.SelectedSymbol]
-                : [styles.tile, styles.UnselectedTile]
-            }
-          >
-            <Text style={styles.smallNumber}>+</Text>
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          onPress={() => dispatch({ type: "selectSymbol", payload: "-" })}
-        >
-          <View
-            style={
-              symbol === "-"
-                ? [styles.tile, styles.SelectedSymbol]
-                : [styles.tile, styles.UnselectedTile]
-            }
-          >
-            <Text style={styles.smallNumber}>-</Text>
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          onPress={() => dispatch({ type: "selectSymbol", payload: "*" })}
-        >
-          <View
-            style={
-              symbol === "*"
-                ? [styles.tile, styles.SelectedSymbol]
-                : [styles.tile, styles.UnselectedTile]
-            }
-          >
-            <Text style={styles.smallNumber}>x</Text>
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          onPress={() => dispatch({ type: "selectSymbol", payload: "/" })}
-        >
-          <View
-            style={
-              symbol === "/"
-                ? [styles.tile, styles.SelectedSymbol]
-                : [styles.tile, styles.UnselectedTile]
-            }
-          >
-            <Text style={styles.smallNumber}>/</Text>
-          </View>
-        </TouchableWithoutFeedback>
-      </View>
-      <TouchableWithoutFeedback
-        onPress={() => dispatch({ type: "reverseTurn" })}
-      >
-        <Image
-          style={styles.backButton}
-          source={require("../assets/back-arrow.png")}
-        />
-      </TouchableWithoutFeedback>
+      <Symbols />
     </SafeAreaView>
   );
 };
