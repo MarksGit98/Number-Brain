@@ -20,25 +20,25 @@ import { useSelectTile } from "./dispatches/dispatchOperations";
 
 export const Symbols = () => {
   const dispatch = useDispatch();
-  const symbols = ["+", "-", "x", "/"];
+  const signs = ["+", "-", "x", "/"];
+  const symbol = useSelector(symbolSelector);
 
   return (
     <View top="20%" style={styles.row}>
-      {symbols.map((symbol) => {
+      {signs.map((sign) => {
         return (
           <TouchableWithoutFeedback
-            onPress={() =>
-              dispatch({ type: "selectSymbol", payload: { symbol } })
-            }
+            key={sign}
+            onPress={() => dispatch({ type: "selectSymbol", payload: sign })}
           >
             <View
               style={
-                symbol === { symbol }
+                symbol === sign
                   ? [styles.tile, styles.SelectedSymbol]
                   : [styles.tile, styles.UnselectedTile]
               }
             >
-              <Text style={styles.smallNumber}>{symbol}</Text>
+              <Text style={styles.smallNumber}>{sign}</Text>
             </View>
           </TouchableWithoutFeedback>
         );

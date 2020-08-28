@@ -96,7 +96,7 @@ export const gameMiddleware = (rawStore) => {
                 type: "resetOnInvalidOperation",
               });
             }
-          } else if (rawStore.getState().selectedSymbol === "*") {
+          } else if (rawStore.getState().selectedSymbol === "x") {
             rawStore.dispatch({
               type: "performOperation",
               payload:

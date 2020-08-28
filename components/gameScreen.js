@@ -18,6 +18,7 @@ import {
 } from "./selectors/stateSelectors";
 import { useSelectTile } from "./dispatches/dispatchOperations";
 import { Symbols } from "./symbols";
+import { Tiles } from "./tiles";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const tiles = useSelector(tilesSelector);
@@ -34,28 +35,16 @@ export const GameScreen = () => {
       <View>
         <Text style={styles.bigNumber}>{won === true ? "WON" : ""}</Text>
       </View>
-      <View style={styles.row}>
-        {tiles &&
-          tiles.map((tile, index) => (
-            <TouchableWithoutFeedback
-              key={index}
-              onPress={() => dispatch({ type: "selectTile", payload: index })}
-            >
-              <View
-                style={
-                  index === index1
-                    ? [styles.tile, styles.SelectedTile1]
-                    : index === index2
-                    ? [styles.tile, styles.SelectedTile2]
-                    : [styles.tile, styles.UnselectedTile]
-                }
-              >
-                <Text style={styles.smallNumber}>{tile}</Text>
-              </View>
-            </TouchableWithoutFeedback>
-          ))}
-      </View>
+      <Tiles />
       <Symbols />
+      <TouchableWithoutFeedback
+        onPress={() => dispatch({ type: "reverseTurn" })}
+      >
+        <Image
+          style={styles.backButton}
+          source={require("../assets/back-arrow.png")}
+        />
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };
