@@ -17,6 +17,7 @@ import {
   wonSelector,
 } from "./selectors/stateSelectors";
 import { useSelectTile } from "./dispatches/dispatchOperations";
+import { SELECT_SYMBOL } from "../constants/constants";
 
 export const Symbols = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export const Symbols = () => {
         return (
           <TouchableWithoutFeedback
             key={sign}
-            onPress={() => dispatch({ type: "selectSymbol", payload: sign })}
+            onPress={() => dispatch({ type: SELECT_SYMBOL, payload: sign })}
           >
             <View
               style={

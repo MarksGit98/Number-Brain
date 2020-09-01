@@ -17,6 +17,7 @@ import {
   wonSelector,
 } from "./selectors/stateSelectors";
 import { useSelectTile } from "./dispatches/dispatchOperations";
+import { SELECT_TILE } from "../constants/constants";
 
 export const Tiles = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ export const Tiles = () => {
         tiles.map((tile, index) => (
           <TouchableWithoutFeedback
             key={index}
-            onPress={() => dispatch({ type: "selectTile", payload: index })}
+            onPress={() => dispatch({ type: SELECT_TILE, payload: index })}
           >
             <View
               style={

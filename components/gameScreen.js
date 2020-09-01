@@ -16,9 +16,21 @@ import {
   symbolSelector,
   wonSelector,
 } from "./selectors/stateSelectors";
+import {
+  SELECT_TILE,
+  SELECT_TILE_1,
+  SELECT_TILE_2,
+  PERFORM_OPERATION,
+  SELECT_SYMBOL,
+  REVERSE_TURN,
+  RESET_ON_INVALID_OPERATION,
+  CHECK_FOR_WIN,
+  WON_ROUND,
+} from "../constants/constants";
 import { useSelectTile } from "./dispatches/dispatchOperations";
 import { Symbols } from "./symbols";
 import { Tiles } from "./tiles";
+import { BackButton } from "./backbutton";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const tiles = useSelector(tilesSelector);
@@ -37,14 +49,7 @@ export const GameScreen = () => {
       </View>
       <Tiles />
       <Symbols />
-      <TouchableWithoutFeedback
-        onPress={() => dispatch({ type: "reverseTurn" })}
-      >
-        <Image
-          style={styles.backButton}
-          source={require("../assets/back-arrow.png")}
-        />
-      </TouchableWithoutFeedback>
+      <BackButton />
     </SafeAreaView>
   );
 };

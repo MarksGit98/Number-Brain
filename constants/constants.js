@@ -1,0 +1,11 @@
+//Game Reducer and Middleware Constants
+export const SELECT_TILE_1 = "selectTile1";
+export const SELECT_TILE_2 = "selectTile2";
+export const SELECT_SYMBOL = "selectSymbol";
+export const PERFORM_OPERATION = "performOperation";
+export const RESET_ON_INVALID_OPERATION = "resetOnInvalidOperation";
+export const REVERSE_TURN = "reverseTurn";
+export const WON_ROUND = "wonRound";
+export const INITIALIZE_ROUND = "initalizeRound";
+export const SELECT_TILE = "selectTile";
+export const CHECK_FOR_WIN = "checkForWin";

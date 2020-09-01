@@ -1,3 +1,13 @@
+import {
+  SELECT_TILE_1,
+  SELECT_TILE_2,
+  SELECT_SYMBOL,
+  REVERSE_TURN,
+  RESET_ON_INVALID_OPERATION,
+  WON_ROUND,
+  PERFORM_OPERATION,
+  INITIALIZE_ROUND,
+} from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 const initialState = {
   tiles: puzzles.hard.level1.tiles,
@@ -12,7 +22,7 @@ const initialState = {
 
 export const gameReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "selectTile1": {
+    case SELECT_TILE_1: {
       return {
         ...state,
         selectedTile1: {
@@ -21,7 +31,7 @@ export const gameReducer = (state = initialState, action) => {
         },
       };
     }
-    case "selectTile2": {
+    case SELECT_TILE_2: {
       return {
         ...state,
         selectedTile2: {
@@ -30,13 +40,13 @@ export const gameReducer = (state = initialState, action) => {
         },
       };
     }
-    case "selectSymbol": {
+    case SELECT_SYMBOL: {
       return {
         ...state,
         selectedSymbol: action.payload,
       };
     }
-    case "performOperation": {
+    case PERFORM_OPERATION: {
       const index1 = state.selectedTile1.index;
       const index2 = state.selectedTile2.index;
       const newTiles = [];
@@ -88,7 +98,7 @@ export const gameReducer = (state = initialState, action) => {
         selectedTile2: { value: null, index: null },
       };
     }
-    case "resetOnInvalidOperation": {
+    case RESET_ON_INVALID_OPERATION: {
       return {
         ...state,
         selectedTile1: { value: null, index: null },
@@ -96,7 +106,7 @@ export const gameReducer = (state = initialState, action) => {
         selectedSymbol: null,
       };
     }
-    case "reverseTurn": {
+    case REVERSE_TURN: {
       const prevTurn = state.turnHistory.pop();
       return {
         ...state,
@@ -106,13 +116,13 @@ export const gameReducer = (state = initialState, action) => {
         selectedSymbol: null,
       };
     }
-    case "wonRound": {
+    case WON_ROUND: {
       return {
         ...state,
         won: true,
       };
     }
-    case "initalizeRound": {
+    case INITIALIZE_ROUND: {
       return state;
     }
 
