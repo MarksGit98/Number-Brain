@@ -5,7 +5,8 @@ const Modes = {
 };
 
 const generatePuzzles = (mode, puzzleCount, minResult, maxResult) => {
-  const puzzles = {};
+  let size = 0;
+  let puzzles = {};
   while (puzzleCount-- !== 0) {
     const puzzle = {
       bigNumber: 0,
@@ -19,8 +20,8 @@ const generatePuzzles = (mode, puzzleCount, minResult, maxResult) => {
       solution: [],
     };
     let current = generateRandomDigit();
-    let tiles = 1;
-    while (tiles <= Modes[mode]) {
+    puzzle.tiles.push(current);
+    while (puzzle.tiles.length < Modes[mode]) {
       const symbol = generateRandomSymbol();
       const newNum = generateRandomDigit();
       const temp = current;
@@ -49,7 +50,6 @@ const generatePuzzles = (mode, puzzleCount, minResult, maxResult) => {
           continue;
         }
       }
-      tiles++;
       puzzle.symbols[symbol]++;
       puzzle.tiles.push(newNum);
       puzzle.solution.push({
@@ -59,8 +59,20 @@ const generatePuzzles = (mode, puzzleCount, minResult, maxResult) => {
       });
     }
     puzzle.bigNumber = current;
-    console.log(puzzle);
+    puzzle.tiles = shuffle(puzzle.tiles);
+    let sortedTiles = [...puzzle.tiles];
+    sortedTiles.sort();
+    sortedTiles.push(puzzle.bigNumber);
+    const key = sortedTiles.join("-");
+    if (!(key in puzzles)) {
+      puzzles[key] = puzzle;
+      size++;
+    } else {
+      puzzleCount++;
+    }
   }
+  // console.log(size);
+  return puzzles;
 };
 
 const generateRandomDigit = () => {
@@ -89,5 +101,23 @@ const isValidOperation = (num1, num2, symbol, minResult, maxResult) => {
   }
   return result <= maxResult && result >= minResult;
 };
+const shuffle = (array) => {
+  let currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
 
-generatePuzzles("hard", 50, 1, 100);
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+};
+console.log(generatePuzzles("hard", 1000, 1, 100));
