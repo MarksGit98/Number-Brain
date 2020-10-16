@@ -52,7 +52,7 @@ export const gameMiddleware = (rawStore) => {
         break;
       }
       case SELECT_SYMBOL: {
-        if (rawStore.getState().selectedSymbol === action.payload) {
+        if (rawStore.getState().selectedSymbol.symbol === action.payload) {
           rawStore.dispatch({
             type: SELECT_SYMBOL,
             payload: null,
@@ -72,20 +72,20 @@ export const gameMiddleware = (rawStore) => {
       }
       case PERFORM_OPERATION: {
         if (
-          rawStore.getState().selectedSymbol !== null &&
+          rawStore.getState().selectedSymbol.symbol !== null &&
           rawStore.getState().selectedTile1.index !== null &&
           rawStore.getState().selectedTile2.index !== null
         ) {
           // Check for validity of the operation here and either approve or deny it
           //Add paylod of new number formed by operation
-          if (rawStore.getState().selectedSymbol === "+") {
+          if (rawStore.getState().selectedSymbol.symbol === "add") {
             rawStore.dispatch({
               type: PERFORM_OPERATION,
               payload:
                 rawStore.getState().selectedTile1.value +
                 rawStore.getState().selectedTile2.value,
             });
-          } else if (rawStore.getState().selectedSymbol === "-") {
+          } else if (rawStore.getState().selectedSymbol.symbol === "subtract") {
             if (
               rawStore.getState().selectedTile1.value -
                 rawStore.getState().selectedTile2.value >=
@@ -102,14 +102,14 @@ export const gameMiddleware = (rawStore) => {
                 type: RESET_ON_INVALID_OPERATION,
               });
             }
-          } else if (rawStore.getState().selectedSymbol === "x") {
+          } else if (rawStore.getState().selectedSymbol.symbol === "multiply") {
             rawStore.dispatch({
               type: PERFORM_OPERATION,
               payload:
                 rawStore.getState().selectedTile1.value *
                 rawStore.getState().selectedTile2.value,
             });
-          } else if (rawStore.getState().selectedSymbol === "/") {
+          } else if (rawStore.getState().selectedSymbol.symbol === "divide") {
             if (
               rawStore.getState().selectedTile1.value %
                 rawStore.getState().selectedTile2.value ===

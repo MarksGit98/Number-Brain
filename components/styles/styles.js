@@ -24,6 +24,11 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  quantityTile: {
+    height: 12,
+    width: 12,
+    borderRadius: "50%",
+  },
   bigTile: {
     height: 150,
     width: 150,

@@ -21,9 +21,9 @@ import { SELECT_SYMBOL } from "../constants/constants";
 
 export const Symbols = () => {
   const dispatch = useDispatch();
-  const signs = ["+", "-", "x", "/"];
+  const signs = ["add", "subtract", "multiply", "divide"];
   const symbol = useSelector(symbolSelector);
-
+  console.log(symbol);
   return (
     <View top="20%" style={styles.row}>
       {signs.map((sign) => {
@@ -34,12 +34,15 @@ export const Symbols = () => {
           >
             <View
               style={
-                symbol === sign
+                symbol.symbol === sign
                   ? [styles.tile, styles.SelectedSymbol]
                   : [styles.tile, styles.UnselectedTile]
               }
             >
               <Text style={styles.smallNumber}>{sign}</Text>
+            </View>
+            <View style={styles.quantityTile}>
+              <Text styles={styles.smallNumber}>{symbol.quantity}</Text>
             </View>
           </TouchableWithoutFeedback>
         );
