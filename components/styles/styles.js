@@ -27,7 +27,9 @@ export const styles = StyleSheet.create({
   quantityTile: {
     height: 12,
     width: 12,
-    borderRadius: "50%",
+    borderRadius: 50,
+    color: "white",
+    backgroundColor: "#000",
   },
   bigTile: {
     height: 150,

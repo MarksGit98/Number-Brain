@@ -13,6 +13,7 @@ import {
   bigNumberSelector,
   tile1Selector,
   tile2Selector,
+  selectedSymbolSelector,
   symbolSelector,
   wonSelector,
 } from "./selectors/stateSelectors";
@@ -22,8 +23,9 @@ import { SELECT_SYMBOL } from "../constants/constants";
 export const Symbols = () => {
   const dispatch = useDispatch();
   const signs = ["add", "subtract", "multiply", "divide"];
-  const symbol = useSelector(symbolSelector);
-  console.log(symbol);
+  const selectedSymbol = useSelector(selectedSymbolSelector);
+  const symbols = useSelector(symbolSelector);
+
   return (
     <View top="20%" style={styles.row}>
       {signs.map((sign) => {
@@ -32,17 +34,29 @@ export const Symbols = () => {
             key={sign}
             onPress={() => dispatch({ type: SELECT_SYMBOL, payload: sign })}
           >
-            <View
-              style={
-                symbol.symbol === sign
-                  ? [styles.tile, styles.SelectedSymbol]
-                  : [styles.tile, styles.UnselectedTile]
-              }
-            >
-              <Text style={styles.smallNumber}>{sign}</Text>
-            </View>
-            <View style={styles.quantityTile}>
-              <Text styles={styles.smallNumber}>{symbol.quantity}</Text>
+            <View>
+              <View
+                style={
+                  selectedSymbol.symbol === sign
+                    ? [styles.tile, styles.SelectedSymbol]
+                    : [styles.tile, styles.UnselectedTile]
+                }
+              >
+                <Text style={styles.smallNumber}>
+                  {sign === "add"
+                    ? "+"
+                    : sign === "subtract"
+                    ? "-"
+                    : sign === "multiply"
+                    ? "x"
+                    : sign === "divide"
+                    ? "/"
+                    : null}
+                </Text>
+              </View>
+              <View styles={styles.quantityTile}>
+                <Text styles={styles.smallNumber}>{symbols[sign]}</Text>
+              </View>
             </View>
           </TouchableWithoutFeedback>
         );

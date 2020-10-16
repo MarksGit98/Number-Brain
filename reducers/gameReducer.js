@@ -82,19 +82,22 @@ export const gameReducer = (state = initialState, action) => {
                 ...newTiles.slice(index2),
               ],
         symbols: {
-          ...state.symbols,
-          add: (state.selectedSymbol.symbol = "add"
-            ? state.symbols.add--
-            : state.symbols.add),
-          minus: (state.selectedSymbol.symbol = "subtract"
-            ? state.symbols.minus--
-            : state.symbols.minus),
-          multiply: (state.selectedSymbol.symbol = "multiply"
-            ? state.symbols.multiply--
-            : state.symbols.multiply),
-          divide: (state.selectedSymbol.symbol = "divide"
-            ? state.symbols.divide--
-            : state.symbols.divide),
+          add:
+            state.selectedSymbol.symbol === "add"
+              ? state.symbols.add - 1
+              : state.symbols.add,
+          subtract:
+            state.selectedSymbol.symbol === "subtract"
+              ? state.symbols.subtract - 1
+              : state.symbols.subtract,
+          multiply:
+            state.selectedSymbol.symbol === "multiply"
+              ? state.symbols.multiply - 1
+              : state.symbols.multiply,
+          divide:
+            state.selectedSymbol.symbol === "divide"
+              ? state.symbols.divide - 1
+              : state.symbols.divide,
         },
         selectedSymbol: { symbol: null, quantity: null },
         selectedTile1: { value: null, index: null },
@@ -117,6 +120,24 @@ export const gameReducer = (state = initialState, action) => {
         selectedTile1: { value: null, index: null },
         selectedTile2: { value: null, index: null },
         selectedSymbol: { symbol: null, quantity: null },
+        symbols: {
+          add:
+            prevTurn.symbol === "add"
+              ? state.symbols.add + 1
+              : state.symbols.add,
+          subtract:
+            prevTurn.symbol === "subtract"
+              ? state.symbols.subtract + 1
+              : state.symbols.subtract,
+          multiply:
+            prevTurn.symbol === "multiply"
+              ? state.symbols.multiply + 1
+              : state.symbols.multiply,
+          divide:
+            prevTurn.symbol === "divide"
+              ? state.symbols.divide + 1
+              : state.symbols.divide,
+        },
       };
     }
     case WON_ROUND: {
