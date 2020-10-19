@@ -57,7 +57,7 @@ export const gameMiddleware = (rawStore) => {
             type: SELECT_SYMBOL,
             payload: null,
           });
-        } else {
+        } else if (rawStore.getState().symbols[`${action.payload}`] > 0) {
           {
             rawStore.dispatch({
               type: SELECT_SYMBOL,

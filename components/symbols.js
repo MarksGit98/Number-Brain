@@ -39,7 +39,8 @@ export const Symbols = () => {
                 style={
                   selectedSymbol.symbol === sign
                     ? [styles.tile, styles.SelectedSymbol]
-                    : [styles.tile, styles.UnselectedTile]
+                    : symbols[`${sign}`] > 0 ? [styles.tile, styles.UnselectedTile] :
+                    [styles.tile, styles.DisabledTile]
                 }
               >
                 <Text style={styles.smallNumber}>

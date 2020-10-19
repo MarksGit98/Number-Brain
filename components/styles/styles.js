@@ -16,6 +16,9 @@ export const styles = StyleSheet.create({
   UnselectedTile: {
     backgroundColor: "yellow",
   },
+  DisabledTile: {
+    backgroundColor: "gray"
+  },
   tile: {
     marginLeft: 10,
     marginRight: 10,
