@@ -14,7 +14,7 @@ const initialState = {
   symbols: puzzles.hard.level1.symbols,
   turnHistory: [],
   bigNumber: puzzles.hard.level1.bigNumber,
-  selectedSymbol: null,
+  selectedSymbol: { symbol: null, quantity: null },
   selectedTile1: { value: null, index: null },
   selectedTile2: { value: null, index: null },
   won: false,
@@ -43,7 +43,10 @@ export const gameReducer = (state = initialState, action) => {
     case SELECT_SYMBOL: {
       return {
         ...state,
-        selectedSymbol: action.payload,
+        selectedSymbol: {
+          symbol: action.payload,
+          quantity: state.symbols[`${action.payload}`],
+        },
       };
     }
     case PERFORM_OPERATION: {
@@ -61,7 +64,7 @@ export const gameReducer = (state = initialState, action) => {
           ...state.turnHistory,
           {
             tile1: state.selectedTile1.value,
-            symbol: state.selectedSymbol,
+            symbol: state.selectedSymbol.symbol,
             tile2: state.selectedTile2.value,
             tiles: state.tiles,
           },
@@ -79,21 +82,24 @@ export const gameReducer = (state = initialState, action) => {
                 ...newTiles.slice(index2),
               ],
         symbols: {
-          ...state.symbols,
-          add: (state.selectedSymbol = "+"
-            ? state.symbols.add--
-            : state.symbols.add),
-          minus: (state.selectedSymbol = "+"
-            ? state.symbols.minus--
-            : state.symbols.minus),
-          multiply: (state.selectedSymbol = "+"
-            ? state.symbols.multiply--
-            : state.symbols.multiply),
-          divide: (state.selectedSymbol = "+"
-            ? state.symbols.divide--
-            : state.symbols.divide),
+          add:
+            state.selectedSymbol.symbol === "add"
+              ? state.symbols.add - 1
+              : state.symbols.add,
+          subtract:
+            state.selectedSymbol.symbol === "subtract"
+              ? state.symbols.subtract - 1
+              : state.symbols.subtract,
+          multiply:
+            state.selectedSymbol.symbol === "multiply"
+              ? state.symbols.multiply - 1
+              : state.symbols.multiply,
+          divide:
+            state.selectedSymbol.symbol === "divide"
+              ? state.symbols.divide - 1
+              : state.symbols.divide,
         },
-        selectedSymbol: null,
+        selectedSymbol: { symbol: null, quantity: null },
         selectedTile1: { value: null, index: null },
         selectedTile2: { value: null, index: null },
       };
@@ -103,7 +109,7 @@ export const gameReducer = (state = initialState, action) => {
         ...state,
         selectedTile1: { value: null, index: null },
         selectedTile2: { value: null, index: null },
-        selectedSymbol: null,
+        selectedSymbol: { symbol: null, quantity: null },
       };
     }
     case REVERSE_TURN: {
@@ -113,7 +119,25 @@ export const gameReducer = (state = initialState, action) => {
         tiles: prevTurn.tiles,
         selectedTile1: { value: null, index: null },
         selectedTile2: { value: null, index: null },
-        selectedSymbol: null,
+        selectedSymbol: { symbol: null, quantity: null },
+        symbols: {
+          add:
+            prevTurn.symbol === "add"
+              ? state.symbols.add + 1
+              : state.symbols.add,
+          subtract:
+            prevTurn.symbol === "subtract"
+              ? state.symbols.subtract + 1
+              : state.symbols.subtract,
+          multiply:
+            prevTurn.symbol === "multiply"
+              ? state.symbols.multiply + 1
+              : state.symbols.multiply,
+          divide:
+            prevTurn.symbol === "divide"
+              ? state.symbols.divide + 1
+              : state.symbols.divide,
+        },
       };
     }
     case WON_ROUND: {

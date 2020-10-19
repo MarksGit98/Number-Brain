@@ -16,6 +16,9 @@ export const styles = StyleSheet.create({
   UnselectedTile: {
     backgroundColor: "yellow",
   },
+  DisabledTile: {
+    backgroundColor: "gray"
+  },
   tile: {
     marginLeft: 10,
     marginRight: 10,
@@ -23,6 +26,13 @@ export const styles = StyleSheet.create({
     width: 47,
     justifyContent: "center",
     alignItems: "center",
+  },
+  quantityTile: {
+    height: 12,
+    width: 12,
+    borderRadius: 50,
+    color: "white",
+    backgroundColor: "#000",
   },
   bigTile: {
     height: 150,

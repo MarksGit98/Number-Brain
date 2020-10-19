@@ -70,6 +70,7 @@ const generatePuzzles = (mode, puzzleCount, minResult, maxResult) => {
     } else {
       puzzleCount++;
     }
+    // console.log(puzzle);
   }
   // console.log(size);
   return puzzles;
