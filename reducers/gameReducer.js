@@ -10,15 +10,17 @@ import {
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 const initialState = {
-  tiles: puzzles.hard.level1.tiles,
-  symbols: puzzles.hard.level1.symbols,
+  tiles: puzzles.hard["2-5-5-8-8-9-30"].tiles,
+  symbols: puzzles.hard["2-5-5-8-8-9-30"].symbols,
   turnHistory: [],
-  bigNumber: puzzles.hard.level1.bigNumber,
+  bigNumber: puzzles.hard["2-5-5-8-8-9-30"].bigNumber,
   selectedSymbol: { symbol: null, quantity: null },
   selectedTile1: { value: null, index: null },
   selectedTile2: { value: null, index: null },
   won: false,
 };
+
+console.log(initialState);
 
 export const gameReducer = (state = initialState, action) => {
   switch (action.type) {
