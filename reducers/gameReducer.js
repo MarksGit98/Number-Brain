@@ -9,11 +9,13 @@ import {
   INITIALIZE_ROUND,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
+
+const gameMode = "hard";
 const initialState = {
-  tiles: puzzles.hard["2-5-5-8-8-9-30"].tiles,
-  symbols: puzzles.hard["2-5-5-8-8-9-30"].symbols,
+  tiles: puzzles[gameMode]["2"].tiles,
+  symbols: puzzles[gameMode]["2"].symbols,
   turnHistory: [],
-  bigNumber: puzzles.hard["2-5-5-8-8-9-30"].bigNumber,
+  bigNumber: puzzles[gameMode]["2"].bigNumber,
   selectedSymbol: { symbol: null, quantity: null },
   selectedTile1: { value: null, index: null },
   selectedTile2: { value: null, index: null },

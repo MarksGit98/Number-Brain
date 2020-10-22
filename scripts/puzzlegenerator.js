@@ -121,4 +121,17 @@ const shuffle = (array) => {
 
   return array;
 };
-console.log(generatePuzzles("hard", 1000, 1, 100));
+
+const finalizePuzzlesForLevels = (puzzles) => {
+  const levels = {};
+  let level = 1;
+  for (const [key, value] of Object.entries(puzzles)) {
+    levels[level++] = value;
+  }
+  return levels;
+};
+
+console.log(
+  JSON.stringify(finalizePuzzlesForLevels(generatePuzzles("easy", 200, 1, 100)))
+);
+// console.log(generatePuzzles("hard", 1000, 1, 100));
