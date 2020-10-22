@@ -1,4 +1,4 @@
-export default {
+export const mediumPuzzles = {
   "3-4-6-7-8-38": {
     bigNumber: 38,
     tiles: [6, 7, 4, 8, 3],

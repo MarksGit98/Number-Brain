@@ -1,4 +1,4 @@
-export default {
+export const easyPuzzles = {
   "1-1-1-6-8": {
     bigNumber: 8,
     tiles: [1, 6, 1, 1],
