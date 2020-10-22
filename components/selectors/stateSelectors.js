@@ -1,26 +1,26 @@
 export const bigNumberSelector = (state) => {
-  return state.bigNumber;
+  return state.gameStore.bigNumber;
 };
 
 export const tilesSelector = (state) => {
-  return state.tiles;
+  return state.gameStore.tiles;
 };
 
 export const tile1Selector = (state) => {
-  return state.selectedTile1;
+  return state.gameStore.selectedTile1;
 };
 
 export const tile2Selector = (state) => {
-  return state.selectedTile2;
+  return state.gameStore.selectedTile2;
 };
 
 export const selectedSymbolSelector = (state) => {
-  return state.selectedSymbol;
+  return state.gameStore.selectedSymbol;
 };
 
 export const symbolSelector = (state) => {
-  return state.symbols;
+  return state.gameStore.symbols;
 };
 export const wonSelector = (state) => {
-  return state.won;
+  return state.gameStore.won;
 };

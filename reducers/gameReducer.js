@@ -10,20 +10,18 @@ import {
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 
-const gameMode = "hard";
+const gameMode = "easy";
+const currentLevel = "1";
 const initialState = {
-  tiles: puzzles[gameMode]["2"].tiles,
-  symbols: puzzles[gameMode]["2"].symbols,
+  tiles: puzzles[gameMode][currentLevel].tiles,
+  symbols: puzzles[gameMode][currentLevel].symbols,
   turnHistory: [],
-  bigNumber: puzzles[gameMode]["2"].bigNumber,
+  bigNumber: puzzles[gameMode][currentLevel].bigNumber,
   selectedSymbol: { symbol: null, quantity: null },
   selectedTile1: { value: null, index: null },
   selectedTile2: { value: null, index: null },
   won: false,
 };
-
-console.log(initialState);
-
 export const gameReducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECT_TILE_1: {
@@ -147,7 +145,8 @@ export const gameReducer = (state = initialState, action) => {
     case WON_ROUND: {
       return {
         ...state,
-        won: true,
+        currentLevel: currentLevel + 1,
+        // won: true,
       };
     }
     case INITIALIZE_ROUND: {

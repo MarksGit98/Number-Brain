@@ -14,12 +14,14 @@ export const gameMiddleware = (rawStore) => {
     //Trigger dispatches here
     switch (action.type) {
       case SELECT_TILE: {
-        if (rawStore.getState().selectedTile1.index === action.payload) {
+        if (
+          rawStore.getState().gameStore.selectedTile1.index === action.payload
+        ) {
           rawStore.dispatch({
             type: SELECT_TILE_1,
             payload: null,
           });
-        } else if (rawStore.getState().selectedTile1.index === null) {
+        } else if (rawStore.getState().gameStore.selectedTile1.index === null) {
           rawStore.dispatch({
             type: SELECT_TILE_1,
             payload: action.payload,
@@ -27,14 +29,16 @@ export const gameMiddleware = (rawStore) => {
           dispatch({
             type: PERFORM_OPERATION,
           });
-        } else if (rawStore.getState().selectedTile2.index === action.payload) {
+        } else if (
+          rawStore.getState().gameStore.selectedTile2.index === action.payload
+        ) {
           rawStore.dispatch({
             type: SELECT_TILE_2,
             payload: null,
           });
         } else if (
-          rawStore.getState().selectedTile2.index === null &&
-          action.payload !== rawStore.getState().selectedTile1.index
+          rawStore.getState().gameStore.selectedTile2.index === null &&
+          action.payload !== rawStore.getState().gameStore.selectedTile1.index
         ) {
           rawStore.dispatch({
             type: SELECT_TILE_2,
@@ -52,12 +56,16 @@ export const gameMiddleware = (rawStore) => {
         break;
       }
       case SELECT_SYMBOL: {
-        if (rawStore.getState().selectedSymbol.symbol === action.payload) {
+        if (
+          rawStore.getState().gameStore.selectedSymbol.symbol === action.payload
+        ) {
           rawStore.dispatch({
             type: SELECT_SYMBOL,
             payload: null,
           });
-        } else if (rawStore.getState().symbols[`${action.payload}`] > 0) {
+        } else if (
+          rawStore.getState().gameStore.symbols[`${action.payload}`] > 0
+        ) {
           {
             rawStore.dispatch({
               type: SELECT_SYMBOL,
@@ -72,54 +80,60 @@ export const gameMiddleware = (rawStore) => {
       }
       case PERFORM_OPERATION: {
         if (
-          rawStore.getState().selectedSymbol.symbol !== null &&
-          rawStore.getState().selectedTile1.index !== null &&
-          rawStore.getState().selectedTile2.index !== null
+          rawStore.getState().gameStore.selectedSymbol.symbol !== null &&
+          rawStore.getState().gameStore.selectedTile1.index !== null &&
+          rawStore.getState().gameStore.selectedTile2.index !== null
         ) {
           // Check for validity of the operation here and either approve or deny it
           //Add paylod of new number formed by operation
-          if (rawStore.getState().selectedSymbol.symbol === "add") {
+          if (rawStore.getState().gameStore.selectedSymbol.symbol === "add") {
             rawStore.dispatch({
               type: PERFORM_OPERATION,
               payload:
-                rawStore.getState().selectedTile1.value +
-                rawStore.getState().selectedTile2.value,
+                rawStore.getState().gameStore.selectedTile1.value +
+                rawStore.getState().gameStore.selectedTile2.value,
             });
-          } else if (rawStore.getState().selectedSymbol.symbol === "subtract") {
+          } else if (
+            rawStore.getState().gameStore.selectedSymbol.symbol === "subtract"
+          ) {
             if (
-              rawStore.getState().selectedTile1.value -
-                rawStore.getState().selectedTile2.value >=
+              rawStore.getState().gameStore.selectedTile1.value -
+                rawStore.getState().gameStore.selectedTile2.value >=
               0
             ) {
               rawStore.dispatch({
                 type: PERFORM_OPERATION,
                 payload:
-                  rawStore.getState().selectedTile1.value -
-                  rawStore.getState().selectedTile2.value,
+                  rawStore.getState().gameStore.selectedTile1.value -
+                  rawStore.getState().gameStore.selectedTile2.value,
               });
             } else {
               rawStore.dispatch({
                 type: RESET_ON_INVALID_OPERATION,
               });
             }
-          } else if (rawStore.getState().selectedSymbol.symbol === "multiply") {
+          } else if (
+            rawStore.getState().gameStore.selectedSymbol.symbol === "multiply"
+          ) {
             rawStore.dispatch({
               type: PERFORM_OPERATION,
               payload:
-                rawStore.getState().selectedTile1.value *
-                rawStore.getState().selectedTile2.value,
+                rawStore.getState().gameStore.selectedTile1.value *
+                rawStore.getState().gameStore.selectedTile2.value,
             });
-          } else if (rawStore.getState().selectedSymbol.symbol === "divide") {
+          } else if (
+            rawStore.getState().gameStore.selectedSymbol.symbol === "divide"
+          ) {
             if (
-              rawStore.getState().selectedTile1.value %
-                rawStore.getState().selectedTile2.value ===
+              rawStore.getState().gameStore.selectedTile1.value %
+                rawStore.getState().gameStore.selectedTile2.value ===
               0
             ) {
               rawStore.dispatch({
                 type: PERFORM_OPERATION,
                 payload:
-                  rawStore.getState().selectedTile1.value /
-                  rawStore.getState().selectedTile2.value,
+                  rawStore.getState().gameStore.selectedTile1.value /
+                  rawStore.getState().gameStore.selectedTile2.value,
               });
             } else {
               rawStore.dispatch({
@@ -127,14 +141,14 @@ export const gameMiddleware = (rawStore) => {
               });
             }
           }
-          if (rawStore.getState().tiles.length === 1) {
+          if (rawStore.getState().gameStore.tiles.length === 1) {
             dispatch({ type: CHECK_FOR_WIN });
           }
         }
         break;
       }
       case REVERSE_TURN: {
-        if (rawStore.getState().turnHistory.length > 0) {
+        if (rawStore.getState().gameStore.turnHistory.length > 0) {
           rawStore.dispatch({
             type: REVERSE_TURN,
           });
@@ -142,7 +156,10 @@ export const gameMiddleware = (rawStore) => {
         break;
       }
       case CHECK_FOR_WIN: {
-        if (rawStore.getState().tiles[0] === rawStore.getState().bigNumber) {
+        if (
+          rawStore.getState().gameStore.tiles[0] ===
+          rawStore.getState().gameStore.bigNumber
+        ) {
           rawStore.dispatch({
             type: WON_ROUND,
           });
