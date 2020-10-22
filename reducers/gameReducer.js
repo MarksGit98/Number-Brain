@@ -9,9 +9,11 @@ import {
   INITIALIZE_ROUND,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
+import { levelSelector } from "../components/selectors/stateSelectors";
+import { useSelector, useDispatch } from "react-redux";
 
+// const currentLevel = useSelector(levelSelector);
 const gameMode = "easy";
-const currentLevel = "1";
 const initialState = {
   tiles: puzzles[gameMode][currentLevel].tiles,
   symbols: puzzles[gameMode][currentLevel].symbols,

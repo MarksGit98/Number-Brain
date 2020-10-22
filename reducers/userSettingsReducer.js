@@ -10,8 +10,6 @@ import {
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 
-const gameMode = "easy";
-const currentLevel = "1";
 const initialState = {
   gameMode: "easy",
   currentLevel: "1",
@@ -19,7 +17,16 @@ const initialState = {
 
 export const userSettingsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SELECT_TILE_1: {
+    case SELECT_GAMEMODE: {
+      return {
+        ...state,
+        selectedTile1: {
+          value: action.payload !== null ? state.tiles[action.payload] : null,
+          index: action.payload !== null ? action.payload : null,
+        },
+      };
+    }
+    case SELECT_LEVEL: {
       return {
         ...state,
         selectedTile1: {

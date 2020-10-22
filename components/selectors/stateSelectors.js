@@ -24,3 +24,7 @@ export const symbolSelector = (state) => {
 export const wonSelector = (state) => {
   return state.gameStore.won;
 };
+
+export const levelSelector = (state) => {
+  return state.userSettingsStore.currentLevel;
+};
