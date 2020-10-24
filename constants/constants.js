@@ -9,3 +9,5 @@ export const WON_ROUND = "wonRound";
 export const INITIALIZE_ROUND = "initalizeRound";
 export const SELECT_TILE = "selectTile";
 export const CHECK_FOR_WIN = "checkForWin";
+export const SELECT_DIFFICULTY = "selectDifficulty";
+export const SELECT_LEVEL = "selectLevel";

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   View,
@@ -26,6 +26,7 @@ import {
   RESET_ON_INVALID_OPERATION,
   CHECK_FOR_WIN,
   WON_ROUND,
+  INITIALIZE_ROUND,
 } from "../constants/constants";
 import { useSelectTile } from "./dispatches/dispatchOperations";
 import { Symbols } from "./symbols";
@@ -33,11 +34,13 @@ import { Tiles } from "./tiles";
 import { BackButton } from "./backbutton";
 export const GameScreen = () => {
   const dispatch = useDispatch();
-  const tiles = useSelector(tilesSelector);
+  useEffect(() => {
+    console.log("triggered");
+    dispatch({
+      type: INITIALIZE_ROUND,
+    });
+  }, []);
   const bigNumber = useSelector(bigNumberSelector);
-  const index1 = useSelector(tile1Selector).index;
-  const index2 = useSelector(tile2Selector).index;
-  const symbol = useSelector(symbolSelector);
   const won = useSelector(wonSelector);
   return (
     <SafeAreaView style={styles.mainView}>

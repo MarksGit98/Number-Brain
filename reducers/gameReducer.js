@@ -9,21 +9,8 @@ import {
   INITIALIZE_ROUND,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
-import { levelSelector } from "../components/selectors/stateSelectors";
-import { useSelector, useDispatch } from "react-redux";
+import { initialState } from "./initialState";
 
-// const currentLevel = useSelector(levelSelector);
-const gameMode = "easy";
-const initialState = {
-  tiles: puzzles[gameMode][currentLevel].tiles,
-  symbols: puzzles[gameMode][currentLevel].symbols,
-  turnHistory: [],
-  bigNumber: puzzles[gameMode][currentLevel].bigNumber,
-  selectedSymbol: { symbol: null, quantity: null },
-  selectedTile1: { value: null, index: null },
-  selectedTile2: { value: null, index: null },
-  won: false,
-};
 export const gameReducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECT_TILE_1: {
@@ -152,10 +139,19 @@ export const gameReducer = (state = initialState, action) => {
       };
     }
     case INITIALIZE_ROUND: {
-      return state;
+      console.log("triggered 2");
+      return {
+        ...state,
+        tiles: puzzles[state.difficulty][state.currentLevel].tiles,
+        symbols: puzzles[state.difficulty][state.currentLevel].symbols,
+        bigNumber: puzzles[state.difficulty][state.currentLevel].bigNumber,
+        won: false,
+      };
     }
 
     default:
-      return state;
+      return {
+        ...state,
+      };
   }
 };

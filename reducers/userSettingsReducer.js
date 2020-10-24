@@ -1,23 +1,8 @@
-import {
-  SELECT_TILE_1,
-  SELECT_TILE_2,
-  SELECT_SYMBOL,
-  REVERSE_TURN,
-  RESET_ON_INVALID_OPERATION,
-  WON_ROUND,
-  PERFORM_OPERATION,
-  INITIALIZE_ROUND,
-} from "../constants/constants";
-import { puzzles } from "../puzzles/puzzles";
-
-const initialState = {
-  gameMode: "easy",
-  currentLevel: "1",
-};
-
+import { SELECT_DIFFICULTY, SELECT_LEVEL } from "../constants/constants";
+import { initialState } from "./initialState";
 export const userSettingsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SELECT_GAMEMODE: {
+    case SELECT_DIFFICULTY: {
       return {
         ...state,
         selectedTile1: {

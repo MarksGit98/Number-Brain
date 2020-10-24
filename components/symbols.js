@@ -9,15 +9,9 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
 import {
-  tilesSelector,
-  bigNumberSelector,
-  tile1Selector,
-  tile2Selector,
   selectedSymbolSelector,
   symbolSelector,
-  wonSelector,
 } from "./selectors/stateSelectors";
-import { useSelectTile } from "./dispatches/dispatchOperations";
 import { SELECT_SYMBOL } from "../constants/constants";
 
 export const Symbols = () => {
@@ -39,8 +33,9 @@ export const Symbols = () => {
                 style={
                   selectedSymbol.symbol === sign
                     ? [styles.tile, styles.SelectedSymbol]
-                    : symbols[`${sign}`] > 0 ? [styles.tile, styles.UnselectedTile] :
-                    [styles.tile, styles.DisabledTile]
+                    : symbols[`${sign}`] > 0
+                    ? [styles.tile, styles.UnselectedTile]
+                    : [styles.tile, styles.DisabledTile]
                 }
               >
                 <Text style={styles.smallNumber}>
