@@ -11,15 +11,6 @@ export const userSettingsReducer = (state = initialState, action) => {
         },
       };
     }
-    case SELECT_LEVEL: {
-      return {
-        ...state,
-        selectedTile1: {
-          value: action.payload !== null ? state.tiles[action.payload] : null,
-          index: action.payload !== null ? action.payload : null,
-        },
-      };
-    }
 
     default:
       return state;

@@ -11,3 +11,4 @@ export const SELECT_TILE = "selectTile";
 export const CHECK_FOR_WIN = "checkForWin";
 export const SELECT_DIFFICULTY = "selectDifficulty";
 export const SELECT_LEVEL = "selectLevel";
+export const CHECK_FOR_NEXT_ROUND = "checkForNextRound";

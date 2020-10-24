@@ -7,8 +7,13 @@ import {
   REVERSE_TURN,
   RESET_ON_INVALID_OPERATION,
   CHECK_FOR_WIN,
+  CHECK_FOR_NEXT_ROUND,
   WON_ROUND,
+  SELECT_LEVEL,
+  INITIALIZE_ROUND,
 } from "../constants/constants";
+
+import { puzzles } from "../puzzles/puzzles";
 export const gameMiddleware = (rawStore) => {
   const dispatch = (action) => {
     //Trigger dispatches here
@@ -160,11 +165,39 @@ export const gameMiddleware = (rawStore) => {
           rawStore.getState().gameStore.tiles[0] ===
           rawStore.getState().gameStore.bigNumber
         ) {
-          rawStore.dispatch({
-            type: WON_ROUND,
+          dispatch({
+            type: CHECK_FOR_NEXT_ROUND,
           });
         }
         break;
+      }
+
+      case CHECK_FOR_NEXT_ROUND: {
+        const nextLevel = String(
+          Number(rawStore.getState().gameStore.currentLevel) + 1
+        );
+        if (
+          puzzles[rawStore.getState().gameStore.difficulty][nextLevel] !==
+          undefined
+        ) {
+          rawStore.dispatch({
+            type: INITIALIZE_ROUND,
+            payload: nextLevel,
+          });
+          rawStore.dispatch({
+            type: SELECT_LEVEL,
+            payload: nextLevel,
+          });
+        } else {
+          rawStore.dispatch({
+            type: INITIALIZE_ROUND,
+            payload: "1",
+          });
+          rawStore.dispatch({
+            type: SELECT_LEVEL,
+            payload: "1",
+          });
+        }
       }
       default:
         rawStore.dispatch(action);

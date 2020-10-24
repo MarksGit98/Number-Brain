@@ -7,6 +7,8 @@ import {
   WON_ROUND,
   PERFORM_OPERATION,
   INITIALIZE_ROUND,
+  SELECT_DIFFICULTY,
+  SELECT_LEVEL,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 import { initialState } from "./initialState";
@@ -131,24 +133,40 @@ export const gameReducer = (state = initialState, action) => {
         },
       };
     }
-    case WON_ROUND: {
-      return {
-        ...state,
-        currentLevel: currentLevel + 1,
-        // won: true,
-      };
-    }
+    // case WON_ROUND: {
+    //   dispatch({ type: INITIALIZE_ROUND, payload: action.payload });
+    // }
     case INITIALIZE_ROUND: {
-      console.log("triggered 2");
+      let levelToLoad = action.payload;
+      if (action.payload === undefined) {
+        levelToLoad = state.currentLevel;
+      }
+
       return {
         ...state,
-        tiles: puzzles[state.difficulty][state.currentLevel].tiles,
-        symbols: puzzles[state.difficulty][state.currentLevel].symbols,
-        bigNumber: puzzles[state.difficulty][state.currentLevel].bigNumber,
+        currentLevel: levelToLoad,
+        tiles: puzzles[state.difficulty][levelToLoad].tiles,
+        symbols: puzzles[state.difficulty][levelToLoad].symbols,
+        bigNumber: puzzles[state.difficulty][levelToLoad].bigNumber,
         won: false,
       };
     }
 
+    case SELECT_DIFFICULTY: {
+      return {
+        ...state,
+        selectedTile1: {
+          value: action.payload !== null ? state.tiles[action.payload] : null,
+          index: action.payload !== null ? action.payload : null,
+        },
+      };
+    }
+    case SELECT_LEVEL: {
+      return {
+        ...state,
+        currentLevel: action.payload,
+      };
+    }
     default:
       return {
         ...state,

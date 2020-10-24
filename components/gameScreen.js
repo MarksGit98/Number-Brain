@@ -35,7 +35,6 @@ import { BackButton } from "./backbutton";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("triggered");
     dispatch({
       type: INITIALIZE_ROUND,
     });
