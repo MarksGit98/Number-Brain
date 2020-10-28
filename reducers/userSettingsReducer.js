@@ -1,8 +1,11 @@
 import { SELECT_DIFFICULTY, SELECT_LEVEL } from "../constants/constants";
-import { initialState } from "./initialState";
+
+const initialState = {
+  mainMenu: true,
+};
 export const userSettingsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SELECT_DIFFICULTY: {
+    case MAIN_MENU: {
       return {
         ...state,
         selectedTile1: {

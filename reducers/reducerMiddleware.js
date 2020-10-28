@@ -14,7 +14,7 @@ import {
 } from "../constants/constants";
 
 import { puzzles } from "../puzzles/puzzles";
-export const gameMiddleware = (rawStore) => {
+export const reducerMiddleware = (rawStore) => {
   const dispatch = (action) => {
     //Trigger dispatches here
     switch (action.type) {
@@ -198,6 +198,9 @@ export const gameMiddleware = (rawStore) => {
             payload: "1",
           });
         }
+      }
+
+      case TOGGLE_SCREEN: {
       }
       default:
         rawStore.dispatch(action);

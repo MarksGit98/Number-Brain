@@ -6,7 +6,7 @@ import { bigNumberSelector, wonSelector } from "./selectors/stateSelectors";
 import { INITIALIZE_ROUND } from "../constants/constants";
 import { Symbols } from "./symbols";
 import { Tiles } from "./tiles";
-import { BackButton } from "./backbutton";
+import { BackButton } from "./reverseTurn";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   useEffect(() => {

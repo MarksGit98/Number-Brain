@@ -6,7 +6,7 @@ import { bigNumberSelector, wonSelector } from "./selectors/stateSelectors";
 import { INITIALIZE_ROUND } from "../constants/constants";
 import { Symbols } from "./symbols";
 import { Tiles } from "./tiles";
-import { BackButton } from "./backbutton";
+import { ReverseTurn } from "./reverseTurn";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -18,6 +18,7 @@ export const GameScreen = () => {
   const won = useSelector(wonSelector);
   return (
     <SafeAreaView style={styles.mainView}>
+      <View bottom="3%"></View>
       <View bottom="10%" style={[styles.bigTile, styles.UnselectedTile]}>
         <Text style={styles.bigNumber}>{bigNumber}</Text>
       </View>
@@ -26,7 +27,7 @@ export const GameScreen = () => {
       </View>
       <Tiles />
       <Symbols />
-      <BackButton />
+      <ReverseTurn />
     </SafeAreaView>
   );
 };
