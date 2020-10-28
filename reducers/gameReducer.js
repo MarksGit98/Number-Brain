@@ -4,7 +4,6 @@ import {
   SELECT_SYMBOL,
   REVERSE_TURN,
   RESET_ON_INVALID_OPERATION,
-  WON_ROUND,
   PERFORM_OPERATION,
   INITIALIZE_ROUND,
   SELECT_DIFFICULTY,
@@ -148,6 +147,7 @@ export const gameReducer = (state = initialState, action) => {
         tiles: puzzles[state.difficulty][levelToLoad].tiles,
         symbols: puzzles[state.difficulty][levelToLoad].symbols,
         bigNumber: puzzles[state.difficulty][levelToLoad].bigNumber,
+        turnHistory: [],
         won: false,
       };
     }

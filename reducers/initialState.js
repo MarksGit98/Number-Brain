@@ -1,6 +1,6 @@
 export const initialState = {
   // User Settings
-  difficulty: "easy",
+  difficulty: "medium",
   currentLevel: "1",
   // In Game
   tiles: [0, 0, 0, 0],

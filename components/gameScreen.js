@@ -1,34 +1,9 @@
 import React, { useEffect } from "react";
-import {
-  Text,
-  View,
-  SafeAreaView,
-  TouchableWithoutFeedback,
-  Image,
-} from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
-import {
-  tilesSelector,
-  bigNumberSelector,
-  tile1Selector,
-  tile2Selector,
-  symbolSelector,
-  wonSelector,
-} from "./selectors/stateSelectors";
-import {
-  SELECT_TILE,
-  SELECT_TILE_1,
-  SELECT_TILE_2,
-  PERFORM_OPERATION,
-  SELECT_SYMBOL,
-  REVERSE_TURN,
-  RESET_ON_INVALID_OPERATION,
-  CHECK_FOR_WIN,
-  WON_ROUND,
-  INITIALIZE_ROUND,
-} from "../constants/constants";
-import { useSelectTile } from "./dispatches/dispatchOperations";
+import { bigNumberSelector, wonSelector } from "./selectors/stateSelectors";
+import { INITIALIZE_ROUND } from "../constants/constants";
 import { Symbols } from "./symbols";
 import { Tiles } from "./tiles";
 import { BackButton } from "./backbutton";

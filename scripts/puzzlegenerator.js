@@ -132,6 +132,8 @@ const finalizePuzzlesForLevels = (puzzles) => {
 };
 
 console.log(
-  JSON.stringify(finalizePuzzlesForLevels(generatePuzzles("easy", 200, 1, 100)))
+  JSON.stringify(
+    finalizePuzzlesForLevels(generatePuzzles("medium", 200, 1, 100))
+  )
 );
 // console.log(generatePuzzles("hard", 1000, 1, 100));
