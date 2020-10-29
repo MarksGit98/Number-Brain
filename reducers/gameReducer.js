@@ -10,7 +10,7 @@ import {
   SELECT_LEVEL,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
-import { initialState } from "./initialState";
+import { initialState } from "./initialGameState";
 
 export const gameReducer = (state = initialState, action) => {
   switch (action.type) {

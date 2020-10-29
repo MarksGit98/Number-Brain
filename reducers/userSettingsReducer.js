@@ -1,17 +1,29 @@
-import { SELECT_DIFFICULTY, SELECT_LEVEL } from "../constants/constants";
+import {
+  SELECT_DIFFICULTY,
+  SELECT_LEVEL,
+  MAIN_MENU,
+  LEVEL_SCREEN,
+  GAME_SCREEN,
+  PREVIOUS_SCREEN,
+  SWITCH_SCREEN,
+} from "../constants/constants";
 
-const initialState = {
-  mainMenu: true,
-};
+import { initialState } from "./initialSettingsState";
 export const userSettingsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case MAIN_MENU: {
+    case PREVIOUS_SCREEN: {
+      const prevScreen = state.previousScreen;
       return {
         ...state,
-        selectedTile1: {
-          value: action.payload !== null ? state.tiles[action.payload] : null,
-          index: action.payload !== null ? action.payload : null,
-        },
+        previousScreen: state.currentScreen,
+        currentScreen: prevScreen,
+      };
+    }
+    case SWITCH_SCREEN: {
+      return {
+        ...state,
+        previousScreen: state.currentScreen,
+        currentScreen: action.payload,
       };
     }
 

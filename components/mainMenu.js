@@ -1,32 +1,31 @@
 import React, { useEffect } from "react";
-import { Text, View, SafeAreaView } from "react-native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
 import { bigNumberSelector, wonSelector } from "./selectors/stateSelectors";
-import { INITIALIZE_ROUND } from "../constants/constants";
 import { Symbols } from "./symbols";
 import { Tiles } from "./tiles";
 import { BackButton } from "./reverseTurn";
-export const GameScreen = () => {
+import { GAME_SCREEN, SWITCH_SCREEN } from "../constants/constants";
+export const MainMenu = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch({
-      type: INITIALIZE_ROUND,
-    });
-  }, []);
-  const bigNumber = useSelector(bigNumberSelector);
-  const won = useSelector(wonSelector);
+
   return (
     <SafeAreaView style={styles.mainView}>
-      <View bottom="10%" style={[styles.bigTile, styles.UnselectedTile]}>
-        <Text style={styles.bigNumber}>{bigNumber}</Text>
+      <View style={styles.playButton}>
+        <TouchableWithoutFeedback
+          onPress={() =>
+            dispatch({ type: SWITCH_SCREEN, payload: GAME_SCREEN })
+          }
+        >
+          <Text style={styles.playButtonText}>PLAY</Text>
+        </TouchableWithoutFeedback>
       </View>
-      <View>
-        <Text style={styles.bigNumber}>{won === true ? "WON" : ""}</Text>
-      </View>
-      <Tiles />
-      <Symbols />
-      <BackButton />
     </SafeAreaView>
   );
 };

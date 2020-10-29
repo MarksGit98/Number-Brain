@@ -1,9 +1,15 @@
 import React, { useEffect } from "react";
-import { Text, View, SafeAreaView } from "react-native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  Image,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
 import { bigNumberSelector, wonSelector } from "./selectors/stateSelectors";
-import { INITIALIZE_ROUND } from "../constants/constants";
+import { INITIALIZE_ROUND, PREVIOUS_SCREEN } from "../constants/constants";
 import { Symbols } from "./symbols";
 import { Tiles } from "./tiles";
 import { ReverseTurn } from "./reverseTurn";
@@ -18,10 +24,20 @@ export const GameScreen = () => {
   const won = useSelector(wonSelector);
   return (
     <SafeAreaView style={styles.mainView}>
-      <View bottom="3%"></View>
-      <View bottom="10%" style={[styles.bigTile, styles.UnselectedTile]}>
+      <View bottom="12%" right="38%">
+        <TouchableWithoutFeedback
+          onPress={() => dispatch({ type: PREVIOUS_SCREEN })}
+        >
+          <Image
+            style={styles.backButton}
+            source={require("../assets/back-arrow.png")}
+          />
+        </TouchableWithoutFeedback>
+      </View>
+      <View style={[styles.bigTile, styles.UnselectedTile]}>
         <Text style={styles.bigNumber}>{bigNumber}</Text>
       </View>
+
       <View>
         <Text style={styles.bigNumber}>{won === true ? "WON" : ""}</Text>
       </View>

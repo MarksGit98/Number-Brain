@@ -26,5 +26,9 @@ export const wonSelector = (state) => {
 };
 
 export const levelSelector = (state) => {
-  return state.userSettingsStore.currentLevel;
+  return state.gameStore.currentLevel;
+};
+
+export const screenSelector = (state) => {
+  return state.userSettingsStore.currentScreen;
 };

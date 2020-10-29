@@ -200,8 +200,8 @@ export const reducerMiddleware = (rawStore) => {
         }
       }
 
-      case TOGGLE_SCREEN: {
-      }
+      // case TOGGLE_SCREEN: {
+      // }
       default:
         rawStore.dispatch(action);
     }

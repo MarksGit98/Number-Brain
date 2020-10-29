@@ -1,6 +1,6 @@
 export const initialState = {
   // User Settings
-  difficulty: "medium",
+  difficulty: "easy",
   currentLevel: "1",
   // In Game
   tiles: [0, 0, 0, 0],
@@ -15,5 +15,8 @@ export const initialState = {
   selectedSymbol: { symbol: null, quantity: null },
   selectedTile1: { value: null, index: null },
   selectedTile2: { value: null, index: null },
+  hintTile1: { value: null, index: null },
+  hintTile2: { value: null, index: null },
+  hintSymbol: { symbol: null, quantity: null },
   won: false,
 };

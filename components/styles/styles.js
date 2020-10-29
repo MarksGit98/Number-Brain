@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "yellow",
   },
   DisabledTile: {
-    backgroundColor: "gray"
+    backgroundColor: "gray",
   },
   tile: {
     marginLeft: 10,
@@ -53,9 +53,27 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  backButton: {
-    top: 120,
+  reverseTurnButton: {
+    top: 100,
     height: 50,
     width: 50,
+    zIndex: 2,
+  },
+  backButton: {
+    height: 30,
+    width: 30,
+    zIndex: 2,
+  },
+  playButtonText: {
+    fontSize: 70,
+    color: "white",
+    justifyContent: "center",
+  },
+  playButton: {
+    height: 75,
+    width: 300,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "blue",
   },
 });
