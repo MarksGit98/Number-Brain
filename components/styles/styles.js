@@ -7,6 +7,14 @@ export const styles = StyleSheet.create({
   smallNumber: {
     fontSize: 28,
   },
+  smallWhiteText: {
+    fontSize: 28,
+    color: "white",
+  },
+  mediumWhiteText: {
+    fontSize: 42,
+    color: "white",
+  },
   mainView: {
     backgroundColor: "purple",
     flex: 1,
@@ -70,10 +78,28 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   playButton: {
+    borderRadius: 50,
+    margin: 20,
     height: 75,
     width: 300,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "blue",
+  },
+  gameModeButton: {
+    borderRadius: 40,
+    margin: 20,
+    height: 75,
+    width: 300,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red",
+  },
+  difficultyOptionsView: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  difficultyOption: {
+    backgroundColor: "green",
   },
 });

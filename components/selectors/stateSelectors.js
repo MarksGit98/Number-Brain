@@ -32,3 +32,7 @@ export const levelSelector = (state) => {
 export const screenSelector = (state) => {
   return state.userSettingsStore.currentScreen;
 };
+
+export const difficultySelector = (state) => {
+  return state.gameStore.difficulty;
+};

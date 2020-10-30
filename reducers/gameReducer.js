@@ -155,10 +155,7 @@ export const gameReducer = (state = initialState, action) => {
     case SELECT_DIFFICULTY: {
       return {
         ...state,
-        selectedTile1: {
-          value: action.payload !== null ? state.tiles[action.payload] : null,
-          index: action.payload !== null ? action.payload : null,
-        },
+        difficulty: action.payload,
       };
     }
     case SELECT_LEVEL: {
