@@ -24,12 +24,12 @@ export const GameScreen = () => {
   const won = useSelector(wonSelector);
   return (
     <SafeAreaView style={styles.mainView}>
-      <View bottom="12%" right="38%">
+      <View>
         <TouchableWithoutFeedback
           onPress={() => dispatch({ type: PREVIOUS_SCREEN })}
         >
           <Image
-            style={styles.backButton}
+            style={[styles.backButton, styles.backButtonPosition]}
             source={require("../assets/back-arrow.png")}
           />
         </TouchableWithoutFeedback>

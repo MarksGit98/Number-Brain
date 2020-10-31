@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 0,
   },
   UnselectedTile: {
     backgroundColor: "yellow",
@@ -70,7 +71,6 @@ export const styles = StyleSheet.create({
   backButton: {
     height: 30,
     width: 30,
-    zIndex: 2,
   },
   playButtonText: {
     fontSize: 70,
@@ -101,5 +101,12 @@ export const styles = StyleSheet.create({
   },
   difficultyOption: {
     backgroundColor: "green",
+  },
+  backButtonPosition: {
+    position: "absolute",
+    top: "5%",
+    left: "5%",
+    alignSelf: "flex-end",
+    zIndex: 2,
   },
 });
