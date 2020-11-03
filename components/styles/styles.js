@@ -109,4 +109,11 @@ export const styles = StyleSheet.create({
     alignSelf: "flex-end",
     zIndex: 2,
   },
+  levelBox: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "gray",
+    height: "100px",
+    width: "100px"
+  }
 });

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { puzzles } from "../puzzles/puzzles";
 import { difficultySelector, levelSelector } from "./selectors/stateSelectors";
+import { Grid } from "@material-ui/core"
 import {
   TouchableWithoutFeedback,
   Text,
@@ -29,7 +30,8 @@ export const LevelSelector = () => {
     levels.push(i);
   }
   return (
-    <ScrollView contentContainerStyle={styles.mainView}>
+    <View style={styles.mainView}>
+    <ScrollView>
       <View style={styles.backButtonPosition}>
         <TouchableWithoutFeedback
           onPress={() => dispatch({ type: PREVIOUS_SCREEN })}
@@ -41,22 +43,29 @@ export const LevelSelector = () => {
         </TouchableWithoutFeedback>
       </View>
       <View>
-        {levels.map((level) => (
-          <TouchableWithoutFeedback
-            key={level}
-            onPress={() => dispatch({ type: SELECT_LEVEL, payload: level })}
-          >
-            <Text
-              style={[
-                styles.smallWhiteText,
-                currentLevel === level ? styles.difficultyOption : null,
-              ]}
+      <Grid container spacing={1}>
+        {levels.map((level) => ( 
+          <Grid item xs={4} spacing={10}>
+          <View style={styles.levelBox}>
+            <TouchableWithoutFeedback
+              key={level}
+              onPress={() => dispatch({ type: SELECT_LEVEL, payload: level })}
             >
-              {level}
-            </Text>
-          </TouchableWithoutFeedback>
+              <Text
+                style={[
+                  styles.smallWhiteText,
+                  currentLevel === level ? styles.difficultyOption : null,
+                ]}
+              >
+                {level}
+              </Text>
+            </TouchableWithoutFeedback>
+            </View>
+          </Grid>
         ))}
+        </Grid>
       </View>
     </ScrollView>
+    </View>
   );
 };
