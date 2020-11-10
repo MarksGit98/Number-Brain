@@ -8,10 +8,13 @@ import {
   INITIALIZE_ROUND,
   SELECT_DIFFICULTY,
   SELECT_LEVEL,
+  LOCAL_DIFFICULTY,
+  LOCAL_LEVEL
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 import { initialState } from "./initialGameState";
-
+import {_retrieveData} from "../localStorage/retrieveData"
+import {_storeData} from "../localStorage/storeData"
 export const gameReducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECT_TILE_1: {
@@ -138,7 +141,7 @@ export const gameReducer = (state = initialState, action) => {
     case INITIALIZE_ROUND: {
       let levelToLoad = action.payload;
       if (action.payload === undefined) {
-        levelToLoad = state.currentLevel;
+        levelToLoad = _retrieveData(`${_retrieveData(LOCAL_DIFFICULTY)}${LOCAL_LEVEL}`);
       }
 
       return {
@@ -151,14 +154,15 @@ export const gameReducer = (state = initialState, action) => {
         won: false,
       };
     }
-
     case SELECT_DIFFICULTY: {
+      _storeData(LOCAL_DIFFICULTY, action.payload)
       return {
         ...state,
         difficulty: action.payload,
       };
     }
     case SELECT_LEVEL: {
+      _storeData(`${_retrieveData(LOCAL_DIFFICULTY)}${LOCAL_LEVEL}`, action.payload)
       return {
         ...state,
         currentLevel: action.payload,

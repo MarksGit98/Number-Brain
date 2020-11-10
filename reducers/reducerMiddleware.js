@@ -161,9 +161,10 @@ export const reducerMiddleware = (rawStore) => {
         break;
       }
       case CHECK_FOR_WIN: {
+        const tilesRemaining = rawStore.getState().gameStore.tiles
         if (
-          rawStore.getState().gameStore.tiles[0] ===
-          rawStore.getState().gameStore.bigNumber
+          tilesRemaining[0] ===
+          rawStore.getState().gameStore.bigNumber && tilesRemaining.length === 1
         ) {
           dispatch({
             type: CHECK_FOR_NEXT_ROUND,

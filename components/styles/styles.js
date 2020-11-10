@@ -100,7 +100,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   difficultyOption: {
-    backgroundColor: "green",
+    backgroundColor: "blue",
   },
   backButtonPosition: {
     position: "absolute",
@@ -112,8 +112,18 @@ export const styles = StyleSheet.create({
   levelBox: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "gray",
-    height: "100px",
-    width: "100px"
-  }
+    backgroundColor: "green",
+    height: 100,
+    width: 100,
+    margin: 10
+  },
+  levelContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingTop: 40
+  },
 });

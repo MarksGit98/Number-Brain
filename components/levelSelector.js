@@ -43,14 +43,14 @@ export const LevelSelector = () => {
         </TouchableWithoutFeedback>
       </View>
       <View>
-      <Grid container spacing={1}>
+      <View style={styles.levelContainer}>
         {levels.map((level) => ( 
-          <Grid item xs={4} spacing={10}>
-          <View style={styles.levelBox}>
             <TouchableWithoutFeedback
               key={level}
+              
               onPress={() => dispatch({ type: SELECT_LEVEL, payload: level })}
             >
+            <View style={[styles.levelBox, currentLevel === level ? {backgroundColor: "blue"}: null]}>
               <Text
                 style={[
                   styles.smallWhiteText,
@@ -59,11 +59,11 @@ export const LevelSelector = () => {
               >
                 {level}
               </Text>
+              </View>
             </TouchableWithoutFeedback>
-            </View>
-          </Grid>
+            
         ))}
-        </Grid>
+        </View>
       </View>
     </ScrollView>
     </View>
