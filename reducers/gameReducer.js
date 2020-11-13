@@ -9,12 +9,12 @@ import {
   SELECT_DIFFICULTY,
   SELECT_LEVEL,
   LOCAL_DIFFICULTY,
-  LOCAL_LEVEL
+  LOCAL_LEVEL,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 import { initialState } from "./initialGameState";
-import {_retrieveData} from "../localStorage/retrieveData"
-import {_storeData} from "../localStorage/storeData"
+import { _retrieveData } from "../localStorage/retrieveData";
+import { _storeData } from "../localStorage/storeData";
 export const gameReducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECT_TILE_1: {
@@ -139,30 +139,34 @@ export const gameReducer = (state = initialState, action) => {
     //   dispatch({ type: INITIALIZE_ROUND, payload: action.payload });
     // }
     case INITIALIZE_ROUND: {
-      let levelToLoad = action.payload;
-      if (action.payload === undefined) {
-        levelToLoad = _retrieveData(`${_retrieveData(LOCAL_DIFFICULTY)}${LOCAL_LEVEL}`);
+      let levelToLoad = action.payload.level;
+      let difficultyToLoad = action.payload.difficulty;
+      if (levelToLoad === undefined) {
+        levelToLoad = "1";
+      }
+      if (difficultyToLoad === undefined) {
+        difficultyToLoad === "easy";
       }
 
       return {
         ...state,
         currentLevel: levelToLoad,
-        tiles: puzzles[state.difficulty][levelToLoad].tiles,
-        symbols: puzzles[state.difficulty][levelToLoad].symbols,
-        bigNumber: puzzles[state.difficulty][levelToLoad].bigNumber,
+        tiles: puzzles[difficultyToLoad][levelToLoad].tiles,
+        symbols: puzzles[difficultyToLoad][levelToLoad].symbols,
+        bigNumber: puzzles[difficultyToLoad][levelToLoad].bigNumber,
         turnHistory: [],
         won: false,
       };
     }
     case SELECT_DIFFICULTY: {
-      _storeData(LOCAL_DIFFICULTY, action.payload)
+      _storeData(LOCAL_DIFFICULTY, action.payload);
       return {
         ...state,
         difficulty: action.payload,
       };
     }
     case SELECT_LEVEL: {
-      _storeData(`${_retrieveData(LOCAL_DIFFICULTY)}${LOCAL_LEVEL}`, action.payload)
+      _storeData(`${LOCAL_DIFFICULTY}${LOCAL_LEVEL}`, action.payload);
       return {
         ...state,
         currentLevel: action.payload,

@@ -1,26 +1,58 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
   SafeAreaView,
   TouchableWithoutFeedback,
   Image,
+  ColorPropType,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
-import { bigNumberSelector, wonSelector, levelSelector } from "./selectors/stateSelectors";
-import { INITIALIZE_ROUND, PREVIOUS_SCREEN } from "../constants/constants";
+import {
+  bigNumberSelector,
+  wonSelector,
+  levelSelector,
+} from "./selectors/stateSelectors";
+import {
+  INITIALIZE_ROUND,
+  PREVIOUS_SCREEN,
+  LOCAL_DIFFICULTY,
+  LOCAL_LEVEL,
+} from "../constants/constants";
 import { Symbols } from "./symbols";
 import { Tiles } from "./tiles";
 import { ReverseTurn } from "./reverseTurn";
+import { _retrieveData } from "../localStorage/retrieveData";
+import { _storeData } from "../localStorage/storeData";
 
+const initalizeFirstTime = async (key) => {};
 export const GameScreen = () => {
-  const currentLevel = useSelector(levelSelector);
   const dispatch = useDispatch();
+  const [currentLevel, setCurrentLevel] = useState("");
+  const [currentDifficulty, setCurrentDifficulty] = useState("");
+
+  const setSettings = async () => {
+    const waitForDifficulty = await _retrieveData(
+      LOCAL_DIFFICULTY
+    ).then((difficulty) =>
+      difficulty !== null
+        ? () => setCurrentDifficulty(difficulty)
+        : () => setCurrentDifficulty("easy")
+    );
+    const waitForLevels = await _retrieveData(
+      `${LOCAL_DIFFICULTY}${LOCAL_LEVEL}`
+    ).then((level) =>
+      level !== null ? () => setCurrentLevel(level) : () => setCurrentLevel("1")
+    );
+  };
   useEffect(() => {
-    dispatch({
-      type: INITIALIZE_ROUND,
-    });
+    setSettings().then(
+      dispatch({
+        type: INITIALIZE_ROUND,
+        payload: { difficulty: currentDifficulty, level: currentLevel },
+      })
+    );
   }, []);
   const bigNumber = useSelector(bigNumberSelector);
   const won = useSelector(wonSelector);
@@ -36,7 +68,9 @@ export const GameScreen = () => {
           />
         </TouchableWithoutFeedback>
       </View>
-      <View><Text style={styles.smallWhiteText}>Level {currentLevel}</Text></View>
+      <View>
+        <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
+      </View>
       <View style={[styles.bigTile, styles.UnselectedTile]}>
         <Text style={styles.bigNumber}>{bigNumber}</Text>
       </View>

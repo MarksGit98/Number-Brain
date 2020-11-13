@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { puzzles } from "../puzzles/puzzles";
 import { difficultySelector, levelSelector } from "./selectors/stateSelectors";
-import { Grid } from "@material-ui/core"
 import {
   TouchableWithoutFeedback,
   Text,
@@ -31,41 +30,44 @@ export const LevelSelector = () => {
   }
   return (
     <View style={styles.mainView}>
-    <ScrollView>
-      <View style={styles.backButtonPosition}>
-        <TouchableWithoutFeedback
-          onPress={() => dispatch({ type: PREVIOUS_SCREEN })}
-        >
-          <Image
-            style={styles.backButton}
-            source={require("../assets/back-arrow.png")}
-          />
-        </TouchableWithoutFeedback>
-      </View>
-      <View>
-      <View style={styles.levelContainer}>
-        {levels.map((level) => ( 
-            <TouchableWithoutFeedback
-              key={level}
-              
-              onPress={() => dispatch({ type: SELECT_LEVEL, payload: level })}
-            >
-            <View style={[styles.levelBox, currentLevel === level ? {backgroundColor: "blue"}: null]}>
-              <Text
-                style={[
-                  styles.smallWhiteText,
-                  currentLevel === level ? styles.difficultyOption : null,
-                ]}
-              >
-                {level}
-              </Text>
-              </View>
-            </TouchableWithoutFeedback>
-            
-        ))}
+      <ScrollView>
+        <View style={styles.backButtonPosition}>
+          <TouchableWithoutFeedback
+            onPress={() => dispatch({ type: PREVIOUS_SCREEN })}
+          >
+            <Image
+              style={styles.backButton}
+              source={require("../assets/back-arrow.png")}
+            />
+          </TouchableWithoutFeedback>
         </View>
-      </View>
-    </ScrollView>
+        <View>
+          <View style={styles.levelContainer}>
+            {levels.map((level) => (
+              <TouchableWithoutFeedback
+                key={level}
+                onPress={() => dispatch({ type: SELECT_LEVEL, payload: level })}
+              >
+                <View
+                  style={[
+                    styles.levelBox,
+                    currentLevel === level ? { backgroundColor: "blue" } : null,
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.smallWhiteText,
+                      currentLevel === level ? styles.difficultyOption : null,
+                    ]}
+                  >
+                    {level}
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };
