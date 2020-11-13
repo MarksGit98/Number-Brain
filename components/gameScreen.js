@@ -26,32 +26,30 @@ import { ReverseTurn } from "./reverseTurn";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 
-const initalizeFirstTime = async (key) => {};
 export const GameScreen = () => {
   const dispatch = useDispatch();
-  const [currentLevel, setCurrentLevel] = useState("");
-  const [currentDifficulty, setCurrentDifficulty] = useState("");
+  const [currentLevel, setCurrentLevel] = useState(undefined);
+  const [currentDifficulty, setCurrentDifficulty] = useState(undefined);
 
   const setSettings = async () => {
-    const waitForDifficulty = await _retrieveData(
-      LOCAL_DIFFICULTY
-    ).then((difficulty) =>
-      difficulty !== null
-        ? () => setCurrentDifficulty(difficulty)
-        : () => setCurrentDifficulty("easy")
-    );
-    const waitForLevels = await _retrieveData(
-      `${LOCAL_DIFFICULTY}${LOCAL_LEVEL}`
-    ).then((level) =>
-      level !== null ? () => setCurrentLevel(level) : () => setCurrentLevel("1")
-    );
+    const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
+    difficulty !== null
+      ? setCurrentDifficulty(difficulty)
+      : setCurrentDifficulty("easy");
+
+    const level = await _retrieveData(`${LOCAL_DIFFICULTY}${LOCAL_LEVEL}`);
+    level !== null ? setCurrentLevel(level) : setCurrentLevel("1");
+
+    return difficulty !== null && level !== null;
   };
   useEffect(() => {
-    setSettings().then(
-      dispatch({
-        type: INITIALIZE_ROUND,
-        payload: { difficulty: currentDifficulty, level: currentLevel },
-      })
+    setSettings().then((resolution) =>
+      resolution !== false
+        ? dispatch({
+            type: INITIALIZE_ROUND,
+            payload: { difficulty: currentDifficulty, level: currentLevel },
+          })
+        : null
     );
   }, []);
   const bigNumber = useSelector(bigNumberSelector);

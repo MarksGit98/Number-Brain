@@ -141,11 +141,13 @@ export const gameReducer = (state = initialState, action) => {
     case INITIALIZE_ROUND: {
       let levelToLoad = action.payload.level;
       let difficultyToLoad = action.payload.difficulty;
+      console.log(levelToLoad);
+      console.log(difficultyToLoad);
       if (levelToLoad === undefined) {
         levelToLoad = "1";
       }
       if (difficultyToLoad === undefined) {
-        difficultyToLoad === "easy";
+        difficultyToLoad = "easy";
       }
 
       return {
