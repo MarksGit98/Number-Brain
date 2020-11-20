@@ -11,7 +11,10 @@ import {
   WON_ROUND,
   SELECT_LEVEL,
   INITIALIZE_ROUND,
+  LOCAL_DIFFICULTY,
+  LOCAL_LEVEL,
 } from "../constants/constants";
+import { _storeData } from "../localStorage/storeData";
 
 import { puzzles } from "../puzzles/puzzles";
 export const reducerMiddleware = (rawStore) => {
@@ -161,10 +164,10 @@ export const reducerMiddleware = (rawStore) => {
         break;
       }
       case CHECK_FOR_WIN: {
-        const tilesRemaining = rawStore.getState().gameStore.tiles
+        const tilesRemaining = rawStore.getState().gameStore.tiles;
         if (
-          tilesRemaining[0] ===
-          rawStore.getState().gameStore.bigNumber && tilesRemaining.length === 1
+          tilesRemaining[0] === rawStore.getState().gameStore.bigNumber &&
+          tilesRemaining.length === 1
         ) {
           dispatch({
             type: CHECK_FOR_NEXT_ROUND,
@@ -177,22 +180,37 @@ export const reducerMiddleware = (rawStore) => {
         const nextLevel = String(
           Number(rawStore.getState().gameStore.currentLevel) + 1
         );
+        const nextDifficulty =
+          rawStore.getState().gameStore.difficulty === "easy"
+            ? "medium"
+            : "hard";
+        const difficulty = rawStore.getState().gameStore.difficulty;
         if (
           puzzles[rawStore.getState().gameStore.difficulty][nextLevel] !==
           undefined
         ) {
+          _storeData(`${difficulty}${LOCAL_LEVEL}`, nextLevel);
           rawStore.dispatch({
             type: INITIALIZE_ROUND,
-            payload: nextLevel,
+            payload: { difficulty: difficulty, level: nextLevel },
           });
           rawStore.dispatch({
             type: SELECT_LEVEL,
             payload: nextLevel,
           });
         } else {
+          _storeData(
+            `${rawStore.getState().gameStore.difficulty}${LOCAL_LEVEL}`,
+            "1"
+          );
+          _storeData(`${LOCAL_DIFFICULTY}`, nextDifficulty);
           rawStore.dispatch({
             type: INITIALIZE_ROUND,
-            payload: "1",
+            payload: { difficulty: nextDifficulty, level: "1" },
+          });
+          rawStore.dispatch({
+            type: SELECT_DIFFICULTY,
+            payload: nextDifficulty,
           });
           rawStore.dispatch({
             type: SELECT_LEVEL,

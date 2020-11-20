@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -12,11 +12,47 @@ import {
   LEVEL_SCREEN,
   SELECT_DIFFICULTY,
   SWITCH_SCREEN,
+  INITIALIZE_ROUND,
+  LOCAL_DIFFICULTY,
+  LOCAL_LEVEL,
 } from "../constants/constants";
-import { difficultySelector } from "./selectors/stateSelectors";
+import { difficultySelector, levelSelector } from "./selectors/stateSelectors";
+import { _retrieveData } from "../localStorage/retrieveData";
+import { _storeData } from "../localStorage/storeData";
 export const MainMenu = () => {
   const dispatch = useDispatch();
-  const currentDifficulty = useSelector(difficultySelector);
+
+  const [currentLevel, setCurrentLevel] = useState(undefined);
+  const [currentDifficulty, setCurrentDifficulty] = useState(undefined);
+  const gameDifficulty = useSelector(difficultySelector);
+  const gameLevel = useSelector(levelSelector);
+  const setSettings = async () => {
+    const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
+    difficulty !== null
+      ? setCurrentDifficulty(difficulty)
+      : setCurrentDifficulty("easy");
+
+    const level = await _retrieveData(`${difficulty}${LOCAL_LEVEL}`);
+    level !== null ? setCurrentLevel(level) : setCurrentLevel("1");
+  };
+  useEffect(() => {
+    setSettings();
+  }, []);
+
+  useEffect(() => {
+    dispatch({
+      type: INITIALIZE_ROUND,
+      payload: { difficulty: currentDifficulty, level: currentLevel },
+    });
+  }, [currentDifficulty, currentLevel]);
+
+  useEffect(() => {
+    currentDifficulty !== gameDifficulty
+      ? setCurrentDifficulty((current) => gameDifficulty)
+      : null;
+    currentLevel !== gameLevel ? setCurrentLevel((current) => gameLevel) : null;
+  }, [gameDifficulty, gameLevel]);
+
   const difficultyOptions = ["easy", "medium", "hard"];
   return (
     <SafeAreaView style={styles.mainView}>
@@ -28,16 +64,18 @@ export const MainMenu = () => {
               dispatch({ type: SELECT_DIFFICULTY, payload: difficulty })
             }
           >
-            <Text
-              style={[
-                styles.smallWhiteText,
-                difficulty === currentDifficulty
-                  ? styles.difficultyOption
-                  : null,
-              ]}
-            >
-              {difficulty}
-            </Text>
+            <View>
+              <Text
+                style={[
+                  styles.smallWhiteText,
+                  difficulty === currentDifficulty
+                    ? styles.difficultyOption
+                    : null,
+                ]}
+              >
+                {difficulty}
+              </Text>
+            </View>
           </TouchableWithoutFeedback>
         ))}
       </View>

@@ -27,31 +27,9 @@ import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 
 export const GameScreen = () => {
+  const gameLevel = useSelector(levelSelector);
   const dispatch = useDispatch();
-  const [currentLevel, setCurrentLevel] = useState(undefined);
-  const [currentDifficulty, setCurrentDifficulty] = useState(undefined);
 
-  const setSettings = async () => {
-    const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
-    difficulty !== null
-      ? setCurrentDifficulty(difficulty)
-      : setCurrentDifficulty("easy");
-
-    const level = await _retrieveData(`${LOCAL_DIFFICULTY}${LOCAL_LEVEL}`);
-    level !== null ? setCurrentLevel(level) : setCurrentLevel("1");
-
-    return difficulty !== null && level !== null;
-  };
-  useEffect(() => {
-    setSettings().then((resolution) =>
-      resolution !== false
-        ? dispatch({
-            type: INITIALIZE_ROUND,
-            payload: { difficulty: currentDifficulty, level: currentLevel },
-          })
-        : null
-    );
-  }, []);
   const bigNumber = useSelector(bigNumberSelector);
   const won = useSelector(wonSelector);
   return (
@@ -60,14 +38,16 @@ export const GameScreen = () => {
         <TouchableWithoutFeedback
           onPress={() => dispatch({ type: PREVIOUS_SCREEN })}
         >
-          <Image
-            style={[styles.backButton]}
-            source={require("../assets/back-arrow.png")}
-          />
+          <View>
+            <Image
+              style={[styles.backButton]}
+              source={require("../assets/back-arrow.png")}
+            />
+          </View>
         </TouchableWithoutFeedback>
       </View>
       <View>
-        <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
+        <Text style={styles.smallWhiteText}>Level {gameLevel}</Text>
       </View>
       <View style={[styles.bigTile, styles.UnselectedTile]}>
         <Text style={styles.bigNumber}>{bigNumber}</Text>
