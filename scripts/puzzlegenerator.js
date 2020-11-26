@@ -5,7 +5,6 @@ const Modes = {
 };
 
 const generatePuzzles = (mode, puzzleCount, minResult, maxResult) => {
-  let size = 0;
   let puzzles = {};
   while (puzzleCount-- !== 0) {
     const puzzle = {
@@ -123,7 +122,6 @@ const generatePuzzles = (mode, puzzleCount, minResult, maxResult) => {
     const key = sortedTiles.join("-");
     if (!(key in puzzles)) {
       puzzles[key] = puzzle;
-      size++;
     } else {
       puzzleCount++;
     }
@@ -198,6 +196,8 @@ const finalizePuzzlesForLevels = (puzzles) => {
 };
 
 console.log(
-  JSON.stringify(finalizePuzzlesForLevels(generatePuzzles("easy", 150, 1, 75)))
+  JSON.stringify(
+    finalizePuzzlesForLevels(generatePuzzles("hard", 350, 1, 150))
+  )
 );
 // console.log(generatePuzzles("hard", 1000, 1, 100));
