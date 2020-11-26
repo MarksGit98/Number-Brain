@@ -139,17 +139,9 @@ export const gameReducer = (state = initialState, action) => {
     //   dispatch({ type: INITIALIZE_ROUND, payload: action.payload });
     // }
     case INITIALIZE_ROUND: {
-      console.log(action.payload);
-      let levelToLoad = action.payload.level;
-      let difficultyToLoad = action.payload.difficulty;
-
-      if (levelToLoad === undefined) {
-        levelToLoad = "1";
-      }
-      if (difficultyToLoad === undefined) {
-        difficultyToLoad = "easy";
-      }
-
+      const levelToLoad = state.currentLevel;
+      const difficultyToLoad = state.difficulty;
+      console.log(levelToLoad, difficultyToLoad);
       return {
         ...state,
         currentLevel: levelToLoad,
@@ -161,7 +153,7 @@ export const gameReducer = (state = initialState, action) => {
       };
     }
     case SELECT_DIFFICULTY: {
-      _storeData(LOCAL_DIFFICULTY, action.payload);
+      _storeData(`${LOCAL_DIFFICULTY}`, action.payload);
       return {
         ...state,
         difficulty: action.payload,

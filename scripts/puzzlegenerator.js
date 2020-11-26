@@ -19,46 +19,103 @@ const generatePuzzles = (mode, puzzleCount, minResult, maxResult) => {
       },
       solution: [],
     };
-    let current = generateRandomDigit();
-    puzzle.tiles.push(current);
-    while (puzzle.tiles.length < Modes[mode]) {
+    let workingTiles = [];
+    for (let i = 0; i < Modes[mode]; i++) {
+      workingTiles.push(generateRandomDigit());
+    }
+    puzzle.tiles = [...workingTiles];
+    while (workingTiles.length > 1) {
       const symbol = generateRandomSymbol();
-      const newNum = generateRandomDigit();
-      const temp = current;
+      let [tile1Index, tile2Index] = pickTwoTileIndices(workingTiles);
+      while (
+        tile1Index > workingTiles.length - 1 ||
+        tile2Index > workingTiles.length - 1
+      ) {
+        [tile1Index, tile2Index] = pickTwoTileIndices(workingTiles);
+      }
       if (symbol === "add") {
-        if (isValidOperation(current, newNum, symbol, minResult, maxResult)) {
-          current += newNum;
+        if (
+          isValidOperation(
+            workingTiles[tile1Index],
+            workingTiles[tile2Index],
+            symbol,
+            minResult,
+            maxResult
+          )
+        ) {
+          workingTiles.push(
+            workingTiles[tile1Index] + workingTiles[tile2Index]
+          );
         } else {
           continue;
         }
       } else if (symbol === "subtract") {
-        if (isValidOperation(current, newNum, symbol, minResult, maxResult)) {
-          current -= newNum;
+        if (
+          isValidOperation(
+            workingTiles[tile1Index],
+            workingTiles[tile2Index],
+            symbol,
+            minResult,
+            maxResult
+          )
+        ) {
+          workingTiles.push(
+            workingTiles[tile1Index] - workingTiles[tile2Index]
+          );
         } else {
           continue;
         }
       } else if (symbol === "multiply") {
-        if (isValidOperation(current, newNum, symbol, minResult, maxResult)) {
-          current *= newNum;
+        if (
+          isValidOperation(
+            workingTiles[tile1Index],
+            workingTiles[tile2Index],
+            symbol,
+            minResult,
+            maxResult
+          )
+        ) {
+          workingTiles.push(
+            workingTiles[tile1Index] * workingTiles[tile2Index]
+          );
         } else {
           continue;
         }
       } else if (symbol === "divide") {
-        if (isValidOperation(current, newNum, symbol, minResult, maxResult)) {
-          current /= newNum;
+        if (
+          isValidOperation(
+            workingTiles[tile1Index],
+            workingTiles[tile2Index],
+            symbol,
+            minResult,
+            maxResult
+          )
+        ) {
+          workingTiles.push(
+            workingTiles[tile1Index] / workingTiles[tile2Index]
+          );
         } else {
           continue;
         }
       }
+      let remainingTiles = [...workingTiles];
+      if (tile1Index > tile2Index) {
+        remainingTiles.splice(tile1Index, 1);
+        remainingTiles.splice(tile2Index, 1);
+      } else {
+        remainingTiles.splice(tile2Index, 1);
+        remainingTiles.splice(tile1Index, 1);
+      }
       puzzle.symbols[symbol]++;
-      puzzle.tiles.push(newNum);
       puzzle.solution.push({
-        tile1: temp,
+        tile1: workingTiles[tile1Index],
         symbol: symbol,
-        tile2: newNum,
+        tile2: workingTiles[tile2Index],
+        remainingTiles: [...remainingTiles],
       });
+      workingTiles = [...remainingTiles];
     }
-    puzzle.bigNumber = current;
+    puzzle.bigNumber = workingTiles[0];
     puzzle.tiles = shuffle(puzzle.tiles);
     let sortedTiles = [...puzzle.tiles];
     sortedTiles.sort();
@@ -74,6 +131,15 @@ const generatePuzzles = (mode, puzzleCount, minResult, maxResult) => {
   }
   // console.log(size);
   return puzzles;
+};
+
+const pickTwoTileIndices = (listOfTiles) => {
+  const tile1Index = Math.floor(Math.random() * listOfTiles.length);
+  let tile2Index = tile1Index;
+  while (tile1Index === tile2Index) {
+    tile2Index = Math.floor(Math.random() * listOfTiles.length);
+  }
+  return [tile1Index, tile2Index];
 };
 
 const generateRandomDigit = () => {
@@ -132,8 +198,6 @@ const finalizePuzzlesForLevels = (puzzles) => {
 };
 
 console.log(
-  JSON.stringify(
-    finalizePuzzlesForLevels(generatePuzzles("medium", 200, 1, 100))
-  )
+  JSON.stringify(finalizePuzzlesForLevels(generatePuzzles("easy", 150, 1, 75)))
 );
 // console.log(generatePuzzles("hard", 1000, 1, 100));

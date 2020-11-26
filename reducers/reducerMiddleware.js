@@ -13,6 +13,7 @@ import {
   INITIALIZE_ROUND,
   LOCAL_DIFFICULTY,
   LOCAL_LEVEL,
+  SELECT_DIFFICULTY,
 } from "../constants/constants";
 import { _storeData } from "../localStorage/storeData";
 
@@ -177,37 +178,18 @@ export const reducerMiddleware = (rawStore) => {
       }
 
       case CHECK_FOR_NEXT_ROUND: {
+        const difficulty = rawStore.getState().gameStore.difficulty;
         const nextLevel = String(
           Number(rawStore.getState().gameStore.currentLevel) + 1
         );
-        const nextDifficulty =
-          rawStore.getState().gameStore.difficulty === "easy"
-            ? "medium"
-            : "hard";
-        const difficulty = rawStore.getState().gameStore.difficulty;
-        if (
-          puzzles[rawStore.getState().gameStore.difficulty][nextLevel] !==
-          undefined
-        ) {
-          _storeData(`${difficulty}${LOCAL_LEVEL}`, nextLevel);
-          rawStore.dispatch({
-            type: INITIALIZE_ROUND,
-            payload: { difficulty: difficulty, level: nextLevel },
-          });
+        const nextDifficulty = difficulty === "easy" ? "medium" : "hard";
+
+        if (puzzles[difficulty][nextLevel] !== undefined) {
           rawStore.dispatch({
             type: SELECT_LEVEL,
             payload: nextLevel,
           });
         } else {
-          _storeData(
-            `${rawStore.getState().gameStore.difficulty}${LOCAL_LEVEL}`,
-            "1"
-          );
-          _storeData(`${LOCAL_DIFFICULTY}`, nextDifficulty);
-          rawStore.dispatch({
-            type: INITIALIZE_ROUND,
-            payload: { difficulty: nextDifficulty, level: "1" },
-          });
           rawStore.dispatch({
             type: SELECT_DIFFICULTY,
             payload: nextDifficulty,

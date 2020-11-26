@@ -15,43 +15,20 @@ import {
   INITIALIZE_ROUND,
   LOCAL_DIFFICULTY,
   LOCAL_LEVEL,
+  SELECT_LEVEL,
 } from "../constants/constants";
 import { difficultySelector, levelSelector } from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 export const MainMenu = () => {
   const dispatch = useDispatch();
+  const currentDifficulty = useSelector(difficultySelector);
 
-  const [currentLevel, setCurrentLevel] = useState(undefined);
-  const [currentDifficulty, setCurrentDifficulty] = useState(undefined);
-  const gameDifficulty = useSelector(difficultySelector);
-  const gameLevel = useSelector(levelSelector);
-  const setSettings = async () => {
-    const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
-    difficulty !== null
-      ? setCurrentDifficulty(difficulty)
-      : setCurrentDifficulty("easy");
-
-    const level = await _retrieveData(`${difficulty}${LOCAL_LEVEL}`);
-    level !== null ? setCurrentLevel(level) : setCurrentLevel("1");
+  const handleDifficultyChange = (difficulty) => {
+    if (difficulty !== currentDifficulty) {
+      dispatch({ type: SELECT_DIFFICULTY, payload: difficulty });
+    }
   };
-  useEffect(() => {
-    setSettings();
-  }, []);
-
-  useEffect(() => {
-    dispatch({
-      type: INITIALIZE_ROUND,
-      payload: { difficulty: currentDifficulty, level: currentLevel },
-    });
-  }, [currentDifficulty, currentLevel]);
-
-  useEffect(() => {
-    currentDifficulty !== gameDifficulty
-      ? setCurrentDifficulty((current) => gameDifficulty)
-      : null;
-    currentLevel !== gameLevel ? setCurrentLevel((current) => gameLevel) : null;
-  }, [gameDifficulty, gameLevel]);
 
   const difficultyOptions = ["easy", "medium", "hard"];
   return (
@@ -60,9 +37,7 @@ export const MainMenu = () => {
         {difficultyOptions.map((difficulty) => (
           <TouchableWithoutFeedback
             key={difficulty}
-            onPress={() =>
-              dispatch({ type: SELECT_DIFFICULTY, payload: difficulty })
-            }
+            onPress={() => handleDifficultyChange(difficulty)}
           >
             <View>
               <Text
