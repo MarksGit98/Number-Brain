@@ -37,7 +37,7 @@ export const LevelSelector = () => {
   };
   useEffect(() => {
     setSettings();
-  }, []);
+  }, [currentLevel]);
 
   useEffect(() => {
     let selectedPuzzleSize;
@@ -50,7 +50,7 @@ export const LevelSelector = () => {
       : null;
     const levels = [];
     for (let i = 1; i <= selectedPuzzleSize; i++) {
-      levels.push(i);
+      levels.push(String(i));
     }
     setLevels(levels);
   }, []);

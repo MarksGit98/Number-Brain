@@ -24,6 +24,17 @@ export const MainMenu = () => {
   const dispatch = useDispatch();
   const currentDifficulty = useSelector(difficultySelector);
 
+  const setSettings = async () => {
+    const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
+    difficulty !== null
+      ? dispatch({ type: SELECT_DIFFICULTY, payload: difficulty })
+      : dispatch({ type: SELECT_DIFFICULTY, payload: "easy" });
+  };
+
+  useEffect(() => {
+    setSettings();
+  }, [currentDifficulty]);
+
   const handleDifficultyChange = (difficulty) => {
     if (difficulty !== currentDifficulty) {
       dispatch({ type: SELECT_DIFFICULTY, payload: difficulty });
