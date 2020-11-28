@@ -23,7 +23,7 @@ import { _storeData } from "../localStorage/storeData";
 import GameModeButton from "./gameModeButton";
 import PlayButton from "./playButton";
 import LevelSelectButton from "./levelSelectButton";
-export const MainMenu = () => {
+export const GameModeSelect = () => {
   const dispatch = useDispatch();
   const currentDifficulty = useSelector(difficultySelector);
 

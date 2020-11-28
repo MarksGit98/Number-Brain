@@ -15,6 +15,10 @@ export const styles = StyleSheet.create({
     fontSize: 42,
     color: "white",
   },
+  largeWhiteText: {
+    fontSize: 72,
+    color: "white"
+  },
   mainView: {
     backgroundColor: "purple",
     flex: 1,
@@ -77,24 +81,15 @@ export const styles = StyleSheet.create({
     color: "white",
     justifyContent: "center",
   },
-  playButton: {
-    borderRadius: 50,
-    margin: 20,
-    height: 75,
-    width: 300,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "blue",
-  },
-  gameModeButton: {
+  bigButton: {
     borderRadius: 40,
     margin: 20,
     height: 75,
     width: 300,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "red",
   },
+
   difficultyOptionsView: {
     justifyContent: "center",
     alignItems: "center",

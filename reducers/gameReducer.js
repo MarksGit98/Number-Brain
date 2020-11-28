@@ -141,7 +141,7 @@ export const gameReducer = (state = initialState, action) => {
     case INITIALIZE_ROUND: {
       const levelToLoad = state.currentLevel;
       const difficultyToLoad = state.difficulty;
-      console.log(levelToLoad, difficultyToLoad);
+
       return {
         ...state,
         currentLevel: levelToLoad,
