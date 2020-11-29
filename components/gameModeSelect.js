@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { styles } from "./styles/styles";
+import { styles } from "../styles/styles";
 import {
   GAME_SCREEN,
   LEVEL_SCREEN,
@@ -16,13 +16,13 @@ import {
   LOCAL_DIFFICULTY,
   LOCAL_LEVEL,
   SELECT_LEVEL,
-} from "../constants/constants";
-import { difficultySelector, levelSelector } from "./selectors/stateSelectors";
-import { _retrieveData } from "../localStorage/retrieveData";
-import { _storeData } from "../localStorage/storeData";
+} from "../../constants/constants";
+import { difficultySelector, levelSelector } from "../selectors/stateSelectors";
+import { _retrieveData } from "../../localStorage/retrieveData";
+import { _storeData } from "../../localStorage/storeData";
 import GameModeButton from "./gameModeButton";
 import PlayButton from "./playButton";
-import LevelSelectButton from "./levelSelectButton";
+import LevelSelectButton from "../levelSelectButton";
 export const GameModeSelect = () => {
   const dispatch = useDispatch();
   const currentDifficulty = useSelector(difficultySelector);
@@ -68,9 +68,9 @@ export const GameModeSelect = () => {
           </TouchableWithoutFeedback>
         ))}
       </View>
-     <GameModeButton/>
-    <LevelSelectButton/>
-      <PlayButton/>
+      <GameModeButton />
+      <LevelSelectButton />
+      <PlayButton />
     </SafeAreaView>
   );
 };

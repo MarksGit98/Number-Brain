@@ -18,7 +18,7 @@ import {
 } from "../constants/constants";
 import { _storeData } from "../localStorage/storeData";
 import { _retrieveData } from "../localStorage/retrieveData";
-import { BackButton } from "./backbutton";
+import { BackButton } from "./mini-components/backbutton";
 export const LevelSelector = () => {
   const dispatch = useDispatch();
   const [levels, setLevels] = useState([]);

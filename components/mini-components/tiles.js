@@ -7,7 +7,7 @@ import {
   Image,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { styles } from "./styles/styles";
+import { styles } from "../styles/styles";
 import {
   tilesSelector,
   bigNumberSelector,
@@ -15,9 +15,9 @@ import {
   tile2Selector,
   symbolSelector,
   wonSelector,
-} from "./selectors/stateSelectors";
-import { useSelectTile } from "./dispatches/dispatchOperations";
-import { SELECT_TILE } from "../constants/constants";
+} from "../selectors/stateSelectors";
+import { useSelectTile } from "../dispatches/dispatchOperations";
+import { SELECT_TILE } from "../../constants/constants";
 
 export const Tiles = () => {
   const dispatch = useDispatch();

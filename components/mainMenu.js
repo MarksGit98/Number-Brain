@@ -22,7 +22,7 @@ import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import GameModeButton from "./gameModeButton";
 import PlayButton from "./playButton";
-import LevelSelectButton from "./levelSelectButton";
+import LevelSelectButton from "./mini-components/levelSelectButton";
 export const MainMenu = () => {
   const dispatch = useDispatch();
   const currentDifficulty = useSelector(difficultySelector);
@@ -68,9 +68,9 @@ export const MainMenu = () => {
           </TouchableWithoutFeedback>
         ))}
       </View>
-     <GameModeButton/>
-    <LevelSelectButton/>
-      <PlayButton/>
+      <GameModeButton />
+      <LevelSelectButton />
+      <PlayButton />
     </SafeAreaView>
   );
 };
