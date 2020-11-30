@@ -5,13 +5,13 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
 } from "react-native";
-import { styles } from "./styles/styles";
+import { styles } from "../styles/styles";
 import { useSelector, useDispatch } from "react-redux";
 import {
   SELECT_GAMEMODE,
   GAME_SCREEN,
   SWITCH_SCREEN,
-} from "../constants/constants";
+} from "../../constants/constants";
 export default function PlayButton() {
   const dispatch = useDispatch();
   return (

@@ -14,7 +14,7 @@ export const BackButton = () => {
         <View>
           <Image
             style={[styles.backButton]}
-            source={require("../assets/back-arrow.png")}
+            source={require("../../assets/back-arrow.png")}
           />
         </View>
       </TouchableWithoutFeedback>

@@ -6,12 +6,12 @@ import {
   TIMETRIAL,
   BLITZ,
   LIMITED,
-} from "./constants/constants";
+} from "../constants/constants";
 export const initialState = {
   // User Settings
   difficulty: EASY,
   currentLevel: "1",
-  gameMode: CLASSIC,
+  gameMode: LIMITED,
   // In Game
   tiles: [0, 0, 0, 0],
   symbols: {

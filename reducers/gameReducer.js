@@ -10,6 +10,13 @@ import {
   SELECT_LEVEL,
   LOCAL_DIFFICULTY,
   LOCAL_LEVEL,
+  EASY,
+  MEDIUM,
+  HARD,
+  ADD,
+  SUBTRACT,
+  MULTIPLY,
+  DIVIDE,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 import { initialState } from "./initialGameState";
@@ -78,19 +85,19 @@ export const gameReducer = (state = initialState, action) => {
               ],
         symbols: {
           add:
-            state.selectedSymbol.symbol === "add"
+            state.selectedSymbol.symbol === ADD
               ? state.symbols.add - 1
               : state.symbols.add,
           subtract:
-            state.selectedSymbol.symbol === "subtract"
+            state.selectedSymbol.symbol === SUBTRACT
               ? state.symbols.subtract - 1
               : state.symbols.subtract,
           multiply:
-            state.selectedSymbol.symbol === "multiply"
+            state.selectedSymbol.symbol === MULTIPLY
               ? state.symbols.multiply - 1
               : state.symbols.multiply,
           divide:
-            state.selectedSymbol.symbol === "divide"
+            state.selectedSymbol.symbol === DIVIDE
               ? state.symbols.divide - 1
               : state.symbols.divide,
         },
@@ -117,19 +124,17 @@ export const gameReducer = (state = initialState, action) => {
         selectedSymbol: { symbol: null, quantity: null },
         symbols: {
           add:
-            prevTurn.symbol === "add"
-              ? state.symbols.add + 1
-              : state.symbols.add,
+            prevTurn.symbol === ADD ? state.symbols.add + 1 : state.symbols.add,
           subtract:
-            prevTurn.symbol === "subtract"
+            prevTurn.symbol === SUBTRACT
               ? state.symbols.subtract + 1
               : state.symbols.subtract,
           multiply:
-            prevTurn.symbol === "multiply"
+            prevTurn.symbol === MULTIPLY
               ? state.symbols.multiply + 1
               : state.symbols.multiply,
           divide:
-            prevTurn.symbol === "divide"
+            prevTurn.symbol === DIVIDE
               ? state.symbols.divide + 1
               : state.symbols.divide,
         },

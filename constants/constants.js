@@ -28,3 +28,7 @@ export const LIMITED = "limited";
 export const EASY = "easy";
 export const MEDIUM = "medium";
 export const HARD = "hard";
+export const ADD = "add";
+export const SUBTRACT = "subtract";
+export const MULTIPLY = "multiply";
+export const DIVIDE = "divide";

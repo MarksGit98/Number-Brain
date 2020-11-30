@@ -14,6 +14,7 @@ import {
   wonSelector,
   levelSelector,
   difficultySelector,
+  gameModeSelector,
 } from "./selectors/stateSelectors";
 import {
   INITIALIZE_ROUND,
@@ -23,12 +24,12 @@ import {
   SELECT_LEVEL,
   SELECT_DIFFICULTY,
 } from "../constants/constants";
-import { Symbols } from "./symbols";
-import { Tiles } from "./tiles";
-import { ReverseTurn } from "./reverseTurn";
+import { Symbols } from "./mini-components/symbols";
+import { Tiles } from "./mini-components/tiles";
+import { ReverseTurn } from "./mini-components/reverseTurn";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
-import { BackButton } from "./backbutton";
+import { BackButton } from "./mini-components/backbutton";
 
 export const GameScreen = () => {
   const dispatch = useDispatch();

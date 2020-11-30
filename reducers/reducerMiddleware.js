@@ -14,6 +14,17 @@ import {
   LOCAL_DIFFICULTY,
   LOCAL_LEVEL,
   SELECT_DIFFICULTY,
+  CLASSIC,
+  LIMITED,
+  BLITZ,
+  TIMETRIAL,
+  EASY,
+  MEDIUM,
+  HARD,
+  ADD,
+  SUBTRACT,
+  MULTIPLY,
+  DIVIDE,
 } from "../constants/constants";
 import { _storeData } from "../localStorage/storeData";
 
@@ -72,18 +83,24 @@ export const reducerMiddleware = (rawStore) => {
             type: SELECT_SYMBOL,
             payload: null,
           });
+        } else if (rawStore.getState().gameStore.gameMode !== LIMITED) {
+          rawStore.dispatch({
+            type: SELECT_SYMBOL,
+            payload: action.payload,
+          });
+          dispatch({
+            type: PERFORM_OPERATION,
+          });
         } else if (
           rawStore.getState().gameStore.symbols[`${action.payload}`] > 0
         ) {
-          {
-            rawStore.dispatch({
-              type: SELECT_SYMBOL,
-              payload: action.payload,
-            });
-            dispatch({
-              type: PERFORM_OPERATION,
-            });
-          }
+          rawStore.dispatch({
+            type: SELECT_SYMBOL,
+            payload: action.payload,
+          });
+          dispatch({
+            type: PERFORM_OPERATION,
+          });
         }
         break;
       }
@@ -95,7 +112,7 @@ export const reducerMiddleware = (rawStore) => {
         ) {
           // Check for validity of the operation here and either approve or deny it
           //Add paylod of new number formed by operation
-          if (rawStore.getState().gameStore.selectedSymbol.symbol === "add") {
+          if (rawStore.getState().gameStore.selectedSymbol.symbol === ADD) {
             rawStore.dispatch({
               type: PERFORM_OPERATION,
               payload:
@@ -103,7 +120,7 @@ export const reducerMiddleware = (rawStore) => {
                 rawStore.getState().gameStore.selectedTile2.value,
             });
           } else if (
-            rawStore.getState().gameStore.selectedSymbol.symbol === "subtract"
+            rawStore.getState().gameStore.selectedSymbol.symbol === SUBTRACT
           ) {
             if (
               rawStore.getState().gameStore.selectedTile1.value -
@@ -122,7 +139,7 @@ export const reducerMiddleware = (rawStore) => {
               });
             }
           } else if (
-            rawStore.getState().gameStore.selectedSymbol.symbol === "multiply"
+            rawStore.getState().gameStore.selectedSymbol.symbol === MULTIPLY
           ) {
             rawStore.dispatch({
               type: PERFORM_OPERATION,
@@ -131,7 +148,7 @@ export const reducerMiddleware = (rawStore) => {
                 rawStore.getState().gameStore.selectedTile2.value,
             });
           } else if (
-            rawStore.getState().gameStore.selectedSymbol.symbol === "divide"
+            rawStore.getState().gameStore.selectedSymbol.symbol === DIVIDE
           ) {
             if (
               rawStore.getState().gameStore.selectedTile1.value %
@@ -182,7 +199,7 @@ export const reducerMiddleware = (rawStore) => {
         const nextLevel = String(
           Number(rawStore.getState().gameStore.currentLevel) + 1
         );
-        const nextDifficulty = difficulty === "easy" ? "medium" : "hard";
+        const nextDifficulty = difficulty === EASY ? MEDIUM : HARD;
 
         if (puzzles[difficulty][nextLevel] !== undefined) {
           rawStore.dispatch({

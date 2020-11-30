@@ -10,7 +10,7 @@ export const ReverseTurn = () => {
     <TouchableWithoutFeedback onPress={() => dispatch({ type: REVERSE_TURN })}>
       <Image
         style={styles.reverseTurnButton}
-        source={require("../assets/back-arrow.png")}
+        source={require("../../assets/back-arrow.png")}
       />
     </TouchableWithoutFeedback>
   );
