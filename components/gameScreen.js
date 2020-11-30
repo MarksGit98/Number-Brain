@@ -33,6 +33,7 @@ import { BackButton } from "./backbutton";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const currentLevel = useSelector(levelSelector);
+  const gameMode = useSelector(gameModeSelector);
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
   const setSettings = async () => {
     const difficulty = await _retrieveData(LOCAL_DIFFICULTY);

@@ -1,7 +1,17 @@
+import {
+  EASY,
+  MEDIUM,
+  HARD,
+  CLASSIC,
+  TIMETRIAL,
+  BLITZ,
+  LIMITED,
+} from "./constants/constants";
 export const initialState = {
   // User Settings
-  difficulty: "easy",
+  difficulty: EASY,
   currentLevel: "1",
+  gameMode: CLASSIC,
   // In Game
   tiles: [0, 0, 0, 0],
   symbols: {
