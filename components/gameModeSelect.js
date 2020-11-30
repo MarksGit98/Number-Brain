@@ -19,61 +19,64 @@ import {
   EASY,
   MEDIUM,
   HARD,
+  CLASSIC,
+  LIMITED,
+  BLITZ,
+  TIMETRIAL,
+  LOCAL_GAMEMODE,
+  SELECT_GAMEMODE,
 } from "../constants/constants";
-import { difficultySelector, levelSelector } from "./selectors/stateSelectors";
+import { gameModeSelector } from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import GameModeButton from "./mini-components/gameModeButton";
 import PlayButton from "./mini-components/playButton";
 import LevelSelectButton from "./mini-components/levelSelectButton";
+import { BackButton } from "./mini-components/backbutton";
 export const GameModeSelect = () => {
   const dispatch = useDispatch();
-  const currentDifficulty = useSelector(difficultySelector);
+  const currentGameMode = useSelector(gameModeSelector);
 
   const setSettings = async () => {
-    const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
-    difficulty !== null
-      ? dispatch({ type: SELECT_DIFFICULTY, payload: difficulty })
-      : dispatch({ type: SELECT_DIFFICULTY, payload: "easy" });
+    const gameMode = await _retrieveData(LOCAL_GAMEMODE);
+    gameMode !== null
+      ? dispatch({ type: SELECT_GAMEMODE, payload: gameMode })
+      : dispatch({ type: SELECT_GAMEMODE, payload: CLASSIC });
   };
 
   useEffect(() => {
     setSettings();
-  }, [currentDifficulty]);
+  }, [currentGameMode]);
 
-  const handleDifficultyChange = (difficulty) => {
-    if (difficulty !== currentDifficulty) {
-      dispatch({ type: SELECT_DIFFICULTY, payload: difficulty });
+  const handleGameModeChange = (gameMode) => {
+    if (gameMode !== currentGameMode) {
+      dispatch({ type: SELECT_GAMEMODE, payload: gameMode });
     }
   };
 
-  const difficultyOptions = [EASY, MEDIUM, HARD];
+  const gameModeOptions = [CLASSIC, LIMITED, BLITZ, TIMETRIAL];
   return (
     <SafeAreaView style={styles.mainView}>
+      <BackButton />
       <View style={styles.difficultyOptionsView}>
-        {difficultyOptions.map((difficulty) => (
+        {gameModeOptions.map((gameMode) => (
           <TouchableWithoutFeedback
-            key={difficulty}
-            onPress={() => handleDifficultyChange(difficulty)}
+            key={gameMode}
+            onPress={() => handleGameModeChange(gameMode)}
           >
             <View>
               <Text
                 style={[
                   styles.smallWhiteText,
-                  difficulty === currentDifficulty
-                    ? styles.difficultyOption
-                    : null,
+                  gameMode === currentGameMode ? styles.difficultyOption : null,
                 ]}
               >
-                {difficulty}
+                {gameMode}
               </Text>
             </View>
           </TouchableWithoutFeedback>
         ))}
       </View>
-      <GameModeButton />
-      <LevelSelectButton />
-      <PlayButton />
     </SafeAreaView>
   );
 };

@@ -19,6 +19,7 @@ export const PREVIOUS_SCREEN = "previousScreen";
 export const SWITCH_SCREEN = "switchScreen";
 export const LOCAL_DIFFICULTY = "localDifficulty";
 export const LOCAL_LEVEL = "localLevel";
+export const LOCAL_GAMEMODE = "localGameMode";
 export const SELECT_GAMEMODE = "selectGameMode";
 export const GAMEMODE_SCREEN = "gamemodeScreen";
 export const CLASSIC = "classic";

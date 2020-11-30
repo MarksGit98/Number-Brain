@@ -17,6 +17,8 @@ import {
   SUBTRACT,
   MULTIPLY,
   DIVIDE,
+  LOCAL_GAMEMODE,
+  SELECT_GAMEMODE,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 import { initialState } from "./initialGameState";
@@ -169,6 +171,13 @@ export const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         currentLevel: action.payload,
+      };
+    }
+    case SELECT_GAMEMODE: {
+      _storeData(`${LOCAL_GAMEMODE}`, action.payload);
+      return {
+        ...state,
+        gameMode: action.payload,
       };
     }
     default:

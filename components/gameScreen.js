@@ -34,7 +34,7 @@ import { BackButton } from "./mini-components/backbutton";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const currentLevel = useSelector(levelSelector);
-  const gameMode = useSelector(gameModeSelector);
+  const currentGameMode = useSelector(gameModeSelector);
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
   const setSettings = async () => {
     const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
@@ -68,6 +68,9 @@ export const GameScreen = () => {
   return (
     <SafeAreaView style={styles.mainView}>
       <BackButton />
+      <View>
+        <Text style={styles.smallWhiteText}>GameMode: {currentGameMode}</Text>
+      </View>
       <View>
         <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
       </View>
