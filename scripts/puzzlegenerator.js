@@ -4,7 +4,7 @@ const Modes = {
   hard: 6,
 };
 
-const generatePuzzles = (mode, puzzleCount, minResult, maxResult) => {
+export const generatePuzzles = (mode, puzzleCount, minResult, maxResult) => {
   let puzzles = {};
   while (puzzleCount-- !== 0) {
     const puzzle = {
@@ -196,8 +196,12 @@ const finalizePuzzlesForLevels = (puzzles) => {
 };
 
 console.log(
-  JSON.stringify(
-    finalizePuzzlesForLevels(generatePuzzles("hard", 350, 1, 150))
-  )
+  JSON.stringify(finalizePuzzlesForLevels(generatePuzzles("hard", 350, 1, 150)))
 );
+
+export const GenerateSinglePuzzle = ({ difficulty, min, max }) => {
+  return JSON.stringify(
+    finalizePuzzlesForLevels(generatePuzzles(difficulty, 1, min, max))
+  );
+};
 // console.log(generatePuzzles("hard", 1000, 1, 100));

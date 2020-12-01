@@ -40,23 +40,17 @@ import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { BackButton } from "./mini-components/backbutton";
 import { Timer } from "./mini-components/timer";
-
-export const GameScreen = () => {
+import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
+export const GameScreenBlitz = () => {
+  console.log(GenerateSinglePuzzle(HARD, 1, 150));
   const dispatch = useDispatch();
   const currentLevel = useSelector(levelSelector);
   const currentGameMode = useSelector(gameModeSelector);
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
-  const setSettings = async () => {
-    const gameMode = await _retrieveData(LOCAL_GAMEMODE);
-    gameMode !== null
-      ? dispatch({ type: SELECT_GAMEMODE, payload: gameMode })
-      : dispatch({ type: SELECT_GAMEMODE, payload: CLASSIC });
-    const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
-    difficulty !== null
-      ? dispatch({ type: SELECT_DIFFICULTY, payload: difficulty })
-      : dispatch({ type: SELECT_DIFFICULTY, payload: EASY });
-    const level = await _retrieveData(`${difficulty}${LOCAL_LEVEL}`);
-    level !== null ? loadLevel(level) : loadLevel("1");
+  const [seconds, setSeconds] = useState(5);
+  const [isActive, setIsActive] = useState(true);
+  const initializePuzzle = async () => {
+    //Load randomly generated puzzle here
   };
 
   useEffect(() => {
@@ -76,6 +70,18 @@ export const GameScreen = () => {
     }
   }, [localStorageLoaded, currentLevel]);
 
+  useEffect(() => {
+    let interval = null;
+    if (isActive && seconds > 0) {
+      interval = setInterval(() => {
+        setSeconds((seconds) => seconds - 1);
+      }, 1000);
+    } else if (!isActive && seconds !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, seconds]);
+
   const bigNumber = useSelector(bigNumberSelector);
   const won = useSelector(wonSelector);
   return (
@@ -87,7 +93,9 @@ export const GameScreen = () => {
       <View>
         <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
       </View>
-      {currentGameMode === BLITZ ? <Timer startingTime={5} /> : null}
+      <Text style={styles.smallWhiteText}>
+        {seconds > 0 ? seconds : "TIME'S UP"}
+      </Text>
       <View style={[styles.bigTile, styles.UnselectedTile]}>
         <Text style={styles.bigNumber}>{bigNumber}</Text>
       </View>
