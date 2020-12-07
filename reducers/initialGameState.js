@@ -13,6 +13,7 @@ export const initialState = {
   currentLevel: "1",
   gameMode: LIMITED,
   // In Game
+  score: 0,
   tiles: [0, 0, 0, 0],
   symbols: {
     add: null,

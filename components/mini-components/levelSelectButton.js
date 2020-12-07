@@ -13,7 +13,7 @@ import {
   SWITCH_SCREEN,
   LEVEL_SCREEN,
 } from "../../constants/constants";
-export default function LevelSelectButton() {
+export const LevelSelectButton = () => {
   const dispatch = useDispatch();
   return (
     <View style={[styles.bigButton, { backgroundColor: "red" }]}>
@@ -26,4 +26,4 @@ export default function LevelSelectButton() {
       </TouchableWithoutFeedback>
     </View>
   );
-}
+};

@@ -15,6 +15,7 @@ import {
   levelSelector,
   difficultySelector,
   gameModeSelector,
+  scoreSelector,
 } from "./selectors/stateSelectors";
 import {
   INITIALIZE_ROUND,
@@ -32,6 +33,20 @@ import {
   MEDIUM,
   HARD,
   SELECT_GAMEMODE,
+  LOAD_PUZZLE,
+  EASY_MIN,
+  EASY_MAX,
+  MEDIUM_MIN,
+  MEDIUM_MAX,
+  HARD_MIN,
+  HARD_MAX,
+  BLITZ_30,
+  BLITZ_60,
+  BLITZ_90,
+  TESTING_TIME,
+  GAMEOVER_SCREEN,
+  SWITCH_SCREEN,
+  SET_SCORE,
 } from "../constants/constants";
 import { Symbols } from "./mini-components/symbols";
 import { Tiles } from "./mini-components/tiles";
@@ -42,48 +57,74 @@ import { BackButton } from "./mini-components/backbutton";
 import { Timer } from "./mini-components/timer";
 import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
 export const GameScreenBlitz = () => {
-  console.log(GenerateSinglePuzzle(HARD, 1, 150));
   const dispatch = useDispatch();
-  const currentLevel = useSelector(levelSelector);
+  const score = useSelector(scoreSelector);
   const currentGameMode = useSelector(gameModeSelector);
+  const currentDifficulty = useSelector(difficultySelector);
+  const [seconds, setSeconds] = useState(BLITZ_30);
+  const [currentPuzzle, setCurrentPuzzle] = useState(null);
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
-  const [seconds, setSeconds] = useState(5);
-  const [isActive, setIsActive] = useState(true);
-  const initializePuzzle = async () => {
-    //Load randomly generated puzzle here
+  const bigNumber = useSelector(bigNumberSelector);
+  const won = useSelector(wonSelector);
+  const setSettings = async () => {
+    dispatch({ type: SET_SCORE, payload: 0 });
+    const gameMode = await _retrieveData(LOCAL_GAMEMODE);
+    gameMode !== null
+      ? dispatch({ type: SELECT_GAMEMODE, payload: gameMode })
+      : dispatch({ type: SELECT_GAMEMODE, payload: CLASSIC });
+    const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
+    difficulty !== null ? loadDifficulty(difficulty) : loadDifficulty(EASY);
+  };
+
+  const loadDifficulty = (difficulty) => {
+    dispatch({ type: SELECT_DIFFICULTY, payload: difficulty });
+    setLocalStorageLoaded(true);
   };
 
   useEffect(() => {
     setSettings();
   }, []);
 
-  const loadLevel = (level) => {
-    dispatch({ type: SELECT_LEVEL, payload: level });
-    setLocalStorageLoaded(true);
-  };
+  useEffect(() => {
+    if (seconds > 0) {
+      currentDifficulty === EASY
+        ? setCurrentPuzzle(
+            GenerateSinglePuzzle(currentDifficulty, EASY_MIN, EASY_MAX)
+          )
+        : currentDifficulty === MEDIUM
+        ? setCurrentPuzzle(
+            GenerateSinglePuzzle(currentDifficulty, MEDIUM_MIN, MEDIUM_MAX)
+          )
+        : currentDifficulty === HARD
+        ? setCurrentPuzzle(
+            GenerateSinglePuzzle(currentDifficulty, HARD_MIN, HARD_MAX)
+          )
+        : null;
+      setSeconds(BLITZ_30);
+    }
+  }, [localStorageLoaded, score]);
 
   useEffect(() => {
     if (localStorageLoaded) {
       dispatch({
-        type: INITIALIZE_ROUND,
+        type: LOAD_PUZZLE,
+        payload: currentPuzzle,
       });
     }
-  }, [localStorageLoaded, currentLevel]);
+  }, [currentPuzzle]);
 
   useEffect(() => {
     let interval = null;
-    if (isActive && seconds > 0) {
+    if (seconds > 0) {
       interval = setInterval(() => {
         setSeconds((seconds) => seconds - 1);
       }, 1000);
-    } else if (!isActive && seconds !== 0) {
-      clearInterval(interval);
+    } else {
+      dispatch({ type: SWITCH_SCREEN, payload: GAMEOVER_SCREEN });
     }
     return () => clearInterval(interval);
-  }, [isActive, seconds]);
+  }, [seconds]);
 
-  const bigNumber = useSelector(bigNumberSelector);
-  const won = useSelector(wonSelector);
   return (
     <SafeAreaView style={styles.mainView}>
       <BackButton />
@@ -91,11 +132,13 @@ export const GameScreenBlitz = () => {
         <Text style={styles.smallWhiteText}>GameMode: {currentGameMode}</Text>
       </View>
       <View>
-        <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
+        <Text style={styles.smallWhiteText}>Score: {score}</Text>
       </View>
-      <Text style={styles.smallWhiteText}>
-        {seconds > 0 ? seconds : "TIME'S UP"}
-      </Text>
+      <View>
+        <Text style={styles.smallWhiteText}>
+          {seconds > 0 ? seconds : "TIME'S UP"}
+        </Text>
+      </View>
       <View style={[styles.bigTile, styles.UnselectedTile]}>
         <Text style={styles.bigNumber}>{bigNumber}</Text>
       </View>

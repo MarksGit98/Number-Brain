@@ -40,3 +40,7 @@ export const difficultySelector = (state) => {
 export const gameModeSelector = (state) => {
   return state.gameStore.gameMode;
 };
+
+export const scoreSelector = (state) => {
+  return state.gameStore.score;
+};

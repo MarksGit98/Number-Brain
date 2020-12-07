@@ -195,13 +195,11 @@ const finalizePuzzlesForLevels = (puzzles) => {
   return levels;
 };
 
-console.log(
-  JSON.stringify(finalizePuzzlesForLevels(generatePuzzles("hard", 350, 1, 150)))
-);
-
-export const GenerateSinglePuzzle = ({ difficulty, min, max }) => {
-  return JSON.stringify(
-    finalizePuzzlesForLevels(generatePuzzles(difficulty, 1, min, max))
-  );
+export const GenerateSinglePuzzle = (difficulty, min, max) => {
+  const puzzle = finalizePuzzlesForLevels(
+    generatePuzzles(difficulty, 1, min, max)
+  )["1"];
+  console.log(puzzle);
+  return puzzle;
 };
 // console.log(generatePuzzles("hard", 1000, 1, 100));

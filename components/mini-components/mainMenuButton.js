@@ -11,19 +11,17 @@ import {
   SELECT_GAMEMODE,
   GAME_SCREEN,
   SWITCH_SCREEN,
+  MAIN_MENU,
 } from "../../constants/constants";
-export const PlayButton = (props) => {
+export const MainMenuButton = () => {
   const dispatch = useDispatch();
-  const again = props.again;
   return (
-    <View style={[styles.bigButton, { backgroundColor: "blue" }]}>
+    <View style={[styles.bigButton, { backgroundColor: "red" }]}>
       <TouchableWithoutFeedback
-        onPress={() => dispatch({ type: SWITCH_SCREEN, payload: GAME_SCREEN })}
+        onPress={() => dispatch({ type: SWITCH_SCREEN, payload: MAIN_MENU })}
       >
         <View>
-          <Text style={styles.mediumWhiteText}>
-            {again ? "PLAY AGAIN" : "PLAY"}
-          </Text>
+          <Text style={styles.mediumWhiteText}>MAIN MENU</Text>
         </View>
       </TouchableWithoutFeedback>
     </View>

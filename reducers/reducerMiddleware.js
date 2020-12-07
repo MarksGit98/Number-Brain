@@ -25,6 +25,7 @@ import {
   SUBTRACT,
   MULTIPLY,
   DIVIDE,
+  SET_SCORE,
 } from "../constants/constants";
 import { _storeData } from "../localStorage/storeData";
 
@@ -196,11 +197,16 @@ export const reducerMiddleware = (rawStore) => {
 
       case CHECK_FOR_NEXT_ROUND: {
         const difficulty = rawStore.getState().gameStore.difficulty;
+        const gameMode = rawStore.getState().gameStore.gameMode;
         const nextLevel = String(
           Number(rawStore.getState().gameStore.currentLevel) + 1
         );
         const nextDifficulty = difficulty === EASY ? MEDIUM : HARD;
-
+        if (gameMode === BLITZ || gameMode === TIMETRIAL) {
+          rawStore.dispatch({
+            type: SET_SCORE,
+          });
+        }
         if (puzzles[difficulty][nextLevel] !== undefined) {
           rawStore.dispatch({
             type: SELECT_LEVEL,

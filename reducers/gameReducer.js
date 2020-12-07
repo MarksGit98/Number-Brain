@@ -19,6 +19,8 @@ import {
   DIVIDE,
   LOCAL_GAMEMODE,
   SELECT_GAMEMODE,
+  LOAD_PUZZLE,
+  SET_SCORE,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 import { initialState } from "./initialGameState";
@@ -159,6 +161,26 @@ export const gameReducer = (state = initialState, action) => {
         won: false,
       };
     }
+
+    case LOAD_PUZZLE: {
+      return {
+        ...state,
+        currentLevel: null,
+        tiles: action.payload.tiles,
+        symbols: action.payload.symbols,
+        bigNumber: action.payload.bigNumber,
+        turnHistory: [],
+        won: false,
+      };
+    }
+
+    case SET_SCORE: {
+      return {
+        ...state,
+        score: action.payload === undefined ? state.score + 1 : action.payload,
+      };
+    }
+
     case SELECT_DIFFICULTY: {
       _storeData(`${LOCAL_DIFFICULTY}`, action.payload);
       return {

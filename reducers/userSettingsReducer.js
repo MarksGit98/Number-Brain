@@ -6,7 +6,8 @@ import {
   GAME_SCREEN,
   PREVIOUS_SCREEN,
   SWITCH_SCREEN,
-  GAMEMODE_SCREEN
+  GAMEMODE_SCREEN,
+  GAMEOVER_SCREEN,
 } from "../constants/constants";
 
 import { initialState } from "./initialSettingsState";

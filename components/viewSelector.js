@@ -5,6 +5,7 @@ import {
   LEVEL_SCREEN,
   GAME_SCREEN,
   GAMEMODE_SCREEN,
+  GAMEOVER_SCREEN,
   CLASSIC,
   LIMITED,
   BLITZ,
@@ -19,6 +20,7 @@ import { LevelSelector } from "./levelSelector";
 import { GameScreen } from "./gameScreen";
 import { GameScreenBlitz } from "./gameScreenBlitz";
 import { GameModeSelect } from "./gameModeSelect";
+import { GameOver } from "./gameOverScreen";
 
 export const ViewSelector = () => {
   const dispatch = useDispatch();
@@ -49,5 +51,7 @@ export const ViewSelector = () => {
     <GameScreen />
   ) : view === GAMEMODE_SCREEN ? (
     <GameModeSelect />
+  ) : view === GAMEOVER_SCREEN ? (
+    <GameOver />
   ) : null;
 };

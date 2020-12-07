@@ -21,8 +21,8 @@ import { difficultySelector, levelSelector } from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import GameModeButton from "./mini-components/gameModeButton";
-import PlayButton from "./mini-components/playButton";
-import LevelSelectButton from "./mini-components/levelSelectButton";
+import { PlayButton } from "./mini-components/playButton";
+import { LevelSelectButton } from "./mini-components/levelSelectButton";
 export const MainMenu = () => {
   const dispatch = useDispatch();
   const currentDifficulty = useSelector(difficultySelector);
