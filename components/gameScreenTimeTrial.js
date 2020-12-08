@@ -40,13 +40,12 @@ import {
   MEDIUM_MAX,
   HARD_MIN,
   HARD_MAX,
-  BLITZ_EASY,
-  BLITZ_MEDIUM,
-  BLITZ_HARD,
-  TESTING_TIME,
   GAMEOVER_SCREEN,
   SWITCH_SCREEN,
   SET_SCORE,
+  TIMETRIAL_EASY,
+  TIMETRIAL_MEDIUM,
+  TIMETRIAL_HARD,
 } from "../constants/constants";
 import { Symbols } from "./mini-components/symbols";
 import { Tiles } from "./mini-components/tiles";
@@ -54,13 +53,14 @@ import { ReverseTurn } from "./mini-components/reverseTurn";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { BackButton } from "./mini-components/backbutton";
+import { Timer } from "./mini-components/timer";
 import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
-export const GameScreenBlitz = () => {
+export const GameScreenTimeTrial = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
   const currentGameMode = useSelector(gameModeSelector);
   const currentDifficulty = useSelector(difficultySelector);
-  const [seconds, setSeconds] = useState(BLITZ_HARD);
+  const [seconds, setSeconds] = useState(TIMETRIAL_HARD);
   const [currentPuzzle, setCurrentPuzzle] = useState(null);
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
   const bigNumber = useSelector(bigNumberSelector);
@@ -98,7 +98,6 @@ export const GameScreenBlitz = () => {
             GenerateSinglePuzzle(currentDifficulty, HARD_MIN, HARD_MAX)
           )
         : null;
-      setSeconds(BLITZ_HARD);
     }
   }, [localStorageLoaded, score]);
 

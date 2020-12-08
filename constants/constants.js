@@ -54,16 +54,16 @@ export const TIME_TRIAL_MEDIUM_HIGH_SCORE = "timeTrialMediumHighScore";
 export const TIME_TRIAL_HARD_HIGH_SCORE = "timeTrialHardHighScore";
 
 //Game Settings
-export const EASY_MIN = 0;
+export const EASY_MIN = 1;
 export const EASY_MAX = 75;
-export const MEDIUM_MIN = 0;
+export const MEDIUM_MIN = 1;
 export const MEDIUM_MAX = 100;
-export const HARD_MIN = 0;
+export const HARD_MIN = 1;
 export const HARD_MAX = 150;
-export const BLITZ_30 = 30;
-export const BLITZ_60 = 60;
-export const BLITZ_90 = 90;
-export const TIMETRIAL_90 = 90;
-export const TIMETRIAL_180 = 180;
-export const TIMETRIAL_300 = 300;
+export const BLITZ_HARD = 30;
+export const BLITZ_MEDIUM = 60;
+export const BLITZ_EASY = 90;
+export const TIMETRIAL_HARD = 90;
+export const TIMETRIAL_MEDIUM = 180;
+export const TIMETRIAL_EASY = 300;
 export const TESTING_TIME = 3;

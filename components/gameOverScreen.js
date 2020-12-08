@@ -70,12 +70,15 @@ export const GameOver = () => {
       `${gameMode}_${difficulty}_HIGH_SCORE`
     );
     setHighScore(highScore !== null ? highScore : 0);
-    setLocalStorageLoaded(true);
   };
 
   useEffect(() => {
     setSettings();
   }, []);
+
+  useEffect(() => {
+    if (!localStorageLoaded && highScore !== null) setLocalStorageLoaded(true);
+  }, [highScore]);
 
   const handleNewHighScore = (setter) => {
     setCongrats(setter);
@@ -86,9 +89,9 @@ export const GameOver = () => {
   };
 
   useEffect(() => {
-    console.log(score);
-    console.log(highScore);
-    score > highScore ? handleNewHighScore(true) : handleNewHighScore(false);
+    if (localStorageLoaded) {
+      score > highScore ? handleNewHighScore(true) : handleNewHighScore(false);
+    }
   }, [localStorageLoaded]);
 
   return (
@@ -111,7 +114,7 @@ export const GameOver = () => {
       </View>
       <View>
         <Text style={styles.smallWhiteText}>
-          {congrats ? "NEW HIGH SCORE!" : "test"}
+          {congrats ? "NEW HIGH SCORE!" : null}
         </Text>
       </View>
       <PlayButton again={true} />

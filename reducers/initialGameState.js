@@ -6,12 +6,22 @@ import {
   TIMETRIAL,
   BLITZ,
   LIMITED,
+  BLITZ_HARD,
+  BLITZ_MEDIUM,
+  BLITZ_EASY,
+  TIMETRIAL_HARD,
+  TIMETRIAL_MEDIUM,
+  TIMETRIAL_EASY,
 } from "../constants/constants";
 export const initialState = {
   // User Settings
   difficulty: EASY,
   currentLevel: "1",
   gameMode: LIMITED,
+  subGameModes: {
+    BLITZ: { BLITZ_HARD, BLITZ_MEDIUM, BLITZ_EASY },
+    TIMETRIAL: { TIMETRIAL_HARD, TIMETRIAL_MEDIUM, TIMETRIAL_EASY },
+  },
   // In Game
   score: 0,
   tiles: [0, 0, 0, 0],

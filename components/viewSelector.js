@@ -19,6 +19,7 @@ import { MainMenu } from "./mainMenu";
 import { LevelSelector } from "./levelSelector";
 import { GameScreen } from "./gameScreen";
 import { GameScreenBlitz } from "./gameScreenBlitz";
+import { GameScreenTimeTrial } from "./gameScreenTimeTrial";
 import { GameModeSelect } from "./gameModeSelect";
 import { GameOver } from "./gameOverScreen";
 
@@ -48,7 +49,7 @@ export const ViewSelector = () => {
   ) : view === GAME_SCREEN && gameMode === BLITZ ? (
     <GameScreenBlitz />
   ) : view === GAME_SCREEN && gameMode === TIMETRIAL ? (
-    <GameScreen />
+    <GameScreenTimeTrial />
   ) : view === GAMEMODE_SCREEN ? (
     <GameModeSelect />
   ) : view === GAMEOVER_SCREEN ? (
