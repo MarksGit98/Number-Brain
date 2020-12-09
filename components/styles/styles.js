@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   largeWhiteText: {
     fontSize: 72,
-    color: "white"
+    color: "white",
   },
   mainView: {
     backgroundColor: "purple",
@@ -89,10 +89,14 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
+  subGameModeDifficulty: {
+    marginLeft: "5px",
+    marginRight: "5px",
+  },
   difficultyOptionsView: {
     justifyContent: "center",
     alignItems: "center",
+    textAlign: "center",
   },
   difficultyOption: {
     backgroundColor: "blue",
@@ -110,15 +114,15 @@ export const styles = StyleSheet.create({
     backgroundColor: "green",
     height: 100,
     width: 100,
-    margin: 10
+    margin: 10,
   },
   levelContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingTop: 40
+    backgroundColor: "#fff",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingTop: 40,
   },
 });

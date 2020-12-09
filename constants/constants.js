@@ -16,6 +16,7 @@ export const MAIN_MENU = "mainMenu";
 export const SELECT_GAMEMODE = "selectGameMode";
 export const LOAD_PUZZLE = "loadPuzzle";
 export const SET_SCORE = "setScore";
+export const SELECT_SUBGAMEMODE = "selectSubGameMode";
 
 //Views
 export const GAMEMODE_SCREEN = "gamemodeScreen";
@@ -46,6 +47,8 @@ export const DIVIDE = "divide";
 export const LOCAL_DIFFICULTY = "localDifficulty";
 export const LOCAL_LEVEL = "localLevel";
 export const LOCAL_GAMEMODE = "localGameMode";
+export const LOCAL_BLITZ_GAMEMODE = "localblitzGameMode";
+export const LOCAL_TIMETRIAL_GAMEMODE = "localtimeTrialGameMode";
 export const BLITZ_EASY_HIGH_SCORE = "blitzEasyHighScore";
 export const BLITZ_MEDIUM_HIGH_SCORE = "blitzMediumHighScore";
 export const BLITZ_HARD_HIGH_SCORE = "blitzHardHighScore";

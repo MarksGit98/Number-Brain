@@ -19,8 +19,8 @@ export const initialState = {
   currentLevel: "1",
   gameMode: LIMITED,
   subGameModes: {
-    BLITZ: { BLITZ_HARD, BLITZ_MEDIUM, BLITZ_EASY },
-    TIMETRIAL: { TIMETRIAL_HARD, TIMETRIAL_MEDIUM, TIMETRIAL_EASY },
+    blitz: BLITZ_HARD,
+    timeTrial: TIMETRIAL_HARD,
   },
   // In Game
   score: 0,

@@ -21,6 +21,8 @@ import {
   SELECT_GAMEMODE,
   LOAD_PUZZLE,
   SET_SCORE,
+  TIMETRIAL,
+  SELECT_SUBGAMEMODE,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 import { initialState } from "./initialGameState";
@@ -200,6 +202,18 @@ export const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         gameMode: action.payload,
+      };
+    }
+    case SELECT_SUBGAMEMODE: {
+      _storeData(`local${gameMode}GameMode`, subGameMode);
+      const gameMode = action.payload.gameMode;
+      const subGameMode = action.payload.subGameMode;
+      const newSubGameModes = state.subGameModes;
+      console.log(newSubGameModes);
+      newSubGameModes[`${gameMode}`] = subGameMode;
+      return {
+        ...state,
+        subGameModes: newSubGameModes,
       };
     }
     default:
