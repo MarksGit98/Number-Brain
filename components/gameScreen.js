@@ -39,7 +39,6 @@ import { ReverseTurn } from "./mini-components/reverseTurn";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { BackButton } from "./mini-components/backbutton";
-import { Timer } from "./mini-components/timer";
 
 export const GameScreen = () => {
   const dispatch = useDispatch();
@@ -87,7 +86,6 @@ export const GameScreen = () => {
       <View>
         <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
       </View>
-      {currentGameMode === BLITZ ? <Timer startingTime={5} /> : null}
       <View style={[styles.bigTile, styles.UnselectedTile]}>
         <Text style={styles.bigNumber}>{bigNumber}</Text>
       </View>

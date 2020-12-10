@@ -26,6 +26,10 @@ import {
   MULTIPLY,
   DIVIDE,
   SET_SCORE,
+  PREVIOUS_SCREEN,
+  GAMEOVER_SCREEN,
+  SWITCH_SCREEN,
+  MAIN_MENU,
 } from "../constants/constants";
 import { _storeData } from "../localStorage/storeData";
 
@@ -222,10 +226,20 @@ export const reducerMiddleware = (rawStore) => {
             payload: "1",
           });
         }
+        break;
       }
+      case PREVIOUS_SCREEN: {
+        const previousScreen = rawStore.getState().userSettingsStore
+          .previousScreen;
+        const newPreviousScreen =
+          previousScreen === GAMEOVER_SCREEN ? MAIN_MENU : previousScreen;
 
-      // case TOGGLE_SCREEN: {
-      // }
+        rawStore.dispatch({
+          type: SWITCH_SCREEN,
+          payload: newPreviousScreen,
+        });
+        break;
+      }
       default:
         rawStore.dispatch(action);
     }

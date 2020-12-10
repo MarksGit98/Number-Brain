@@ -120,6 +120,7 @@ export const GameModeSelect = () => {
               <Text
                 style={[
                   styles.smallWhiteText,
+                  styles.centerText,
                   gameMode === currentGameMode ? styles.difficultyOption : null,
                 ]}
               >
@@ -139,6 +140,7 @@ export const GameModeSelect = () => {
                             <View>
                               <Text
                                 style={[
+                                  styles.centerText,
                                   styles.subGameModeDifficulty,
                                   styles.smallWhiteText,
                                   subGameMode === currentBlitzGameMode
@@ -155,6 +157,7 @@ export const GameModeSelect = () => {
                             <View>
                               <Text
                                 style={[
+                                  styles.centerText,
                                   styles.subGameModeDifficulty,
                                   styles.smallWhiteText,
                                 ]}
@@ -180,6 +183,7 @@ export const GameModeSelect = () => {
                                 style={[
                                   styles.subGameModeDifficulty,
                                   styles.smallWhiteText,
+                                  styles.centerText,
                                   subGameMode === currentTimeTrialGameMode
                                     ? styles.difficultyOption
                                     : null,
@@ -196,6 +200,7 @@ export const GameModeSelect = () => {
                                 style={[
                                   styles.subGameModeDifficulty,
                                   styles.smallWhiteText,
+                                  styles.centerText,
                                 ]}
                               >
                                 {subGameMode}s

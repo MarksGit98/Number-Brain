@@ -97,6 +97,9 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  centerText: {
+    textAlign: "center",
+  },
   difficultyOption: {
     backgroundColor: "blue",
   },

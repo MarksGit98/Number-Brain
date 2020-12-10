@@ -14,11 +14,10 @@ import { initialState } from "./initialSettingsState";
 export const userSettingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case PREVIOUS_SCREEN: {
-      const prevScreen = state.previousScreen;
       return {
         ...state,
         previousScreen: state.currentScreen,
-        currentScreen: prevScreen,
+        currentScreen: action.payload,
       };
     }
     case SWITCH_SCREEN: {

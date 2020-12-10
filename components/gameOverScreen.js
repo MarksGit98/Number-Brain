@@ -51,7 +51,6 @@ import {
 
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
-import { BackButton } from "./mini-components/backbutton";
 import { MainMenuButton } from "./mini-components/mainMenuButton";
 import { PlayButton } from "./mini-components/playButton";
 export const GameOver = () => {
@@ -128,7 +127,6 @@ export const GameOver = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <BackButton />
       <View>
         <Text style={styles.smallWhiteText}>GameMode: {currentGameMode}</Text>
       </View>
