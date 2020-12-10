@@ -49,12 +49,25 @@ export const LOCAL_LEVEL = "localLevel";
 export const LOCAL_GAMEMODE = "localGameMode";
 export const LOCAL_BLITZ_GAMEMODE = "localblitzGameMode";
 export const LOCAL_TIMETRIAL_GAMEMODE = "localtimeTrialGameMode";
-export const BLITZ_EASY_HIGH_SCORE = "blitzEasyHighScore";
-export const BLITZ_MEDIUM_HIGH_SCORE = "blitzMediumHighScore";
-export const BLITZ_HARD_HIGH_SCORE = "blitzHardHighScore";
-export const TIME_TRIAL_EASY_HIGH_SCORE = "timeTrialEasyHighScore";
-export const TIME_TRIAL_MEDIUM_HIGH_SCORE = "timeTrialMediumHighScore";
-export const TIME_TRIAL_HARD_HIGH_SCORE = "timeTrialHardHighScore";
+export const BLITZ_EASY_EASY_HIGH_SCORE = "blitzeasyeasyHighScore";
+export const BLITZ_EASY_MEDIUM_HIGH_SCORE = "blitzeasymediumHighScore";
+export const BLITZ_EASY_HARD_HIGH_SCORE = "blitzeasyhardHighScore";
+export const BLITZ_MEDIUM_EASY_HIGH_SCORE = "blitzmediumeasyHighScore";
+export const BLITZ_MEDIUM_MEDIUM_HIGH_SCORE = "blitzmediummediumHighScore";
+export const BLITZ_MEDIUM_HARD_HIGH_SCORE = "blitzmediumhardHighScore";
+export const BLITZ_HARD_EASY_HIGH_SCORE = "blitzhardeasyHighScore";
+export const BLITZ_HARD_MEDIUM_HIGH_SCORE = "blitzhardmediumHighScore";
+export const BLITZ_HARD_HARD_HIGH_SCORE = "blitzhardhardHighScore";
+export const TIMETRIAL_EASY_EASY_HIGH_SCORE = "timeTrialeasyeasyHighScore";
+export const TIMETRIAL_EASY_MEDIUM_HIGH_SCORE = "timeTrialeasymediumHighScore";
+export const TIMETRIAL_EASY_HARD_HIGH_SCORE = "timeTrialeasyhardHighScore";
+export const TIMETRIAL_MEDIUM_EASY_HIGH_SCORE = "timeTrialmediumeasyHighScore";
+export const TIMETRIAL_MEDIUM_MEDIUM_HIGH_SCORE =
+  "timeTrialmediummediumHighScore";
+export const TIMETRIAL_MEDIUM_HARD_HIGH_SCORE = "timeTrialmediumhardHighScore";
+export const TIMETRIAL_HARD_EASY_HIGH_SCORE = "timeTrialhardeasyHighScore";
+export const TIMETRIAL_HARD_MEDIUM_HIGH_SCORE = "timeTrialhardmediumHighScore";
+export const TIMETRIAL_HARD_HARD_HIGH_SCORE = "timeTrialhardhardHighScore";
 
 //Game Settings
 export const EASY_MIN = 1;

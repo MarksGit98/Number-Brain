@@ -16,6 +16,7 @@ import {
   difficultySelector,
   gameModeSelector,
   scoreSelector,
+  blitzGameModeSelector,
 } from "./selectors/stateSelectors";
 import {
   INITIALIZE_ROUND,
@@ -43,10 +44,11 @@ import {
   BLITZ_EASY,
   BLITZ_MEDIUM,
   BLITZ_HARD,
-  TESTING_TIME,
   GAMEOVER_SCREEN,
   SWITCH_SCREEN,
   SET_SCORE,
+  LOCAL_BLITZ_GAMEMODE,
+  SELECT_SUBGAMEMODE,
 } from "../constants/constants";
 import { Symbols } from "./mini-components/symbols";
 import { Tiles } from "./mini-components/tiles";
@@ -59,8 +61,9 @@ export const GameScreenBlitz = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
   const currentGameMode = useSelector(gameModeSelector);
+  const currentSubGameMode = useSelector(blitzGameModeSelector);
   const currentDifficulty = useSelector(difficultySelector);
-  const [seconds, setSeconds] = useState(BLITZ_HARD);
+  const [seconds, setSeconds] = useState(BLITZ_MEDIUM);
   const [currentPuzzle, setCurrentPuzzle] = useState(null);
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
   const bigNumber = useSelector(bigNumberSelector);
@@ -70,6 +73,16 @@ export const GameScreenBlitz = () => {
     gameMode !== null
       ? dispatch({ type: SELECT_GAMEMODE, payload: gameMode })
       : dispatch({ type: SELECT_GAMEMODE, payload: CLASSIC });
+    const subGameMode = await _retrieveData(LOCAL_BLITZ_GAMEMODE);
+    subGameMode !== null
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: { subGameMode: subGameMode, gameMode: gameMode },
+        })
+      : dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: { subGameMode: BLITZ_MEDIUM, gameMode: gameMode },
+        });
     const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
     difficulty !== null ? loadDifficulty(difficulty) : loadDifficulty(EASY);
   };
@@ -78,6 +91,10 @@ export const GameScreenBlitz = () => {
     dispatch({ type: SELECT_DIFFICULTY, payload: difficulty });
     setLocalStorageLoaded(true);
   };
+
+  useEffect(() => {
+    if (currentSubGameMode !== null) setSeconds(currentSubGameMode);
+  }, [currentSubGameMode]);
 
   useEffect(() => {
     setSettings();
@@ -98,7 +115,7 @@ export const GameScreenBlitz = () => {
             GenerateSinglePuzzle(currentDifficulty, HARD_MIN, HARD_MAX)
           )
         : null;
-      setSeconds(BLITZ_HARD);
+      setSeconds(currentSubGameMode);
     }
   }, [localStorageLoaded, score]);
 

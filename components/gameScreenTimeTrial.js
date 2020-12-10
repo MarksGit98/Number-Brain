@@ -16,6 +16,7 @@ import {
   difficultySelector,
   gameModeSelector,
   scoreSelector,
+  timeTrialGameModeSelector,
 } from "./selectors/stateSelectors";
 import {
   INITIALIZE_ROUND,
@@ -46,6 +47,8 @@ import {
   TIMETRIAL_EASY,
   TIMETRIAL_MEDIUM,
   TIMETRIAL_HARD,
+  LOCAL_TIMETRIAL_GAMEMODE,
+  SELECT_SUBGAMEMODE,
 } from "../constants/constants";
 import { Symbols } from "./mini-components/symbols";
 import { Tiles } from "./mini-components/tiles";
@@ -53,14 +56,14 @@ import { ReverseTurn } from "./mini-components/reverseTurn";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { BackButton } from "./mini-components/backbutton";
-import { Timer } from "./mini-components/timer";
 import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
 export const GameScreenTimeTrial = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
   const currentGameMode = useSelector(gameModeSelector);
+  const currentSubGameMode = useSelector(timeTrialGameModeSelector);
   const currentDifficulty = useSelector(difficultySelector);
-  const [seconds, setSeconds] = useState(TIMETRIAL_HARD);
+  const [seconds, setSeconds] = useState(TIMETRIAL_MEDIUM);
   const [currentPuzzle, setCurrentPuzzle] = useState(null);
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
   const bigNumber = useSelector(bigNumberSelector);
@@ -70,14 +73,27 @@ export const GameScreenTimeTrial = () => {
     gameMode !== null
       ? dispatch({ type: SELECT_GAMEMODE, payload: gameMode })
       : dispatch({ type: SELECT_GAMEMODE, payload: CLASSIC });
+    const subGameMode = await _retrieveData(LOCAL_TIMETRIAL_GAMEMODE);
+    subGameMode !== null
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: { subGameMode: subGameMode, gameMode: gameMode },
+        })
+      : dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: { subGameMode: TIMETRIAL_MEDIUM, gameMode: gameMode },
+        });
     const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
     difficulty !== null ? loadDifficulty(difficulty) : loadDifficulty(EASY);
   };
-
   const loadDifficulty = (difficulty) => {
     dispatch({ type: SELECT_DIFFICULTY, payload: difficulty });
     setLocalStorageLoaded(true);
   };
+
+  useEffect(() => {
+    if (currentSubGameMode !== null) setSeconds(currentSubGameMode);
+  }, [currentSubGameMode]);
 
   useEffect(() => {
     setSettings();

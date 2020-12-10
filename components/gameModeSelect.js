@@ -64,7 +64,10 @@ export const GameModeSelect = () => {
     timeTrialGameMode !== null
       ? dispatch({
           type: SELECT_SUBGAMEMODE,
-          payload: { subGameMode: timeTrialGameMode, gameMode: TIMETRIAL },
+          payload: {
+            subGameMode: Number(timeTrialGameMode),
+            gameMode: TIMETRIAL,
+          },
         })
       : dispatch({
           type: SELECT_SUBGAMEMODE,
@@ -74,7 +77,7 @@ export const GameModeSelect = () => {
     blitzGameMode !== null
       ? dispatch({
           type: SELECT_SUBGAMEMODE,
-          payload: { subGameMode: blitzGameMode, gameMode: BLITZ },
+          payload: { subGameMode: Number(blitzGameMode), gameMode: BLITZ },
         })
       : dispatch({
           type: SELECT_SUBGAMEMODE,
@@ -99,12 +102,11 @@ export const GameModeSelect = () => {
     ) {
       dispatch({
         type: SELECT_SUBGAMEMODE,
-        payload: { subGameMode: subGameMode, gameMode: gameMode },
+        payload: { subGameMode: Number(subGameMode), gameMode: gameMode },
       });
     }
   };
-  console.log(currentBlitzGameMode);
-  console.log(currentTimeTrialGameMode);
+
   return (
     <SafeAreaView style={styles.mainView}>
       <BackButton />
@@ -128,51 +130,79 @@ export const GameModeSelect = () => {
                 {gameMode === BLITZ
                   ? blitzGameModes.map((subGameMode) => (
                       <View key={subGameMode}>
-                        <TouchableWithoutFeedback
-                          onPress={() =>
-                            handleSubGameModeChange(subGameMode, gameMode)
-                          }
-                        >
-                          <View>
-                            <Text
-                              style={[
-                                styles.subGameModeDifficulty,
-                                styles.smallWhiteText,
-                                subGameMode === currentBlitzGameMode &&
-                                gameMode === currentGameMode
-                                  ? styles.difficultyOption
-                                  : null,
-                              ]}
-                            >
-                              {subGameMode}s
-                            </Text>
-                          </View>
-                        </TouchableWithoutFeedback>
+                        {gameMode === currentGameMode ? (
+                          <TouchableWithoutFeedback
+                            onPress={() =>
+                              handleSubGameModeChange(subGameMode, gameMode)
+                            }
+                          >
+                            <View>
+                              <Text
+                                style={[
+                                  styles.subGameModeDifficulty,
+                                  styles.smallWhiteText,
+                                  subGameMode === currentBlitzGameMode
+                                    ? styles.difficultyOption
+                                    : null,
+                                ]}
+                              >
+                                {subGameMode}s
+                              </Text>
+                            </View>
+                          </TouchableWithoutFeedback>
+                        ) : (
+                          <TouchableWithoutFeedback>
+                            <View>
+                              <Text
+                                style={[
+                                  styles.subGameModeDifficulty,
+                                  styles.smallWhiteText,
+                                ]}
+                              >
+                                {subGameMode}s
+                              </Text>
+                            </View>
+                          </TouchableWithoutFeedback>
+                        )}
                       </View>
                     ))
                   : gameMode === TIMETRIAL
                   ? timeTrialGameModes.map((subGameMode) => (
                       <View key={subGameMode}>
-                        <TouchableWithoutFeedback
-                          onPress={() =>
-                            handleSubGameModeChange(subGameMode, gameMode)
-                          }
-                        >
-                          <View>
-                            <Text
-                              style={[
-                                styles.subGameModeDifficulty,
-                                styles.smallWhiteText,
-                                subGameMode === currentTimeTrialGameMode &&
-                                gameMode === currentGameMode
-                                  ? styles.difficultyOption
-                                  : null,
-                              ]}
-                            >
-                              {subGameMode}s
-                            </Text>
-                          </View>
-                        </TouchableWithoutFeedback>
+                        {gameMode === currentGameMode ? (
+                          <TouchableWithoutFeedback
+                            onPress={() =>
+                              handleSubGameModeChange(subGameMode, gameMode)
+                            }
+                          >
+                            <View>
+                              <Text
+                                style={[
+                                  styles.subGameModeDifficulty,
+                                  styles.smallWhiteText,
+                                  subGameMode === currentTimeTrialGameMode
+                                    ? styles.difficultyOption
+                                    : null,
+                                ]}
+                              >
+                                {subGameMode}s
+                              </Text>
+                            </View>
+                          </TouchableWithoutFeedback>
+                        ) : (
+                          <TouchableWithoutFeedback>
+                            <View>
+                              <Text
+                                style={[
+                                  styles.subGameModeDifficulty,
+                                  styles.smallWhiteText,
+                                ]}
+                              >
+                                {subGameMode}s
+                              </Text>
+                            </View>
+                          </TouchableWithoutFeedback>
+                        )}
                       </View>
                     ))
                   : null}

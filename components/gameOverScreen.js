@@ -15,6 +15,8 @@ import {
   difficultySelector,
   gameModeSelector,
   scoreSelector,
+  blitzGameModeSelector,
+  timeTrialGameModeSelector,
 } from "./selectors/stateSelectors";
 import {
   INITIALIZE_ROUND,
@@ -42,6 +44,9 @@ import {
   BLITZ_30,
   BLITZ_60,
   BLITZ_90,
+  LOCAL_BLITZ_GAMEMODE,
+  LOCAL_TIMETRIAL_GAMEMODE,
+  SELECT_SUBGAMEMODE,
 } from "../constants/constants";
 
 import { _retrieveData } from "../localStorage/retrieveData";
@@ -53,6 +58,8 @@ export const GameOver = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
   const currentGameMode = useSelector(gameModeSelector);
+  const currentBlitzGameMode = useSelector(blitzGameModeSelector);
+  const currentTimeTrialGameMode = useSelector(timeTrialGameModeSelector);
   const currentDifficulty = useSelector(difficultySelector);
   const [highScore, setHighScore] = useState(null);
   const [congrats, setCongrats] = useState(false);
@@ -66,8 +73,23 @@ export const GameOver = () => {
     difficulty !== null
       ? dispatch({ type: SELECT_DIFFICULTY, payload: difficulty })
       : dispatch({ type: SELECT_DIFFICULTY, payload: EASY });
+    const subGameMode =
+      gameMode === BLITZ
+        ? await _retrieveData(LOCAL_BLITZ_GAMEMODE)
+        : gameMode === TIMETRIAL
+        ? await _retrieveData(LOCAL_TIMETRIAL_GAMEMODE)
+        : null;
+    subGameMode !== null
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: { subGameMode: subGameMode, gameMode: gameMode },
+        })
+      : dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: { subGameMode: BLITZ_MEDIUM, gameMode: gameMode },
+        });
     const highScore = await _retrieveData(
-      `${gameMode}_${difficulty}_HIGH_SCORE`
+      `${gameMode}${difficulty}${subGameMode}HighScore`
     );
     setHighScore(highScore !== null ? highScore : 0);
   };
@@ -83,7 +105,17 @@ export const GameOver = () => {
   const handleNewHighScore = (setter) => {
     setCongrats(setter);
     if (setter) {
-      _storeData(`${currentGameMode}_${currentDifficulty}_HIGH_SCORE`, score);
+      currentGameMode === BLITZ
+        ? _storeData(
+            `${currentGameMode}${currentDifficulty}${currentBlitzGameMode}HighScore`,
+            score
+          )
+        : currentGameMode === TIMETRIAL
+        ? _storeData(
+            `${currentGameMode}${currentDifficulty}${currentTimeTrialGameMode}HighScore`,
+            score
+          )
+        : null;
       setHighScore(score);
     }
   };
@@ -101,12 +133,22 @@ export const GameOver = () => {
         <Text style={styles.smallWhiteText}>GameMode: {currentGameMode}</Text>
       </View>
       <View>
-        <View>
-          <Text style={styles.smallWhiteText}>
-            Difficulty: {currentDifficulty}
-          </Text>
-        </View>
-        <View></View>
+        <Text style={styles.smallWhiteText}>
+          Difficulty: {currentDifficulty}
+        </Text>
+      </View>
+      <View>
+        <Text style={styles.smallWhiteText}>
+          subGameMode:{" "}
+          {currentGameMode === BLITZ
+            ? currentBlitzGameMode
+            : currentGameMode === TIMETRIAL
+            ? currentTimeTrialGameMode
+            : null}{" "}
+          seconds
+        </Text>
+      </View>
+      <View>
         <Text style={styles.smallWhiteText}>High Score: {highScore}</Text>
       </View>
       <View>
