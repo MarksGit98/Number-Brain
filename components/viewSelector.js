@@ -41,9 +41,7 @@ export const ViewSelector = () => {
     <MainMenu />
   ) : view === LEVEL_SCREEN ? (
     <LevelSelector />
-  ) : view === GAME_SCREEN && gameMode === CLASSIC ? (
-    <GameScreen />
-  ) : view === GAME_SCREEN && gameMode === LIMITED ? (
+  ) : view === GAME_SCREEN && (gameMode === CLASSIC || gameMode === LIMITED) ? (
     <GameScreen />
   ) : view === GAME_SCREEN && (gameMode === BLITZ || gameMode === TIMETRIAL) ? (
     <GameScreenTimed />
