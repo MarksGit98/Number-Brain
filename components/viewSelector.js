@@ -18,8 +18,7 @@ import { _retrieveData } from "../localStorage/retrieveData";
 import { MainMenu } from "./mainMenu";
 import { LevelSelector } from "./levelSelector";
 import { GameScreen } from "./gameScreen";
-import { GameScreenBlitz } from "./gameScreenBlitz";
-import { GameScreenTimeTrial } from "./gameScreenTimeTrial";
+import { GameScreenTimed } from "./gameScreenTimed";
 import { GameModeSelect } from "./gameModeSelect";
 import { GameOver } from "./gameOverScreen";
 
@@ -46,10 +45,8 @@ export const ViewSelector = () => {
     <GameScreen />
   ) : view === GAME_SCREEN && gameMode === LIMITED ? (
     <GameScreen />
-  ) : view === GAME_SCREEN && gameMode === BLITZ ? (
-    <GameScreenBlitz />
-  ) : view === GAME_SCREEN && gameMode === TIMETRIAL ? (
-    <GameScreenTimeTrial />
+  ) : view === GAME_SCREEN && (gameMode === BLITZ || gameMode === TIMETRIAL) ? (
+    <GameScreenTimed />
   ) : view === GAMEMODE_SCREEN ? (
     <GameModeSelect />
   ) : view === GAMEOVER_SCREEN ? (

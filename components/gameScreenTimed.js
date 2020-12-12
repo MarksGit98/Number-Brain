@@ -17,6 +17,7 @@ import {
   gameModeSelector,
   scoreSelector,
   blitzGameModeSelector,
+  timeTrialGameModeSelector,
 } from "./selectors/stateSelectors";
 import {
   INITIALIZE_ROUND,
@@ -49,6 +50,7 @@ import {
   SET_SCORE,
   LOCAL_BLITZ_GAMEMODE,
   SELECT_SUBGAMEMODE,
+  LOCAL_TIMETRIAL_GAMEMODE,
 } from "../constants/constants";
 import { Symbols } from "./mini-components/symbols";
 import { Tiles } from "./mini-components/tiles";
@@ -57,11 +59,12 @@ import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { BackButton } from "./mini-components/backbutton";
 import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
-export const GameScreenBlitz = () => {
+export const GameScreenTimed = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
   const currentGameMode = useSelector(gameModeSelector);
-  const currentSubGameMode = useSelector(blitzGameModeSelector);
+  const currentBlitzGameMode = useSelector(blitzGameModeSelector);
+  const currentTimeTrialGameMode = useSelector(timeTrialGameModeSelector);
   const currentDifficulty = useSelector(difficultySelector);
   const [seconds, setSeconds] = useState(BLITZ_MEDIUM);
   const [currentPuzzle, setCurrentPuzzle] = useState(null);
@@ -73,16 +76,28 @@ export const GameScreenBlitz = () => {
     gameMode !== null
       ? dispatch({ type: SELECT_GAMEMODE, payload: gameMode })
       : dispatch({ type: SELECT_GAMEMODE, payload: CLASSIC });
-    const subGameMode = await _retrieveData(LOCAL_BLITZ_GAMEMODE);
+    const subGameMode =
+      gameMode === BLITZ
+        ? await _retrieveData(LOCAL_BLITZ_GAMEMODE)
+        : gameMode === TIMETRIAL
+        ? await _retrieveData(LOCAL_TIMETRIAL_GAMEMODE)
+        : null;
     subGameMode !== null
       ? dispatch({
           type: SELECT_SUBGAMEMODE,
           payload: { subGameMode: subGameMode, gameMode: gameMode },
         })
-      : dispatch({
+      : gameMode === BLITZ
+      ? dispatch({
           type: SELECT_SUBGAMEMODE,
           payload: { subGameMode: BLITZ_MEDIUM, gameMode: gameMode },
-        });
+        })
+      : gameMode === TIMETRIAL
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: { subGameMode: TIMETRIAL_MEDIUM, gameMode: gameMode },
+        })
+      : null;
     const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
     difficulty !== null ? loadDifficulty(difficulty) : loadDifficulty(EASY);
   };
@@ -93,8 +108,11 @@ export const GameScreenBlitz = () => {
   };
 
   useEffect(() => {
-    if (currentSubGameMode !== null) setSeconds(currentSubGameMode);
-  }, [currentSubGameMode]);
+    if (currentGameMode === BLITZ && currentBlitzGameMode !== null)
+      setSeconds(currentBlitzGameMode);
+    else if (currentGameMode === TIMETRIAL && currentTimeTrialGameMode !== null)
+      setSeconds(currentTimeTrialGameMode);
+  }, [currentBlitzGameMode, currentTimeTrialGameMode]);
 
   useEffect(() => {
     setSettings();
@@ -115,7 +133,7 @@ export const GameScreenBlitz = () => {
             GenerateSinglePuzzle(currentDifficulty, HARD_MIN, HARD_MAX)
           )
         : null;
-      setSeconds(currentSubGameMode);
+      currentGameMode === BLITZ ? setSeconds(currentBlitzGameMode) : null;
     }
   }, [localStorageLoaded, score]);
 
