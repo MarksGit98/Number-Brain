@@ -23,6 +23,7 @@ import {
   LIMITED,
   BLITZ,
   TIMETRIAL,
+  INFINITE,
   LOCAL_GAMEMODE,
   SELECT_GAMEMODE,
   BLITZ_EASY,
@@ -51,7 +52,7 @@ export const GameModeSelect = () => {
   const currentGameMode = useSelector(gameModeSelector);
   const currentBlitzGameMode = useSelector(blitzGameModeSelector);
   const currentTimeTrialGameMode = useSelector(timeTrialGameModeSelector);
-  const gameModeOptions = [CLASSIC, LIMITED, BLITZ, TIMETRIAL];
+  const gameModeOptions = [CLASSIC, LIMITED, BLITZ, TIMETRIAL, INFINITE];
   const blitzGameModes = [BLITZ_EASY, BLITZ_MEDIUM, BLITZ_HARD];
   const timeTrialGameModes = [TIMETRIAL_EASY, TIMETRIAL_MEDIUM, TIMETRIAL_HARD];
   const setSettings = async () => {
@@ -128,7 +129,7 @@ export const GameModeSelect = () => {
                 {"\n"}
               </Text>
               <View>
-                {gameMode === BLITZ
+                {currentGameMode === BLITZ && gameMode === BLITZ
                   ? blitzGameModes.map((subGameMode) => (
                       <View key={subGameMode}>
                         {gameMode === currentGameMode ? (
@@ -169,7 +170,7 @@ export const GameModeSelect = () => {
                         )}
                       </View>
                     ))
-                  : gameMode === TIMETRIAL
+                  : currentGameMode === TIMETRIAL && gameMode === TIMETRIAL
                   ? timeTrialGameModes.map((subGameMode) => (
                       <View key={subGameMode}>
                         {gameMode === currentGameMode ? (

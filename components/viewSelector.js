@@ -10,6 +10,7 @@ import {
   LIMITED,
   BLITZ,
   TIMETRIAL,
+  INFINITE,
   LOCAL_GAMEMODE,
   SELECT_GAMEMODE,
 } from "../constants/constants";
@@ -43,7 +44,8 @@ export const ViewSelector = () => {
     <LevelSelector />
   ) : view === GAME_SCREEN && (gameMode === CLASSIC || gameMode === LIMITED) ? (
     <GameScreen />
-  ) : view === GAME_SCREEN && (gameMode === BLITZ || gameMode === TIMETRIAL) ? (
+  ) : view === GAME_SCREEN &&
+    (gameMode === BLITZ || gameMode === TIMETRIAL || gameMode === INFINITE) ? (
     <GameScreenTimed />
   ) : view === GAMEMODE_SCREEN ? (
     <GameModeSelect />

@@ -51,6 +51,7 @@ import {
   LOCAL_BLITZ_GAMEMODE,
   SELECT_SUBGAMEMODE,
   LOCAL_TIMETRIAL_GAMEMODE,
+  INFINITE,
 } from "../constants/constants";
 import { Symbols } from "./mini-components/symbols";
 import { Tiles } from "./mini-components/tiles";
@@ -148,14 +149,16 @@ export const GameScreenTimed = () => {
 
   useEffect(() => {
     let interval = null;
-    if (seconds > 0) {
-      interval = setInterval(() => {
-        setSeconds((seconds) => seconds - 1);
-      }, 1000);
-    } else {
-      dispatch({ type: SWITCH_SCREEN, payload: GAMEOVER_SCREEN });
+    if (currentGameMode === TIMETRIAL || currentGameMode === BLITZ) {
+      if (seconds > 0) {
+        interval = setInterval(() => {
+          setSeconds((seconds) => seconds - 1);
+        }, 1000);
+      } else {
+        dispatch({ type: SWITCH_SCREEN, payload: GAMEOVER_SCREEN });
+      }
+      return () => clearInterval(interval);
     }
-    return () => clearInterval(interval);
   }, [seconds]);
 
   return (
@@ -169,7 +172,11 @@ export const GameScreenTimed = () => {
       </View>
       <View>
         <Text style={styles.smallWhiteText}>
-          {seconds > 0 ? seconds : "TIME'S UP"}
+          {currentGameMode !== INFINITE
+            ? seconds > 0
+              ? seconds
+              : "TIME'S UP"
+            : null}
         </Text>
       </View>
       <View style={[styles.bigTile, styles.UnselectedTile]}>

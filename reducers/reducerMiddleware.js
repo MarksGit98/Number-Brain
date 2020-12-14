@@ -18,6 +18,7 @@ import {
   LIMITED,
   BLITZ,
   TIMETRIAL,
+  INFINITE,
   EASY,
   MEDIUM,
   HARD,
@@ -206,7 +207,11 @@ export const reducerMiddleware = (rawStore) => {
           Number(rawStore.getState().gameStore.currentLevel) + 1
         );
         const nextDifficulty = difficulty === EASY ? MEDIUM : HARD;
-        if (gameMode === BLITZ || gameMode === TIMETRIAL) {
+        if (
+          gameMode === BLITZ ||
+          gameMode === TIMETRIAL ||
+          gameMode === INFINITE
+        ) {
           rawStore.dispatch({
             type: SET_SCORE,
           });

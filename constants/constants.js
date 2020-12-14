@@ -31,6 +31,7 @@ export const CLASSIC = "classic";
 export const TIMETRIAL = "timeTrial";
 export const BLITZ = "blitz";
 export const LIMITED = "limited";
+export const INFINITE = "infinite";
 
 //Difficulties
 export const EASY = "easy";

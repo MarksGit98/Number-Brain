@@ -90,8 +90,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   subGameModeDifficulty: {
-    marginLeft: "5px",
-    marginRight: "5px",
+    marginLeft: 5,
+    marginRight: 5,
   },
   difficultyOptionsView: {
     justifyContent: "center",

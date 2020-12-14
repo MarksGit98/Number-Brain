@@ -22,6 +22,7 @@ import {
   LOAD_PUZZLE,
   SET_SCORE,
   TIMETRIAL,
+  INFINITE,
   SELECT_SUBGAMEMODE,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
