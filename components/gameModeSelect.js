@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { styles } from "../styles/styles";
+import { styles } from "./styles/styles";
 import {
   GAME_SCREEN,
   LEVEL_SCREEN,
@@ -16,61 +16,207 @@ import {
   LOCAL_DIFFICULTY,
   LOCAL_LEVEL,
   SELECT_LEVEL,
-} from "../../constants/constants";
-import { difficultySelector, levelSelector } from "../selectors/stateSelectors";
-import { _retrieveData } from "../../localStorage/retrieveData";
-import { _storeData } from "../../localStorage/storeData";
-import GameModeButton from "./gameModeButton";
-import PlayButton from "./playButton";
-import LevelSelectButton from "../levelSelectButton";
+  EASY,
+  MEDIUM,
+  HARD,
+  CLASSIC,
+  LIMITED,
+  BLITZ,
+  TIMETRIAL,
+  INFINITE,
+  LOCAL_GAMEMODE,
+  SELECT_GAMEMODE,
+  BLITZ_EASY,
+  BLITZ_MEDIUM,
+  BLITZ_HARD,
+  TIMETRIAL_EASY,
+  TIMETRIAL_MEDIUM,
+  TIMETRIAL_HARD,
+  LOCAL_TIMETRIAL_GAMEMODE,
+  LOCAL_BLITZ_GAMEMODE,
+  SELECT_SUBGAMEMODE,
+} from "../constants/constants";
+import {
+  gameModeSelector,
+  blitzGameModeSelector,
+  timeTrialGameModeSelector,
+} from "./selectors/stateSelectors";
+import { _retrieveData } from "../localStorage/retrieveData";
+import { _storeData } from "../localStorage/storeData";
+import GameModeButton from "./mini-components/gameModeButton";
+import PlayButton from "./mini-components/playButton";
+import LevelSelectButton from "./mini-components/levelSelectButton";
+import { BackButton } from "./mini-components/backbutton";
 export const GameModeSelect = () => {
   const dispatch = useDispatch();
-  const currentDifficulty = useSelector(difficultySelector);
-
+  const currentGameMode = useSelector(gameModeSelector);
+  const currentBlitzGameMode = useSelector(blitzGameModeSelector);
+  const currentTimeTrialGameMode = useSelector(timeTrialGameModeSelector);
+  const gameModeOptions = [CLASSIC, LIMITED, BLITZ, TIMETRIAL, INFINITE];
+  const blitzGameModes = [BLITZ_EASY, BLITZ_MEDIUM, BLITZ_HARD];
+  const timeTrialGameModes = [TIMETRIAL_EASY, TIMETRIAL_MEDIUM, TIMETRIAL_HARD];
   const setSettings = async () => {
-    const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
-    difficulty !== null
-      ? dispatch({ type: SELECT_DIFFICULTY, payload: difficulty })
-      : dispatch({ type: SELECT_DIFFICULTY, payload: "easy" });
+    const gameMode = await _retrieveData(LOCAL_GAMEMODE);
+    gameMode !== null
+      ? dispatch({ type: SELECT_GAMEMODE, payload: gameMode })
+      : dispatch({ type: SELECT_GAMEMODE, payload: CLASSIC });
+
+    const timeTrialGameMode = await _retrieveData(LOCAL_TIMETRIAL_GAMEMODE);
+    timeTrialGameMode !== null
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: {
+            subGameMode: Number(timeTrialGameMode),
+            gameMode: TIMETRIAL,
+          },
+        })
+      : dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: { subGameMode: TIMETRIAL_MEDIUM, gameMode: TIMETRIAL },
+        });
+    const blitzGameMode = await _retrieveData(LOCAL_BLITZ_GAMEMODE);
+    blitzGameMode !== null
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: { subGameMode: Number(blitzGameMode), gameMode: BLITZ },
+        })
+      : dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: { subGameMode: BLITZ_MEDIUM, gameMode: BLITZ },
+        });
   };
 
   useEffect(() => {
     setSettings();
-  }, [currentDifficulty]);
+  }, []);
 
-  const handleDifficultyChange = (difficulty) => {
-    if (difficulty !== currentDifficulty) {
-      dispatch({ type: SELECT_DIFFICULTY, payload: difficulty });
+  const handleGameModeChange = (gameMode) => {
+    if (gameMode !== currentGameMode) {
+      dispatch({ type: SELECT_GAMEMODE, payload: gameMode });
     }
   };
 
-  const difficultyOptions = ["easy", "medium", "hard"];
+  const handleSubGameModeChange = (subGameMode, gameMode) => {
+    if (
+      (gameMode === BLITZ && subGameMode !== currentBlitzGameMode) ||
+      (gameMode === TIMETRIAL && subGameMode !== currentTimeTrialGameMode)
+    ) {
+      dispatch({
+        type: SELECT_SUBGAMEMODE,
+        payload: { subGameMode: Number(subGameMode), gameMode: gameMode },
+      });
+    }
+  };
+
   return (
     <SafeAreaView style={styles.mainView}>
+      <BackButton />
       <View style={styles.difficultyOptionsView}>
-        {difficultyOptions.map((difficulty) => (
+        {gameModeOptions.map((gameMode) => (
           <TouchableWithoutFeedback
-            key={difficulty}
-            onPress={() => handleDifficultyChange(difficulty)}
+            key={gameMode}
+            onPress={() => handleGameModeChange(gameMode)}
           >
             <View>
               <Text
                 style={[
                   styles.smallWhiteText,
-                  difficulty === currentDifficulty
-                    ? styles.difficultyOption
-                    : null,
+                  styles.centerText,
+                  gameMode === currentGameMode ? styles.difficultyOption : null,
                 ]}
               >
-                {difficulty}
+                {gameMode}
+                {"\n"}
               </Text>
+              <View>
+                {currentGameMode === BLITZ && gameMode === BLITZ
+                  ? blitzGameModes.map((subGameMode) => (
+                      <View key={subGameMode}>
+                        {gameMode === currentGameMode ? (
+                          <TouchableWithoutFeedback
+                            onPress={() =>
+                              handleSubGameModeChange(subGameMode, gameMode)
+                            }
+                          >
+                            <View>
+                              <Text
+                                style={[
+                                  styles.centerText,
+                                  styles.subGameModeDifficulty,
+                                  styles.smallWhiteText,
+                                  subGameMode === currentBlitzGameMode
+                                    ? styles.difficultyOption
+                                    : null,
+                                ]}
+                              >
+                                {subGameMode}s
+                              </Text>
+                            </View>
+                          </TouchableWithoutFeedback>
+                        ) : (
+                          <TouchableWithoutFeedback>
+                            <View>
+                              <Text
+                                style={[
+                                  styles.centerText,
+                                  styles.subGameModeDifficulty,
+                                  styles.smallWhiteText,
+                                ]}
+                              >
+                                {subGameMode}s
+                              </Text>
+                            </View>
+                          </TouchableWithoutFeedback>
+                        )}
+                      </View>
+                    ))
+                  : currentGameMode === TIMETRIAL && gameMode === TIMETRIAL
+                  ? timeTrialGameModes.map((subGameMode) => (
+                      <View key={subGameMode}>
+                        {gameMode === currentGameMode ? (
+                          <TouchableWithoutFeedback
+                            onPress={() =>
+                              handleSubGameModeChange(subGameMode, gameMode)
+                            }
+                          >
+                            <View>
+                              <Text
+                                style={[
+                                  styles.subGameModeDifficulty,
+                                  styles.smallWhiteText,
+                                  styles.centerText,
+                                  subGameMode === currentTimeTrialGameMode
+                                    ? styles.difficultyOption
+                                    : null,
+                                ]}
+                              >
+                                {subGameMode}s
+                              </Text>
+                            </View>
+                          </TouchableWithoutFeedback>
+                        ) : (
+                          <TouchableWithoutFeedback>
+                            <View>
+                              <Text
+                                style={[
+                                  styles.subGameModeDifficulty,
+                                  styles.smallWhiteText,
+                                  styles.centerText,
+                                ]}
+                              >
+                                {subGameMode}s
+                              </Text>
+                            </View>
+                          </TouchableWithoutFeedback>
+                        )}
+                      </View>
+                    ))
+                  : null}
+              </View>
             </View>
           </TouchableWithoutFeedback>
         ))}
       </View>
-      <GameModeButton />
-      <LevelSelectButton />
-      <PlayButton />
     </SafeAreaView>
   );
 };

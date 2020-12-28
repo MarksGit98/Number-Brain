@@ -14,6 +14,7 @@ import {
   wonSelector,
   levelSelector,
   difficultySelector,
+  gameModeSelector,
 } from "./selectors/stateSelectors";
 import {
   INITIALIZE_ROUND,
@@ -22,24 +23,37 @@ import {
   LOCAL_LEVEL,
   SELECT_LEVEL,
   SELECT_DIFFICULTY,
+  CLASSIC,
+  LIMITED,
+  TIMETRIAL,
+  BLITZ,
+  LOCAL_GAMEMODE,
+  EASY,
+  MEDIUM,
+  HARD,
+  SELECT_GAMEMODE,
 } from "../constants/constants";
-import { Symbols } from "./symbols";
-import { Tiles } from "./tiles";
-import { ReverseTurn } from "./reverseTurn";
+import { Symbols } from "./mini-components/symbols";
+import { Tiles } from "./mini-components/tiles";
+import { ReverseTurn } from "./mini-components/reverseTurn";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
-import { BackButton } from "./backbutton";
+import { BackButton } from "./mini-components/backbutton";
 
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const currentLevel = useSelector(levelSelector);
+  const currentGameMode = useSelector(gameModeSelector);
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
   const setSettings = async () => {
+    const gameMode = await _retrieveData(LOCAL_GAMEMODE);
+    gameMode !== null
+      ? dispatch({ type: SELECT_GAMEMODE, payload: gameMode })
+      : dispatch({ type: SELECT_GAMEMODE, payload: CLASSIC });
     const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
     difficulty !== null
       ? dispatch({ type: SELECT_DIFFICULTY, payload: difficulty })
-      : dispatch({ type: SELECT_DIFFICULTY, payload: "easy" });
-
+      : dispatch({ type: SELECT_DIFFICULTY, payload: EASY });
     const level = await _retrieveData(`${difficulty}${LOCAL_LEVEL}`);
     level !== null ? loadLevel(level) : loadLevel("1");
   };
@@ -66,6 +80,9 @@ export const GameScreen = () => {
   return (
     <SafeAreaView style={styles.mainView}>
       <BackButton />
+      <View>
+        <Text style={styles.smallWhiteText}>GameMode: {currentGameMode}</Text>
+      </View>
       <View>
         <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
       </View>

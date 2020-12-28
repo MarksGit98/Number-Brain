@@ -11,21 +11,19 @@ import {
   SELECT_GAMEMODE,
   GAME_SCREEN,
   SWITCH_SCREEN,
-  GAMEMODE_SCREEN,
+  MAIN_MENU,
 } from "../../constants/constants";
-export default function GameModeButton() {
+export const MainMenuButton = () => {
   const dispatch = useDispatch();
   return (
-    <View style={[styles.bigButton, { backgroundColor: "green" }]}>
+    <View style={[styles.bigButton, { backgroundColor: "red" }]}>
       <TouchableWithoutFeedback
-        onPress={() =>
-          dispatch({ type: SWITCH_SCREEN, payload: GAMEMODE_SCREEN })
-        }
+        onPress={() => dispatch({ type: SWITCH_SCREEN, payload: MAIN_MENU })}
       >
         <View>
-          <Text style={styles.mediumWhiteText}>GAMEMODE</Text>
+          <Text style={styles.mediumWhiteText}>MAIN MENU</Text>
         </View>
       </TouchableWithoutFeedback>
     </View>
   );
-}
+};

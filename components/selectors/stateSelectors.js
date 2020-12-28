@@ -36,3 +36,17 @@ export const screenSelector = (state) => {
 export const difficultySelector = (state) => {
   return state.gameStore.difficulty;
 };
+
+export const gameModeSelector = (state) => {
+  return state.gameStore.gameMode;
+};
+
+export const blitzGameModeSelector = (state) => {
+  return state.gameStore.subGameModes.blitz;
+};
+export const timeTrialGameModeSelector = (state) => {
+  return state.gameStore.subGameModes.timeTrial;
+};
+export const scoreSelector = (state) => {
+  return state.gameStore.score;
+};

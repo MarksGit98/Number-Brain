@@ -10,6 +10,20 @@ import {
   SELECT_LEVEL,
   LOCAL_DIFFICULTY,
   LOCAL_LEVEL,
+  EASY,
+  MEDIUM,
+  HARD,
+  ADD,
+  SUBTRACT,
+  MULTIPLY,
+  DIVIDE,
+  LOCAL_GAMEMODE,
+  SELECT_GAMEMODE,
+  LOAD_PUZZLE,
+  SET_SCORE,
+  TIMETRIAL,
+  INFINITE,
+  SELECT_SUBGAMEMODE,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 import { initialState } from "./initialGameState";
@@ -78,19 +92,19 @@ export const gameReducer = (state = initialState, action) => {
               ],
         symbols: {
           add:
-            state.selectedSymbol.symbol === "add"
+            state.selectedSymbol.symbol === ADD
               ? state.symbols.add - 1
               : state.symbols.add,
           subtract:
-            state.selectedSymbol.symbol === "subtract"
+            state.selectedSymbol.symbol === SUBTRACT
               ? state.symbols.subtract - 1
               : state.symbols.subtract,
           multiply:
-            state.selectedSymbol.symbol === "multiply"
+            state.selectedSymbol.symbol === MULTIPLY
               ? state.symbols.multiply - 1
               : state.symbols.multiply,
           divide:
-            state.selectedSymbol.symbol === "divide"
+            state.selectedSymbol.symbol === DIVIDE
               ? state.symbols.divide - 1
               : state.symbols.divide,
         },
@@ -117,19 +131,17 @@ export const gameReducer = (state = initialState, action) => {
         selectedSymbol: { symbol: null, quantity: null },
         symbols: {
           add:
-            prevTurn.symbol === "add"
-              ? state.symbols.add + 1
-              : state.symbols.add,
+            prevTurn.symbol === ADD ? state.symbols.add + 1 : state.symbols.add,
           subtract:
-            prevTurn.symbol === "subtract"
+            prevTurn.symbol === SUBTRACT
               ? state.symbols.subtract + 1
               : state.symbols.subtract,
           multiply:
-            prevTurn.symbol === "multiply"
+            prevTurn.symbol === MULTIPLY
               ? state.symbols.multiply + 1
               : state.symbols.multiply,
           divide:
-            prevTurn.symbol === "divide"
+            prevTurn.symbol === DIVIDE
               ? state.symbols.divide + 1
               : state.symbols.divide,
         },
@@ -152,6 +164,26 @@ export const gameReducer = (state = initialState, action) => {
         won: false,
       };
     }
+
+    case LOAD_PUZZLE: {
+      return {
+        ...state,
+        currentLevel: null,
+        tiles: action.payload.tiles,
+        symbols: action.payload.symbols,
+        bigNumber: action.payload.bigNumber,
+        turnHistory: [],
+        won: false,
+      };
+    }
+
+    case SET_SCORE: {
+      return {
+        ...state,
+        score: action.payload === undefined ? state.score + 1 : action.payload,
+      };
+    }
+
     case SELECT_DIFFICULTY: {
       _storeData(`${LOCAL_DIFFICULTY}`, action.payload);
       return {
@@ -164,6 +196,27 @@ export const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         currentLevel: action.payload,
+      };
+    }
+    case SELECT_GAMEMODE: {
+      _storeData(`${LOCAL_GAMEMODE}`, action.payload);
+      return {
+        ...state,
+        gameMode: action.payload,
+      };
+    }
+    case SELECT_SUBGAMEMODE: {
+      const gameMode = action.payload.gameMode;
+      const subGameMode = action.payload.subGameMode;
+      _storeData(
+        `local${action.payload.gameMode}GameMode`,
+        Number(subGameMode)
+      );
+      const newSubGameModes = state.subGameModes;
+      newSubGameModes[`${gameMode}`] = Number(subGameMode);
+      return {
+        ...state,
+        subGameModes: newSubGameModes,
       };
     }
     default:
