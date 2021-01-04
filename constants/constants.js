@@ -77,13 +77,13 @@ export const MEDIUM_MIN = 1;
 export const MEDIUM_MAX = 100;
 export const HARD_MIN = 1;
 export const HARD_MAX = 150;
-export const BLITZ_HARD = 30;
-export const BLITZ_MEDIUM = 60;
-export const BLITZ_EASY = 90;
-export const TIMETRIAL_HARD = 90;
-export const TIMETRIAL_MEDIUM = 180;
-export const TIMETRIAL_EASY = 300;
-export const TESTING_TIME = 3;
+export const BLITZ_HARD = "30";
+export const BLITZ_MEDIUM = "60";
+export const BLITZ_EASY = "90";
+export const TIMETRIAL_HARD = "90";
+export const TIMETRIAL_MEDIUM = "180";
+export const TIMETRIAL_EASY = "300";
+export const TESTING_TIME = "3";
 
 //Colors and Styles
 export const tileColor = "#343435";

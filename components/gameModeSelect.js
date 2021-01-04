@@ -74,6 +74,7 @@ export const GameModeSelect = () => {
           type: SELECT_SUBGAMEMODE,
           payload: { subGameMode: TIMETRIAL_MEDIUM, gameMode: TIMETRIAL },
         });
+
     const blitzGameMode = await _retrieveData(LOCAL_BLITZ_GAMEMODE);
     blitzGameMode !== null
       ? dispatch({
