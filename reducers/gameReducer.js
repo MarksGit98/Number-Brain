@@ -208,12 +208,9 @@ export const gameReducer = (state = initialState, action) => {
     case SELECT_SUBGAMEMODE: {
       const gameMode = action.payload.gameMode;
       const subGameMode = action.payload.subGameMode;
-      _storeData(
-        `local${action.payload.gameMode}GameMode`,
-        Number(subGameMode)
-      );
+      _storeData(`local${action.payload.gameMode}GameMode`, subGameMode);
       const newSubGameModes = state.subGameModes;
-      newSubGameModes[`${gameMode}`] = Number(subGameMode);
+      newSubGameModes[`${gameMode}`] = subGameMode;
       return {
         ...state,
         subGameModes: newSubGameModes,

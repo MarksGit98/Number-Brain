@@ -86,8 +86,8 @@ export const GameScreen = () => {
       <View>
         <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
       </View>
-      <View style={[styles.bigTile, styles.UnselectedTile]}>
-        <Text style={styles.bigNumber}>{bigNumber}</Text>
+      <View style={[styles.bigTile, styles.unselectedTile]}>
+        <Text style={styles.largeWhiteText}>{bigNumber}</Text>
       </View>
 
       <View>

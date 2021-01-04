@@ -45,13 +45,13 @@ export const Symbols = () => {
                 <View
                   style={
                     selectedSymbol.symbol === sign
-                      ? [styles.tile, styles.SelectedSymbol]
+                      ? [styles.symbolTile, styles.selectedSymbol]
                       : symbols[`${sign}`] > 0
-                      ? [styles.tile, styles.UnselectedTile]
-                      : [styles.tile, styles.DisabledTile]
+                      ? [styles.symbolTile, styles.unselectedTile]
+                      : [styles.symbolTile, styles.disabledTile]
                   }
                 >
-                  <Text style={styles.smallNumber}>
+                  <Text style={styles.smallWhiteText}>
                     {sign === "add"
                       ? "+"
                       : sign === "subtract"
@@ -64,7 +64,7 @@ export const Symbols = () => {
                   </Text>
                 </View>
                 <View styles={styles.quantityTile}>
-                  <Text styles={styles.smallNumber}>{symbols[sign]}</Text>
+                  <Text styles={styles.smallWhiteText}>{symbols[sign]}</Text>
                 </View>
               </View>
             ) : (
@@ -73,10 +73,10 @@ export const Symbols = () => {
                   style={
                     selectedSymbol.symbol === sign
                       ? [styles.tile, styles.SelectedSymbol]
-                      : [styles.tile, styles.UnselectedTile]
+                      : [styles.tile, styles.unselectedTile]
                   }
                 >
-                  <Text style={styles.smallNumber}>
+                  <Text style={styles.smallWhiteText}>
                     {sign === "add"
                       ? "+"
                       : sign === "subtract"

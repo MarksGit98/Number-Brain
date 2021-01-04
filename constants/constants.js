@@ -84,3 +84,8 @@ export const TIMETRIAL_HARD = 90;
 export const TIMETRIAL_MEDIUM = 180;
 export const TIMETRIAL_EASY = 300;
 export const TESTING_TIME = 3;
+
+//Colors and Styles
+export const tileColor = "#343435";
+export const backgroundColor = "#1C2833";
+// export const

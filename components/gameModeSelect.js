@@ -66,7 +66,7 @@ export const GameModeSelect = () => {
       ? dispatch({
           type: SELECT_SUBGAMEMODE,
           payload: {
-            subGameMode: Number(timeTrialGameMode),
+            subGameMode: timeTrialGameMode,
             gameMode: TIMETRIAL,
           },
         })
@@ -78,7 +78,7 @@ export const GameModeSelect = () => {
     blitzGameMode !== null
       ? dispatch({
           type: SELECT_SUBGAMEMODE,
-          payload: { subGameMode: Number(blitzGameMode), gameMode: BLITZ },
+          payload: { subGameMode: blitzGameMode, gameMode: BLITZ },
         })
       : dispatch({
           type: SELECT_SUBGAMEMODE,
@@ -103,7 +103,7 @@ export const GameModeSelect = () => {
     ) {
       dispatch({
         type: SELECT_SUBGAMEMODE,
-        payload: { subGameMode: Number(subGameMode), gameMode: gameMode },
+        payload: { subGameMode: subGameMode, gameMode: gameMode },
       });
     }
   };

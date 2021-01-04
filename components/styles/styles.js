@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { tileColor, backgroundColor } from "../../constants/constants";
 export const styles = StyleSheet.create({
   bigNumber: {
     fontSize: 90,
@@ -16,22 +17,32 @@ export const styles = StyleSheet.create({
     color: "white",
   },
   largeWhiteText: {
-    fontSize: 72,
+    fontSize: 85,
     color: "white",
   },
   mainView: {
-    backgroundColor: "purple",
+    backgroundColor: backgroundColor,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 0,
   },
-  UnselectedTile: {
-    backgroundColor: "yellow",
+  unselectedTile: {
+    backgroundColor: tileColor,
   },
-  DisabledTile: {
+  disabledTile: {
     backgroundColor: "gray",
   },
+  symbolTile: {
+    marginLeft: 10,
+    marginRight: 10,
+    height: 40,
+    width: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
+  },
+
   tile: {
     marginLeft: 10,
     marginRight: 10,
@@ -39,6 +50,7 @@ export const styles = StyleSheet.create({
     width: 47,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 5,
   },
   quantityTile: {
     height: 12,
@@ -52,14 +64,15 @@ export const styles = StyleSheet.create({
     width: 150,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 12,
   },
-  SelectedTile1: {
+  selectedTile1: {
     backgroundColor: "red",
   },
-  SelectedTile2: {
+  selectedTile2: {
     backgroundColor: "blue",
   },
-  SelectedSymbol: {
+  selectedSymbol: {
     backgroundColor: "green",
   },
   row: {

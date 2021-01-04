@@ -16,7 +16,6 @@ import {
   symbolSelector,
   wonSelector,
 } from "../selectors/stateSelectors";
-import { useSelectTile } from "../dispatches/dispatchOperations";
 import { SELECT_TILE } from "../../constants/constants";
 
 export const Tiles = () => {
@@ -35,13 +34,13 @@ export const Tiles = () => {
             <View
               style={
                 index === index1
-                  ? [styles.tile, styles.SelectedTile1]
+                  ? [styles.tile, styles.selectedTile1]
                   : index === index2
-                  ? [styles.tile, styles.SelectedTile2]
-                  : [styles.tile, styles.UnselectedTile]
+                  ? [styles.tile, styles.selectedTile2]
+                  : [styles.tile, styles.unselectedTile]
               }
             >
-              <Text style={styles.smallNumber}>{tile}</Text>
+              <Text style={styles.smallWhiteText}>{tile}</Text>
             </View>
           </TouchableWithoutFeedback>
         ))}

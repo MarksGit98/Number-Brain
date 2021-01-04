@@ -52,6 +52,7 @@ import {
   SELECT_SUBGAMEMODE,
   LOCAL_TIMETRIAL_GAMEMODE,
   INFINITE,
+  TIMETRIAL_MEDIUM,
 } from "../constants/constants";
 import { Symbols } from "./mini-components/symbols";
 import { Tiles } from "./mini-components/tiles";
@@ -179,8 +180,8 @@ export const GameScreenTimed = () => {
             : null}
         </Text>
       </View>
-      <View style={[styles.bigTile, styles.UnselectedTile]}>
-        <Text style={styles.bigNumber}>{bigNumber}</Text>
+      <View style={[styles.bigTile, styles.unselectedTile]}>
+        <Text style={styles.largeWhiteText}>{bigNumber}</Text>
       </View>
       <Tiles />
       <Symbols />

@@ -40,14 +40,15 @@ export const reducerMiddleware = (rawStore) => {
     //Trigger dispatches here
     switch (action.type) {
       case SELECT_TILE: {
-        if (
-          rawStore.getState().gameStore.selectedTile1.index === action.payload
-        ) {
+        console.log(rawStore.getState().gameStore);
+        const selectedTile1 = rawStore.getState().gameStore.selectedTile1.index;
+        const selectedTile2 = rawStore.getState().gameStore.selectedTile2.index;
+        if (selectedTile1 === action.payload) {
           rawStore.dispatch({
             type: SELECT_TILE_1,
             payload: null,
           });
-        } else if (rawStore.getState().gameStore.selectedTile1.index === null) {
+        } else if (selectedTile1 === null) {
           rawStore.dispatch({
             type: SELECT_TILE_1,
             payload: action.payload,
@@ -55,17 +56,12 @@ export const reducerMiddleware = (rawStore) => {
           dispatch({
             type: PERFORM_OPERATION,
           });
-        } else if (
-          rawStore.getState().gameStore.selectedTile2.index === action.payload
-        ) {
+        } else if (selectedTile2 === action.payload) {
           rawStore.dispatch({
             type: SELECT_TILE_2,
             payload: null,
           });
-        } else if (
-          rawStore.getState().gameStore.selectedTile2.index === null &&
-          action.payload !== rawStore.getState().gameStore.selectedTile1.index
-        ) {
+        } else if (selectedTile2 === null && action.payload !== selectedTile1) {
           rawStore.dispatch({
             type: SELECT_TILE_2,
             payload: action.payload,
@@ -78,6 +74,10 @@ export const reducerMiddleware = (rawStore) => {
             type: SELECT_TILE_1,
             payload: action.payload,
           });
+        }
+        if (selectedTile1 === selectedTile2 && selectedTile1 !== null) {
+          rawStore.dispatch({ type: SELECT_TILE_1, payload: null });
+          rawStore.dispatch({ type: SELECT_TILE_2, payload: null });
         }
         break;
       }

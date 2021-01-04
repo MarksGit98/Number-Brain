@@ -47,6 +47,7 @@ import {
   LOCAL_BLITZ_GAMEMODE,
   LOCAL_TIMETRIAL_GAMEMODE,
   SELECT_SUBGAMEMODE,
+  BLITZ_MEDIUM,
 } from "../constants/constants";
 
 import { _retrieveData } from "../localStorage/retrieveData";
@@ -121,7 +122,9 @@ export const GameOver = () => {
 
   useEffect(() => {
     if (localStorageLoaded) {
-      score > highScore ? handleNewHighScore(true) : handleNewHighScore(false);
+      Number(score) > Number(highScore)
+        ? handleNewHighScore(true)
+        : handleNewHighScore(false);
     }
   }, [localStorageLoaded]);
 
