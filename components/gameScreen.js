@@ -39,12 +39,14 @@ import { ReverseTurn } from "./mini-components/reverseTurn";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { BackButton } from "./mini-components/backbutton";
-
+import { Audio } from "expo-av";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const currentLevel = useSelector(levelSelector);
   const currentGameMode = useSelector(gameModeSelector);
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
+  const [winSound, setWinSound] = useState();
+  const [solvedFirstPuzzle, setSolvedFirstPuzzle] = useState(false);
   const setSettings = async () => {
     const gameMode = await _retrieveData(LOCAL_GAMEMODE);
     gameMode !== null
@@ -67,11 +69,30 @@ export const GameScreen = () => {
     setLocalStorageLoaded(true);
   };
 
+  const playWinSound = async () => {
+    const sound = new Audio.Sound();
+    await sound.loadAsync(require("../assets/puzzleSolve.mp3"));
+    await sound.playAsync();
+    setWinSound(sound);
+  };
+
+  useEffect(() => {
+    return winSound
+      ? () => {
+          winSound.unloadAsync();
+        }
+      : undefined;
+  }, [winSound]);
+
   useEffect(() => {
     if (localStorageLoaded) {
       dispatch({
         type: INITIALIZE_ROUND,
       });
+      setSolvedFirstPuzzle(true);
+    }
+    if (solvedFirstPuzzle) {
+      playWinSound();
     }
   }, [localStorageLoaded, currentLevel]);
 

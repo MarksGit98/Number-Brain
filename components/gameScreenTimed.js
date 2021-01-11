@@ -61,6 +61,7 @@ import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { BackButton } from "./mini-components/backbutton";
 import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
+import { Audio } from "expo-av";
 export const GameScreenTimed = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
@@ -71,6 +72,9 @@ export const GameScreenTimed = () => {
   const [seconds, setSeconds] = useState(BLITZ_MEDIUM);
   const [currentPuzzle, setCurrentPuzzle] = useState(null);
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
+  const [winSound, setWinSound] = useState();
+  const [solvedFirstPuzzle, setSolvedFirstPuzzle] = useState(false);
+
   const bigNumber = useSelector(bigNumberSelector);
   const setSettings = async () => {
     dispatch({ type: SET_SCORE, payload: 0 });
@@ -139,12 +143,31 @@ export const GameScreenTimed = () => {
     }
   }, [localStorageLoaded, score]);
 
+  const playWinSound = async () => {
+    const sound = new Audio.Sound();
+    await sound.loadAsync(require("../assets/puzzleSolve.mp3"));
+    await sound.playAsync();
+    setWinSound(sound);
+  };
+
+  useEffect(() => {
+    return winSound
+      ? () => {
+          winSound.unloadAsync();
+        }
+      : undefined;
+  }, [winSound]);
+
   useEffect(() => {
     if (localStorageLoaded && currentPuzzle !== null) {
       dispatch({
         type: LOAD_PUZZLE,
         payload: currentPuzzle,
       });
+      setSolvedFirstPuzzle(true);
+    }
+    if (solvedFirstPuzzle) {
+      playWinSound();
     }
   }, [currentPuzzle]);
 

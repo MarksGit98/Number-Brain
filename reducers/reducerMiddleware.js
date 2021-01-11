@@ -40,7 +40,6 @@ export const reducerMiddleware = (rawStore) => {
     //Trigger dispatches here
     switch (action.type) {
       case SELECT_TILE: {
-        console.log(rawStore.getState().gameStore);
         const selectedTile1 = rawStore.getState().gameStore.selectedTile1.index;
         const selectedTile2 = rawStore.getState().gameStore.selectedTile2.index;
         if (selectedTile1 === action.payload) {

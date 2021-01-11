@@ -88,4 +88,10 @@ export const TESTING_TIME = "3";
 //Colors and Styles
 export const tileColor = "#343435";
 export const backgroundColor = "#1C2833";
-// export const
+
+//Music and SFX
+export const BACKGROUND_MUSIC = "./assets/bgmusic.mp3";
+export const SYMBOL_ENABLED_SELECT_SOUND = "../../assets/symbolTap.mp3";
+export const SYMBOL_DISABLED_SELECT_SOUND =
+  "../../assets/disabledSymbolTap.mp3";
+export const TILE_SELECT_SOUND = "../../assets/tileTap.mp3";

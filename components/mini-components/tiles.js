@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -17,19 +17,45 @@ import {
   wonSelector,
 } from "../selectors/stateSelectors";
 import { SELECT_TILE } from "../../constants/constants";
-
+import { Audio } from "expo-av";
 export const Tiles = () => {
   const dispatch = useDispatch();
   const tiles = useSelector(tilesSelector);
   const index1 = useSelector(tile1Selector).index;
   const index2 = useSelector(tile2Selector).index;
+  const [tileSound, setTileSound] = useState();
+
+  const playTileSelectSound = async () => {
+    const sound = new Audio.Sound();
+    await sound.loadAsync(require("../../assets/tileTap.mp3"));
+    await sound.playAsync();
+    setTileSound(sound);
+  };
+
+  useEffect(() => {
+    return tileSound
+      ? () => {
+          tileSound.unloadAsync();
+        }
+      : undefined;
+  }, [tileSound]);
+
+  const handleTileSelection = (index) => {
+    dispatch({ type: SELECT_TILE, payload: index });
+    try {
+      playTileSelectSound();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <View style={styles.row}>
       {tiles &&
         tiles.map((tile, index) => (
           <TouchableWithoutFeedback
             key={index}
-            onPress={() => dispatch({ type: SELECT_TILE, payload: index })}
+            onPress={() => handleTileSelection(index)}
           >
             <View
               style={

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -23,14 +23,47 @@ import {
   LIMITED,
   TIMETRIAL,
   BLITZ,
+  SYMBOL_ENABLED_SELECT_SOUND,
+  SYMBOL_DISABLED_SELECT_SOUND,
 } from "../../constants/constants";
-
+import { Audio } from "expo-av";
 export const Symbols = () => {
   const dispatch = useDispatch();
   const signs = ["add", "subtract", "multiply", "divide"];
   const selectedSymbol = useSelector(selectedSymbolSelector);
   const symbols = useSelector(symbolSelector);
   const currentGamemode = useSelector(gameModeSelector);
+  const [symbolSound, setSymbolSound] = useState();
+
+  const playSymbolSelectSound = async (enabled) => {
+    const sound = new Audio.Sound();
+    enabled
+      ? await sound.loadAsync(require("../../assets/symbolTap.mp3"))
+      : await sound.loadAsync(require("../../assets/disabledSymbolTap.mp3"));
+    await sound.playAsync();
+    setSymbolSound(sound);
+  };
+
+  useEffect(() => {
+    return symbolSound
+      ? () => {
+          symbolSound.unloadAsync();
+        }
+      : undefined;
+  }, [symbolSound]);
+
+  const handleSymbolSelection = (sign) => {
+    dispatch({ type: SELECT_SYMBOL, payload: sign });
+    try {
+      if (currentGamemode === LIMITED) {
+        symbols[`${sign}`] > 0
+          ? playSymbolSelectSound(true)
+          : playSymbolSelectSound(false);
+      } else playSymbolSelectSound(true);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <View top="20%" style={styles.row}>
@@ -38,7 +71,7 @@ export const Symbols = () => {
         return (
           <TouchableWithoutFeedback
             key={sign}
-            onPress={() => dispatch({ type: SELECT_SYMBOL, payload: sign })}
+            onPress={() => handleSymbolSelection(sign)}
           >
             {currentGamemode === LIMITED ? (
               <View>
@@ -72,8 +105,8 @@ export const Symbols = () => {
                 <View
                   style={
                     selectedSymbol.symbol === sign
-                      ? [styles.tile, styles.SelectedSymbol]
-                      : [styles.tile, styles.unselectedTile]
+                      ? [styles.symbolTile, styles.selectedSymbol]
+                      : [styles.symbolTile, styles.unselectedTile]
                   }
                 >
                   <Text style={styles.smallWhiteText}>

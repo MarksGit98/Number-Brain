@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   MAIN_MENU,
@@ -22,6 +22,7 @@ import { GameScreen } from "./gameScreen";
 import { GameScreenTimed } from "./gameScreenTimed";
 import { GameModeSelect } from "./gameModeSelect";
 import { GameOver } from "./gameOverScreen";
+import { Audio } from "expo-av";
 
 export const ViewSelector = () => {
   const dispatch = useDispatch();

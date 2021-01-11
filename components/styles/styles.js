@@ -36,18 +36,18 @@ export const styles = StyleSheet.create({
   symbolTile: {
     marginLeft: 10,
     marginRight: 10,
-    height: 40,
-    width: 40,
+    height: 50,
+    width: 50,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 20,
+    borderRadius: 25,
   },
 
   tile: {
     marginLeft: 10,
     marginRight: 10,
-    height: 47,
-    width: 47,
+    height: 50,
+    width: 50,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
@@ -133,7 +133,6 @@ export const styles = StyleSheet.create({
   },
   levelContainer: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "flex-start",
     justifyContent: "flex-start",
     flexDirection: "row",

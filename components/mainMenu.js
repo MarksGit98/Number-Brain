@@ -23,6 +23,7 @@ import { _storeData } from "../localStorage/storeData";
 import GameModeButton from "./mini-components/gameModeButton";
 import { PlayButton } from "./mini-components/playButton";
 import { LevelSelectButton } from "./mini-components/levelSelectButton";
+
 export const MainMenu = () => {
   const dispatch = useDispatch();
   const currentDifficulty = useSelector(difficultySelector);
