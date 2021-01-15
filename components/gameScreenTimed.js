@@ -53,6 +53,7 @@ import {
   LOCAL_TIMETRIAL_GAMEMODE,
   INFINITE,
   TIMETRIAL_MEDIUM,
+  PUZZLE_SOLVE,
 } from "../constants/constants";
 import { Symbols } from "./mini-components/symbols";
 import { Tiles } from "./mini-components/tiles";
@@ -61,7 +62,7 @@ import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { BackButton } from "./mini-components/backbutton";
 import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
-import { Audio } from "expo-av";
+import { playSound } from "../constants/buttonClick";
 export const GameScreenTimed = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
@@ -72,7 +73,6 @@ export const GameScreenTimed = () => {
   const [seconds, setSeconds] = useState(BLITZ_MEDIUM);
   const [currentPuzzle, setCurrentPuzzle] = useState(null);
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
-  const [winSound, setWinSound] = useState();
   const [solvedFirstPuzzle, setSolvedFirstPuzzle] = useState(false);
 
   const bigNumber = useSelector(bigNumberSelector);
@@ -142,22 +142,6 @@ export const GameScreenTimed = () => {
       currentGameMode === BLITZ ? setSeconds(currentBlitzGameMode) : null;
     }
   }, [localStorageLoaded, score]);
-
-  const playWinSound = async () => {
-    const sound = new Audio.Sound();
-    await sound.loadAsync(require("../assets/puzzleSolve.mp3"));
-    await sound.playAsync();
-    setWinSound(sound);
-  };
-
-  useEffect(() => {
-    return winSound
-      ? () => {
-          winSound.unloadAsync();
-        }
-      : undefined;
-  }, [winSound]);
-
   useEffect(() => {
     if (localStorageLoaded && currentPuzzle !== null) {
       dispatch({
@@ -167,7 +151,7 @@ export const GameScreenTimed = () => {
       setSolvedFirstPuzzle(true);
     }
     if (solvedFirstPuzzle) {
-      playWinSound();
+      playSound(PUZZLE_SOLVE);
     }
   }, [currentPuzzle]);
 

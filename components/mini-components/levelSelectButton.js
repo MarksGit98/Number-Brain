@@ -12,14 +12,20 @@ import {
   GAME_SCREEN,
   SWITCH_SCREEN,
   LEVEL_SCREEN,
+  BUTTON_CLICK,
 } from "../../constants/constants";
+import { playSound } from "../../constants/buttonClick";
 export const LevelSelectButton = () => {
   const dispatch = useDispatch();
+
+  const handleButtonClick = () => {
+    playSound(BUTTON_CLICK);
+    dispatch({ type: SWITCH_SCREEN, payload: LEVEL_SCREEN });
+  };
+
   return (
     <View style={[styles.bigButton, { backgroundColor: "red" }]}>
-      <TouchableWithoutFeedback
-        onPress={() => dispatch({ type: SWITCH_SCREEN, payload: LEVEL_SCREEN })}
-      >
+      <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
         <View>
           <Text style={styles.mediumWhiteText}>LEVEL SELECT</Text>
         </View>

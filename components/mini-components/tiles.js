@@ -16,37 +16,17 @@ import {
   symbolSelector,
   wonSelector,
 } from "../selectors/stateSelectors";
-import { SELECT_TILE } from "../../constants/constants";
-import { Audio } from "expo-av";
+import { SELECT_TILE, TILE_TAP } from "../../constants/constants";
+import { playSound } from "../../constants/buttonClick";
 export const Tiles = () => {
   const dispatch = useDispatch();
   const tiles = useSelector(tilesSelector);
   const index1 = useSelector(tile1Selector).index;
   const index2 = useSelector(tile2Selector).index;
-  const [tileSound, setTileSound] = useState();
-
-  const playTileSelectSound = async () => {
-    const sound = new Audio.Sound();
-    await sound.loadAsync(require("../../assets/tileTap.mp3"));
-    await sound.playAsync();
-    setTileSound(sound);
-  };
-
-  useEffect(() => {
-    return tileSound
-      ? () => {
-          tileSound.unloadAsync();
-        }
-      : undefined;
-  }, [tileSound]);
 
   const handleTileSelection = (index) => {
+    playSound(TILE_TAP);
     dispatch({ type: SELECT_TILE, payload: index });
-    try {
-      playTileSelectSound();
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   return (

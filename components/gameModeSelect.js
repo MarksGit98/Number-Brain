@@ -35,6 +35,8 @@ import {
   LOCAL_TIMETRIAL_GAMEMODE,
   LOCAL_BLITZ_GAMEMODE,
   SELECT_SUBGAMEMODE,
+  BUTTON_CLICK,
+  ERROR_CLICK,
 } from "../constants/constants";
 import {
   gameModeSelector,
@@ -43,10 +45,8 @@ import {
 } from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
-import GameModeButton from "./mini-components/gameModeButton";
-import PlayButton from "./mini-components/playButton";
-import LevelSelectButton from "./mini-components/levelSelectButton";
 import { BackButton } from "./mini-components/backbutton";
+import { playSound } from "../constants/buttonClick";
 export const GameModeSelect = () => {
   const dispatch = useDispatch();
   const currentGameMode = useSelector(gameModeSelector);
@@ -93,7 +93,10 @@ export const GameModeSelect = () => {
 
   const handleGameModeChange = (gameMode) => {
     if (gameMode !== currentGameMode) {
+      playSound(BUTTON_CLICK);
       dispatch({ type: SELECT_GAMEMODE, payload: gameMode });
+    } else {
+      playSound(ERROR_CLICK);
     }
   };
 
@@ -102,10 +105,13 @@ export const GameModeSelect = () => {
       (gameMode === BLITZ && subGameMode !== currentBlitzGameMode) ||
       (gameMode === TIMETRIAL && subGameMode !== currentTimeTrialGameMode)
     ) {
+      playSound(BUTTON_CLICK);
       dispatch({
         type: SELECT_SUBGAMEMODE,
         payload: { subGameMode: subGameMode, gameMode: gameMode },
       });
+    } else {
+      playSound(ERROR_CLICK);
     }
   };
 

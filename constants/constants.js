@@ -90,8 +90,10 @@ export const tileColor = "#343435";
 export const backgroundColor = "#1C2833";
 
 //Music and SFX
-export const BACKGROUND_MUSIC = "./assets/bgmusic.mp3";
-export const SYMBOL_ENABLED_SELECT_SOUND = "../../assets/symbolTap.mp3";
-export const SYMBOL_DISABLED_SELECT_SOUND =
-  "../../assets/disabledSymbolTap.mp3";
-export const TILE_SELECT_SOUND = "../../assets/tileTap.mp3";
+export const BACKGROUND_MUSIC = "bgmusic";
+export const SYMBOL_TAP = "symbolTap";
+export const ERROR_CLICK = "errorClick";
+export const TILE_TAP = "tileTap";
+export const PUZZLE_SOLVE = "puzzleSolve";
+export const BUTTON_CLICK = "buttonClick";
+export const UNDO_TURN = "undoTurn";

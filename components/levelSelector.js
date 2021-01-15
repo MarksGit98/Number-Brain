@@ -15,10 +15,14 @@ import {
   LOCAL_LEVEL,
   SELECT_LEVEL,
   SELECT_DIFFICULTY,
+  BUTTON_CLICK,
+  ERROR_CLICK,
 } from "../constants/constants";
 import { _storeData } from "../localStorage/storeData";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { BackButton } from "./mini-components/backbutton";
+import { playSound } from "../constants/buttonClick";
+
 export const LevelSelector = () => {
   const dispatch = useDispatch();
   const [levels, setLevels] = useState([]);
@@ -55,13 +59,12 @@ export const LevelSelector = () => {
     setLevels(levels);
   }, []);
 
-  useEffect(() => {
-    handleLevelChange(currentLevel);
-  }, [currentLevel]);
-
   const handleLevelChange = (level) => {
     if (level !== currentLevel) {
+      playSound(BUTTON_CLICK);
       dispatch({ type: SELECT_LEVEL, payload: level });
+    } else {
+      playSound(ERROR_CLICK);
     }
   };
 

@@ -25,44 +25,22 @@ import {
   BLITZ,
   SYMBOL_ENABLED_SELECT_SOUND,
   SYMBOL_DISABLED_SELECT_SOUND,
+  SYMBOL_TAP,
+  ERROR_CLICK,
 } from "../../constants/constants";
-import { Audio } from "expo-av";
+import { playSound } from "../../constants/buttonClick";
 export const Symbols = () => {
   const dispatch = useDispatch();
   const signs = ["add", "subtract", "multiply", "divide"];
   const selectedSymbol = useSelector(selectedSymbolSelector);
   const symbols = useSelector(symbolSelector);
   const currentGamemode = useSelector(gameModeSelector);
-  const [symbolSound, setSymbolSound] = useState();
-
-  const playSymbolSelectSound = async (enabled) => {
-    const sound = new Audio.Sound();
-    enabled
-      ? await sound.loadAsync(require("../../assets/symbolTap.mp3"))
-      : await sound.loadAsync(require("../../assets/disabledSymbolTap.mp3"));
-    await sound.playAsync();
-    setSymbolSound(sound);
-  };
-
-  useEffect(() => {
-    return symbolSound
-      ? () => {
-          symbolSound.unloadAsync();
-        }
-      : undefined;
-  }, [symbolSound]);
 
   const handleSymbolSelection = (sign) => {
     dispatch({ type: SELECT_SYMBOL, payload: sign });
-    try {
-      if (currentGamemode === LIMITED) {
-        symbols[`${sign}`] > 0
-          ? playSymbolSelectSound(true)
-          : playSymbolSelectSound(false);
-      } else playSymbolSelectSound(true);
-    } catch (e) {
-      console.log(e);
-    }
+    if (currentGamemode === LIMITED) {
+      symbols[`${sign}`] > 0 ? playSound(SYMBOL_TAP) : playSound(ERROR_CLICK);
+    } else playSound(SYMBOL_TAP);
   };
 
   return (

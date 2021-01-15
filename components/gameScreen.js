@@ -32,6 +32,7 @@ import {
   MEDIUM,
   HARD,
   SELECT_GAMEMODE,
+  PUZZLE_SOLVE,
 } from "../constants/constants";
 import { Symbols } from "./mini-components/symbols";
 import { Tiles } from "./mini-components/tiles";
@@ -39,7 +40,7 @@ import { ReverseTurn } from "./mini-components/reverseTurn";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { BackButton } from "./mini-components/backbutton";
-import { Audio } from "expo-av";
+import { playSound } from "../constants/buttonClick";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const currentLevel = useSelector(levelSelector);
@@ -69,21 +70,6 @@ export const GameScreen = () => {
     setLocalStorageLoaded(true);
   };
 
-  const playWinSound = async () => {
-    const sound = new Audio.Sound();
-    await sound.loadAsync(require("../assets/puzzleSolve.mp3"));
-    await sound.playAsync();
-    setWinSound(sound);
-  };
-
-  useEffect(() => {
-    return winSound
-      ? () => {
-          winSound.unloadAsync();
-        }
-      : undefined;
-  }, [winSound]);
-
   useEffect(() => {
     if (localStorageLoaded) {
       dispatch({
@@ -92,7 +78,7 @@ export const GameScreen = () => {
       setSolvedFirstPuzzle(true);
     }
     if (solvedFirstPuzzle) {
-      playWinSound();
+      playSound(PUZZLE_SOLVE);
     }
   }, [localStorageLoaded, currentLevel]);
 
