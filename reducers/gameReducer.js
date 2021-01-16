@@ -147,13 +147,10 @@ export const gameReducer = (state = initialState, action) => {
         },
       };
     }
-    // case WON_ROUND: {
-    //   dispatch({ type: INITIALIZE_ROUND, payload: action.payload });
-    // }
+
     case INITIALIZE_ROUND: {
       const levelToLoad = state.currentLevel;
       const difficultyToLoad = state.difficulty;
-
       return {
         ...state,
         currentLevel: levelToLoad,
