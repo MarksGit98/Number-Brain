@@ -17,6 +17,8 @@ export const SELECT_GAMEMODE = "selectGameMode";
 export const LOAD_PUZZLE = "loadPuzzle";
 export const SET_SCORE = "setScore";
 export const SELECT_SUBGAMEMODE = "selectSubGameMode";
+export const TOGGLE_MUSIC = "toggleMusic";
+export const TOGGLE_VOLUME = "toggleVolume";
 
 //Views
 export const GAMEMODE_SCREEN = "gamemodeScreen";

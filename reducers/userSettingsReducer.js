@@ -1,16 +1,11 @@
 import {
-  SELECT_DIFFICULTY,
-  SELECT_LEVEL,
-  MAIN_MENU,
-  LEVEL_SCREEN,
-  GAME_SCREEN,
   PREVIOUS_SCREEN,
   SWITCH_SCREEN,
-  GAMEMODE_SCREEN,
-  GAMEOVER_SCREEN,
+  TOGGLE_MUSIC,
+  TOGGLE_VOLUME
 } from "../constants/constants";
-
 import { initialState } from "./initialSettingsState";
+
 export const userSettingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case PREVIOUS_SCREEN: {
@@ -27,7 +22,18 @@ export const userSettingsReducer = (state = initialState, action) => {
         currentScreen: action.payload,
       };
     }
-
+    case TOGGLE_MUSIC: {
+      return {
+        ...state,
+        music: !state.music
+      }
+    }
+    case TOGGLE_VOLUME: {
+      return {
+        ...state,
+        volume: !state.volume
+      }
+    }
     default:
       return state;
   }
