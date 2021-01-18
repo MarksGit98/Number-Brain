@@ -14,13 +14,14 @@ import {
   GAMEMODE_SCREEN,
   BUTTON_CLICK,
 } from "../../constants/constants";
+import { volumeSelector } from "../selectors/stateSelectors";
 import { playSound } from "../../constants/buttonClick";
 
 export default function GameModeButton() {
   const dispatch = useDispatch();
-
+  const volume = useSelector(volumeSelector);
   const handleButtonClick = () => {
-    playSound(BUTTON_CLICK);
+    if (volume) playSound(BUTTON_CLICK);
     dispatch({ type: SWITCH_SCREEN, payload: GAMEMODE_SCREEN });
   };
 

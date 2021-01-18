@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   View,
@@ -19,18 +19,23 @@ import {
   BUTTON_CLICK,
   ERROR_CLICK,
 } from "../constants/constants";
-import { difficultySelector, levelSelector } from "./selectors/stateSelectors";
+import {
+  difficultySelector,
+  levelSelector,
+  volumeSelector,
+} from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import GameModeButton from "./mini-components/gameModeButton";
 import { PlayButton } from "./mini-components/playButton";
 import { LevelSelectButton } from "./mini-components/levelSelectButton";
 import { playSound } from "../constants/buttonClick";
+import { VolumeButton } from "./mini-components/volumeButton";
 
 export const MainMenu = () => {
   const dispatch = useDispatch();
   const currentDifficulty = useSelector(difficultySelector);
-
+  const volume = useSelector(volumeSelector);
   const setSettings = async () => {
     const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
     difficulty !== null
@@ -44,16 +49,23 @@ export const MainMenu = () => {
 
   const handleDifficultyChange = (difficulty) => {
     if (difficulty !== currentDifficulty) {
-      playSound(BUTTON_CLICK);
       dispatch({ type: SELECT_DIFFICULTY, payload: difficulty });
-    } else {
-      playSound(ERROR_CLICK);
+    }
+    try {
+      if (difficulty !== currentDifficulty) {
+        if (volume) playSound(BUTTON_CLICK);
+      } else {
+        if (volume) playSound(ERROR_CLICK);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
   const difficultyOptions = ["easy", "medium", "hard"];
   return (
     <SafeAreaView style={styles.mainView}>
+      <VolumeButton />
       <View style={styles.difficultyOptionsView}>
         {difficultyOptions.map((difficulty) => (
           <TouchableWithoutFeedback

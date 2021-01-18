@@ -17,6 +17,7 @@ import {
   scoreSelector,
   blitzGameModeSelector,
   timeTrialGameModeSelector,
+  volumeSelector,
 } from "./selectors/stateSelectors";
 import {
   INITIALIZE_ROUND,
@@ -75,6 +76,7 @@ export const GameScreen = () => {
   const [solvedFirstPuzzle, setSolvedFirstPuzzle] = useState(false);
   const [prelimLoad, setPrelimLoad] = useState(false);
   const bigNumber = useSelector(bigNumberSelector);
+  const volume = useSelector(volumeSelector);
   const setSettings = async () => {
     dispatch({ type: SET_SCORE, payload: 0 });
     const gameMode = await _retrieveData(LOCAL_GAMEMODE);
@@ -169,8 +171,12 @@ export const GameScreen = () => {
         }
         setPrelimLoad(true);
       }
-      if (solvedFirstPuzzle) {
-        playSound(PUZZLE_SOLVE);
+      try {
+        if (solvedFirstPuzzle && volume) {
+          playSound(PUZZLE_SOLVE);
+        }
+      } catch (e) {
+        console.log(e);
       }
     } else {
       if (localStorageLoaded && currentPuzzle !== null) {
@@ -183,8 +189,12 @@ export const GameScreen = () => {
         }
         setPrelimLoad(true);
       }
-      if (solvedFirstPuzzle) {
-        playSound(PUZZLE_SOLVE);
+      try {
+        if (solvedFirstPuzzle && volume) {
+          playSound(PUZZLE_SOLVE);
+        }
+      } catch (e) {
+        console.log(e);
       }
     }
   }, [localStorageLoaded, currentPuzzle, currentLevel]);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   View,
@@ -42,6 +42,7 @@ import {
   gameModeSelector,
   blitzGameModeSelector,
   timeTrialGameModeSelector,
+  volumeSelector,
 } from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
@@ -55,6 +56,7 @@ export const GameModeSelect = () => {
   const gameModeOptions = [CLASSIC, LIMITED, BLITZ, TIMETRIAL, INFINITE];
   const blitzGameModes = [BLITZ_EASY, BLITZ_MEDIUM, BLITZ_HARD];
   const timeTrialGameModes = [TIMETRIAL_EASY, TIMETRIAL_MEDIUM, TIMETRIAL_HARD];
+  const volume = useSelector(volumeSelector);
   const setSettings = async () => {
     const gameMode = await _retrieveData(LOCAL_GAMEMODE);
     gameMode !== null
@@ -93,10 +95,10 @@ export const GameModeSelect = () => {
 
   const handleGameModeChange = (gameMode) => {
     if (gameMode !== currentGameMode) {
-      playSound(BUTTON_CLICK);
+      if (volume) playSound(BUTTON_CLICK);
       dispatch({ type: SELECT_GAMEMODE, payload: gameMode });
     } else {
-      playSound(ERROR_CLICK);
+      if (volume) playSound(ERROR_CLICK);
     }
   };
 
@@ -105,13 +107,13 @@ export const GameModeSelect = () => {
       (gameMode === BLITZ && subGameMode !== currentBlitzGameMode) ||
       (gameMode === TIMETRIAL && subGameMode !== currentTimeTrialGameMode)
     ) {
-      playSound(BUTTON_CLICK);
+      if (volume) playSound(BUTTON_CLICK);
       dispatch({
         type: SELECT_SUBGAMEMODE,
         payload: { subGameMode: subGameMode, gameMode: gameMode },
       });
     } else {
-      playSound(ERROR_CLICK);
+      if (volume) playSound(ERROR_CLICK);
     }
   };
 

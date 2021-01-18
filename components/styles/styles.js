@@ -139,4 +139,14 @@ export const styles = StyleSheet.create({
     flexWrap: "wrap",
     paddingTop: 40,
   },
+  buttonWheel: {
+    backgroundColor: "#C8C8C8",
+    height: 60,
+    width: 60,
+    borderRadius: 30,
+  },
+  volumeButtonPosition: {
+    position: "absolute",
+    alignContent: "flex-end",
+  },
 });

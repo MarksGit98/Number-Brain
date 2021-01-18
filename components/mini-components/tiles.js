@@ -18,15 +18,16 @@ import {
 } from "../selectors/stateSelectors";
 import { SELECT_TILE, TILE_TAP } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
+import { volumeSelector } from "../selectors/stateSelectors";
 export const Tiles = () => {
   const dispatch = useDispatch();
   const tiles = useSelector(tilesSelector);
   const index1 = useSelector(tile1Selector).index;
   const index2 = useSelector(tile2Selector).index;
-
+  const volume = useSelector(volumeSelector);
   const handleTileSelection = (index) => {
-    playSound(TILE_TAP);
     dispatch({ type: SELECT_TILE, payload: index });
+    if (volume) playSound(TILE_TAP);
   };
 
   return (

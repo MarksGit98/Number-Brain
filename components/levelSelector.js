@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { puzzles } from "../puzzles/puzzles";
-import { difficultySelector, levelSelector } from "./selectors/stateSelectors";
+import {
+  difficultySelector,
+  levelSelector,
+  volumeSelector,
+} from "./selectors/stateSelectors";
 import {
   TouchableWithoutFeedback,
   Text,
@@ -28,6 +32,7 @@ export const LevelSelector = () => {
   const [levels, setLevels] = useState([]);
   const currentLevel = useSelector(levelSelector);
   const currentDifficulty = useSelector(difficultySelector);
+  const volume = useSelector(volumeSelector);
   const setSettings = async () => {
     const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
     difficulty !== null
@@ -60,11 +65,15 @@ export const LevelSelector = () => {
   }, []);
 
   const handleLevelChange = (level) => {
-    if (level !== currentLevel) {
-      playSound(BUTTON_CLICK);
-      dispatch({ type: SELECT_LEVEL, payload: level });
-    } else {
-      playSound(ERROR_CLICK);
+    try {
+      if (level !== currentLevel) {
+        if (volume) playSound(BUTTON_CLICK);
+        dispatch({ type: SELECT_LEVEL, payload: level });
+      } else {
+        if (volume) playSound(ERROR_CLICK);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 

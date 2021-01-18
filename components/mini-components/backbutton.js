@@ -1,15 +1,20 @@
 import React from "react";
 import { TouchableWithoutFeedback, Image, View } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../styles/styles";
 import { PREVIOUS_SCREEN, BUTTON_CLICK } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
+import { volumeSelector } from "../selectors/stateSelectors";
 export const BackButton = () => {
   const dispatch = useDispatch();
-
+  const volume = useSelector(volumeSelector);
   const handleButtonClick = () => {
-    playSound(BUTTON_CLICK);
-    dispatch({ type: PREVIOUS_SCREEN });
+    try {
+      if (volume) playSound(BUTTON_CLICK);
+      dispatch({ type: PREVIOUS_SCREEN });
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <View styles={styles.backButtonPosition}>

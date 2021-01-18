@@ -1,16 +1,19 @@
 import React from "react";
 import { TouchableWithoutFeedback, Image } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../styles/styles";
 import { REVERSE_TURN, UNDO_TURN } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
+import { volumeSelector } from "../selectors/stateSelectors";
 export const ReverseTurn = () => {
   const dispatch = useDispatch();
+  const volume = useSelector(volumeSelector);
 
   const handleButtonClick = () => {
-    playSound(UNDO_TURN);
     dispatch({ type: REVERSE_TURN });
+    if (volume) playSound(UNDO_TURN);
   };
+
   return (
     <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
       <Image

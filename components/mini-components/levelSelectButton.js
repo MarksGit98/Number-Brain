@@ -15,11 +15,12 @@ import {
   BUTTON_CLICK,
 } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
+import { volumeSelector } from "../selectors/stateSelectors";
 export const LevelSelectButton = () => {
   const dispatch = useDispatch();
-
+  const volume = useSelector(volumeSelector);
   const handleButtonClick = () => {
-    playSound(BUTTON_CLICK);
+    if (volume) playSound(BUTTON_CLICK);
     dispatch({ type: SWITCH_SCREEN, payload: LEVEL_SCREEN });
   };
 

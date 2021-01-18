@@ -1,19 +1,20 @@
 import React from "react";
 import { TouchableWithoutFeedback, Image, View } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../styles/styles";
-import { PREVIOUS_SCREEN, BUTTON_CLICK } from "../../constants/constants";
+import { BUTTON_CLICK, TOGGLE_VOLUME } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
-
+import { volumeSelector } from "../selectors/stateSelectors";
 export const VolumeButton = () => {
   const dispatch = useDispatch();
+  const volume = useSelector(volumeSelector);
 
   const handleButtonClick = () => {
     playSound(BUTTON_CLICK);
-    dispatch({ type: PREVIOUS_SCREEN });
+    dispatch({ type: TOGGLE_VOLUME });
   };
   return (
-    <View styles={styles.backButtonPosition}>
+    <View styles={styles.volumeButtonPosition}>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
         <View style={styles.buttonWheel}>
           <Image

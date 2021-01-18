@@ -44,9 +44,19 @@ export const gameModeSelector = (state) => {
 export const blitzGameModeSelector = (state) => {
   return state.gameStore.subGameModes.blitz;
 };
+
 export const timeTrialGameModeSelector = (state) => {
   return state.gameStore.subGameModes.timeTrial;
 };
+
 export const scoreSelector = (state) => {
   return state.gameStore.score;
+};
+
+export const volumeSelector = (state) => {
+  return state.userSettingsStore.volume;
+};
+
+export const musicSelector = (state) => {
+  return state.userSettingsStore.music;
 };

@@ -29,18 +29,21 @@ import {
   ERROR_CLICK,
 } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
+import { volumeSelector } from "../selectors/stateSelectors";
 export const Symbols = () => {
   const dispatch = useDispatch();
   const signs = ["add", "subtract", "multiply", "divide"];
   const selectedSymbol = useSelector(selectedSymbolSelector);
   const symbols = useSelector(symbolSelector);
   const currentGamemode = useSelector(gameModeSelector);
-
+  const volume = useSelector(volumeSelector);
   const handleSymbolSelection = (sign) => {
     dispatch({ type: SELECT_SYMBOL, payload: sign });
-    if (currentGamemode === LIMITED) {
-      symbols[`${sign}`] > 0 ? playSound(SYMBOL_TAP) : playSound(ERROR_CLICK);
-    } else playSound(SYMBOL_TAP);
+    if (volume) {
+      if (currentGamemode === LIMITED) {
+        symbols[`${sign}`] > 0 ? playSound(SYMBOL_TAP) : playSound(ERROR_CLICK);
+      } else playSound(SYMBOL_TAP);
+    }
   };
 
   return (
