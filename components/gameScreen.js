@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   Image,
-  ColorPropType,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
@@ -216,31 +215,33 @@ export const GameScreen = () => {
   return (
     <SafeAreaView style={styles.mainView}>
       <BackButton />
-      <View>
-        <Text style={styles.smallWhiteText}>GameMode: {currentGameMode}</Text>
-      </View>
-      {currentGameMode !== CLASSIC && currentGameMode !== LIMITED ? (
+      <View style={styles.gameScreenCenteredContent}>
         <View>
-          <Text style={styles.smallWhiteText}>Score: {score}</Text>
+          <Text style={styles.smallWhiteText}>GameMode: {currentGameMode}</Text>
         </View>
-      ) : null}
-      <View>
-        {currentGameMode !== INFINITE &&
-        currentGameMode !== CLASSIC &&
-        currentGameMode !== LIMITED ? (
-          <Text style={styles.smallWhiteText}>
-            {seconds > 0 ? seconds : "TIME'S UP"}
-          </Text>
-        ) : (
-          <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
-        )}
+        {currentGameMode !== CLASSIC && currentGameMode !== LIMITED ? (
+          <View>
+            <Text style={styles.smallWhiteText}>Score: {score}</Text>
+          </View>
+        ) : null}
+        <View>
+          {currentGameMode !== INFINITE &&
+          currentGameMode !== CLASSIC &&
+          currentGameMode !== LIMITED ? (
+            <Text style={styles.smallWhiteText}>
+              {seconds > 0 ? seconds : "TIME'S UP"}
+            </Text>
+          ) : (
+            <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
+          )}
+        </View>
+        <View style={[styles.bigTile, styles.unselectedTile]}>
+          <Text style={styles.largeWhiteText}>{bigNumber}</Text>
+        </View>
+        <Tiles />
+        <Symbols />
+        <ReverseTurn />
       </View>
-      <View style={[styles.bigTile, styles.unselectedTile]}>
-        <Text style={styles.largeWhiteText}>{bigNumber}</Text>
-      </View>
-      <Tiles />
-      <Symbols />
-      <ReverseTurn />
     </SafeAreaView>
   );
 };

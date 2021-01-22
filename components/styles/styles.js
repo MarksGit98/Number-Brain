@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
     backgroundColor: backgroundColor,
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
     marginBottom: 0,
   },
   unselectedTile: {
@@ -86,6 +85,8 @@ export const styles = StyleSheet.create({
     zIndex: 2,
   },
   backButton: {
+    position: "relative",
+    marginTop: "25%",
     height: 30,
     width: 30,
   },
@@ -96,7 +97,10 @@ export const styles = StyleSheet.create({
   },
   bigButton: {
     borderRadius: 40,
-    margin: 20,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: 20,
+    marginTop: 20,
     height: 75,
     width: 300,
     justifyContent: "center",
@@ -139,14 +143,30 @@ export const styles = StyleSheet.create({
     flexWrap: "wrap",
     paddingTop: 40,
   },
+
   buttonWheel: {
+    position: "relative",
     backgroundColor: "#C8C8C8",
     height: 60,
     width: 60,
     borderRadius: 30,
+    alignItems: "center",
+    marginTop: "auto",
   },
+
+  volumeButton: {
+    zIndex: 2,
+    width: 30,
+  },
+
   volumeButtonPosition: {
-    position: "absolute",
-    alignContent: "flex-end",
+    position: "relative",
+    marginLeft: 200,
+    marginTop: 10,
+  },
+
+  gameScreenCenteredContent: {
+    alignContent: "center",
+    alignItems: "center",
   },
 });

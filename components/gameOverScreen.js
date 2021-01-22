@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   Image,
-  ColorPropType,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
