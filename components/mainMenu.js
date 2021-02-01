@@ -66,7 +66,9 @@ export const MainMenu = () => {
   return (
     <SafeAreaView style={styles.mainView}>
       <VolumeButton />
-      <View style={styles.difficultyOptionsView}>
+      <View
+        style={[styles.difficultyOptionsView, styles.difficultyOptionsPosition]}
+      >
         {difficultyOptions.map((difficulty) => (
           <TouchableWithoutFeedback
             key={difficulty}

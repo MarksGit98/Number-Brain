@@ -14,9 +14,9 @@ export const VolumeButton = () => {
     dispatch({ type: TOGGLE_VOLUME });
   };
   return (
-    <View styles={styles.volumeButtonPosition}>
+    <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View style={styles.buttonWheel}>
+        <View style={[styles.volumeButtonPosition, styles.buttonWheel]}>
           <Image
             style={[styles.volumeButton]}
             source={require("../../assets/volumeIcon.svg")}
