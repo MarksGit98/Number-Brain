@@ -58,9 +58,11 @@ import { Tiles } from "./mini-components/tiles";
 import { ReverseTurn } from "./mini-components/reverseTurn";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
-import { BackButton } from "./mini-components/backbutton";
+import { BackButton } from "./mini-components/backButton";
 import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
 import { playSound } from "../constants/buttonClick";
+import { MusicButton } from "./mini-components/musicButton";
+import { VolumeButton } from "./mini-components/volumeButton";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
@@ -214,7 +216,11 @@ export const GameScreen = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <BackButton />
+      <View style={styles.buttonWheelView}>
+        <BackButton />
+        <MusicButton />
+        <VolumeButton />
+      </View>
       <View style={styles.gameScreenCenteredContent}>
         <View>
           <Text style={styles.smallWhiteText}>GameMode: {currentGameMode}</Text>

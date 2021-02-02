@@ -1,5 +1,9 @@
 import { StyleSheet } from "react-native";
-import { tileColor, backgroundColor } from "../../constants/constants";
+import {
+  tileColor,
+  backgroundColor,
+  buttonWheelColor,
+} from "../../constants/constants";
 export const styles = StyleSheet.create({
   bigNumber: {
     fontSize: 90,
@@ -39,8 +43,7 @@ export const styles = StyleSheet.create({
   },
 
   symbolTile: {
-    marginLeft: 10,
-    marginRight: 10,
+    margin: 10,
     height: 50,
     width: 50,
     justifyContent: "center",
@@ -49,8 +52,7 @@ export const styles = StyleSheet.create({
   },
 
   tile: {
-    marginLeft: 10,
-    marginRight: 10,
+    margin: 10,
     height: 50,
     width: 50,
     justifyContent: "center",
@@ -145,14 +147,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "blue",
   },
 
-  backButtonPosition: {
-    position: "absolute",
-    top: "5%",
-    left: "5%",
-    alignSelf: "flex-end",
-    zIndex: 2,
-  },
-
   levelBox: {
     justifyContent: "center",
     alignItems: "center",
@@ -172,7 +166,8 @@ export const styles = StyleSheet.create({
   },
 
   buttonWheel: {
-    backgroundColor: "#C8C8C8",
+    backgroundColor: buttonWheelColor,
+    opacity: 60,
     height: 60,
     width: 60,
     borderRadius: 30,
@@ -180,15 +175,37 @@ export const styles = StyleSheet.create({
   },
 
   volumeButton: {
-    zIndex: 2,
+    opacity: 100,
     width: 30,
+    height: "auto",
+  },
+
+  musicButton: {
+    opacity: 100,
+    width: 30,
+    height: "auto",
   },
 
   volumeButtonPosition: {
-    marginTop: "5%",
-    marginRight: "5%",
+    marginTop: "15%",
+    marginRight: "10%",
     marginLeft: "auto",
-    marginBottom: "auto",
+  },
+
+  musicButtonPosition: {
+    marginTop: "30%",
+    marginRight: "10%",
+    marginLeft: "auto",
+  },
+
+  backButtonPosition: {
+    zIndex: 2,
+    marginTop: "10%",
+    marginLeft: "10%",
+  },
+
+  buttonWheelView: {
+    flexDirection: "row",
   },
 
   gameScreenCenteredContent: {

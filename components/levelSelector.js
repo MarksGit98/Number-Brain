@@ -24,7 +24,7 @@ import {
 } from "../constants/constants";
 import { _storeData } from "../localStorage/storeData";
 import { _retrieveData } from "../localStorage/retrieveData";
-import { BackButton } from "./mini-components/backbutton";
+import { BackButton } from "./mini-components/backButton";
 import { playSound } from "../constants/buttonClick";
 
 export const LevelSelector = () => {

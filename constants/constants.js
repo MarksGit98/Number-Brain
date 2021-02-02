@@ -71,6 +71,8 @@ export const TIMETRIAL_MEDIUM_HARD_HIGH_SCORE = "timeTrialmediumhardHighScore";
 export const TIMETRIAL_HARD_EASY_HIGH_SCORE = "timeTrialhardeasyHighScore";
 export const TIMETRIAL_HARD_MEDIUM_HIGH_SCORE = "timeTrialhardmediumHighScore";
 export const TIMETRIAL_HARD_HARD_HIGH_SCORE = "timeTrialhardhardHighScore";
+export const LOCAL_VOLUME = "localVolume";
+export const LOCAL_MUSIC = "localMusic";
 
 //Game Settings
 export const EASY_MIN = 1;
@@ -90,6 +92,7 @@ export const TESTING_TIME = "3";
 //Colors and Styles
 export const tileColor = "#343435";
 export const backgroundColor = "#1C2833";
+export const buttonWheelColor = "#2F4F4F";
 
 //Music and SFX
 export const BACKGROUND_MUSIC = "bgmusic";

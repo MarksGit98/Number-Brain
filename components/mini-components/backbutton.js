@@ -17,9 +17,9 @@ export const BackButton = () => {
     }
   };
   return (
-    <View styles={styles.backButtonPosition}>
+    <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View style={styles.buttonWheel}>
+        <View style={[styles.buttonWheel, styles.backButtonPosition]}>
           <Image
             style={[styles.backButton]}
             source={require("../../assets/back-arrow.png")}

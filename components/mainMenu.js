@@ -31,6 +31,7 @@ import { PlayButton } from "./mini-components/playButton";
 import { LevelSelectButton } from "./mini-components/levelSelectButton";
 import { playSound } from "../constants/buttonClick";
 import { VolumeButton } from "./mini-components/volumeButton";
+import { MusicButton } from "./mini-components/musicButton";
 
 export const MainMenu = () => {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ export const MainMenu = () => {
   const difficultyOptions = ["easy", "medium", "hard"];
   return (
     <SafeAreaView style={styles.mainView}>
+      <MusicButton />
       <VolumeButton />
       <View
         style={[styles.difficultyOptionsView, styles.difficultyOptionsPosition]}
