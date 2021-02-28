@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./styles.css";
 import { ViewSelector } from "./components/viewSelector";
 import { reducerMiddleware } from "./reducers/reducerMiddleware";
 import { gameReducer } from "./reducers/gameReducer";

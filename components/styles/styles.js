@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import "../../styles.css";
 import {
   tileColor,
   backgroundColor,
@@ -10,23 +11,32 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  smallNumber: {
-    fontSize: 28,
-  },
-
   smallWhiteText: {
-    fontSize: 28,
+    fontSize: 40,
     color: "white",
+    fontFamily: "Digital",
   },
 
   mediumWhiteText: {
-    fontSize: 42,
+    fontSize: 50,
     color: "white",
+    fontFamily: "Digital",
   },
 
   largeWhiteText: {
-    fontSize: 85,
+    fontSize: 90,
     color: "white",
+    fontFamily: "Digital",
+  },
+
+  extraLargeWhiteText: {
+    fontSize: 130,
+    color: "white",
+    fontFamily: "Digital",
+  },
+
+  center: {
+    alignItems: "center",
   },
 
   mainView: {
@@ -44,8 +54,8 @@ export const styles = StyleSheet.create({
 
   symbolTile: {
     margin: 10,
-    height: 50,
-    width: 50,
+    height: "60%",
+    width: "60%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 25,
@@ -69,8 +79,8 @@ export const styles = StyleSheet.create({
   },
 
   bigTile: {
-    height: 150,
-    width: 150,
+    height: "40%",
+    width: "50%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 12,
@@ -94,7 +104,6 @@ export const styles = StyleSheet.create({
   },
 
   reverseTurnButton: {
-    top: 100,
     height: 50,
     width: 50,
     zIndex: 2,
@@ -186,30 +195,34 @@ export const styles = StyleSheet.create({
     height: "auto",
   },
 
-  volumeButtonPosition: {
-    marginTop: "15%",
-    marginRight: "10%",
-    marginLeft: "auto",
-  },
-
-  musicButtonPosition: {
-    marginTop: "30%",
-    marginRight: "10%",
-    marginLeft: "auto",
-  },
-
-  backButtonPosition: {
-    zIndex: 2,
-    marginTop: "10%",
-    marginLeft: "10%",
-  },
-
-  buttonWheelView: {
+  buttonWheelViewRow: {
     flexDirection: "row",
+    marginBottom: "2%",
   },
 
   gameScreenCenteredContent: {
     alignContent: "center",
     alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  gameScreenButtonContainer: {
+    display: "flex",
+    flexDirection: "column",
+    margin: "5%",
+    justifyContent: "space-between",
+  },
+
+  tilesAndSymbolsRows: {
+    marginTop: "10%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+
+  gameScreenText: {
+    margin: "5%",
+    alignContent: "center",
+    textAlign: "center",
   },
 });

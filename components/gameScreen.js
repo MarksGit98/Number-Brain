@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  SafeAreaView,
-  TouchableWithoutFeedback,
-  Image,
-} from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
 import {
@@ -40,9 +34,7 @@ import {
   MEDIUM_MAX,
   HARD_MIN,
   HARD_MAX,
-  BLITZ_EASY,
   BLITZ_MEDIUM,
-  BLITZ_HARD,
   GAMEOVER_SCREEN,
   SWITCH_SCREEN,
   SET_SCORE,
@@ -63,6 +55,7 @@ import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
 import { playSound } from "../constants/buttonClick";
 import { MusicButton } from "./mini-components/musicButton";
 import { VolumeButton } from "./mini-components/volumeButton";
+import { useFonts } from "expo-font";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
@@ -78,6 +71,9 @@ export const GameScreen = () => {
   const [prelimLoad, setPrelimLoad] = useState(false);
   const bigNumber = useSelector(bigNumberSelector);
   const volume = useSelector(volumeSelector);
+  const [fontsLoaded] = useFonts({
+    digital: require("../fonts/digital-7.ttf"),
+  });
   const setSettings = async () => {
     dispatch({ type: SET_SCORE, payload: 0 });
     const gameMode = await _retrieveData(LOCAL_GAMEMODE);
@@ -216,37 +212,48 @@ export const GameScreen = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <View style={styles.buttonWheelView}>
-        <BackButton />
-        <MusicButton />
-        <VolumeButton />
+      <View style={styles.gameScreenButtonContainer}>
+        <View style={styles.buttonWheelViewRow}>
+          <BackButton />
+          <BackButton />
+        </View>
+        <View style={styles.buttonWheelViewRow}>
+          <MusicButton />
+          <VolumeButton />
+        </View>
       </View>
       <View style={styles.gameScreenCenteredContent}>
-        <View>
-          <Text style={styles.smallWhiteText}>GameMode: {currentGameMode}</Text>
-        </View>
-        {currentGameMode !== CLASSIC && currentGameMode !== LIMITED ? (
+        <View style={styles.gameScreenText}>
           <View>
-            <Text style={styles.smallWhiteText}>Score: {score}</Text>
-          </View>
-        ) : null}
-        <View>
-          {currentGameMode !== INFINITE &&
-          currentGameMode !== CLASSIC &&
-          currentGameMode !== LIMITED ? (
             <Text style={styles.smallWhiteText}>
-              {seconds > 0 ? seconds : "TIME'S UP"}
+              GameMode: {currentGameMode}
             </Text>
-          ) : (
-            <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
-          )}
+          </View>
+          {currentGameMode !== CLASSIC && currentGameMode !== LIMITED ? (
+            <View>
+              <Text style={styles.smallWhiteText}>Score: {score}</Text>
+            </View>
+          ) : null}
+          <View>
+            {currentGameMode !== INFINITE &&
+            currentGameMode !== CLASSIC &&
+            currentGameMode !== LIMITED ? (
+              <Text style={styles.smallWhiteText}>
+                {seconds > 0 ? seconds : "TIME'S UP"}
+              </Text>
+            ) : (
+              <Text style={styles.smallWhiteText}>Level {currentLevel}</Text>
+            )}
+          </View>
         </View>
         <View style={[styles.bigTile, styles.unselectedTile]}>
-          <Text style={styles.largeWhiteText}>{bigNumber}</Text>
+          <Text style={styles.extraLargeWhiteText}>{bigNumber}</Text>
         </View>
-        <Tiles />
-        <Symbols />
-        <ReverseTurn />
+        <View style={styles.tilesAndSymbolsRows}>
+          <Tiles />
+          <Symbols />
+        </View>
+        <ReverseTurn style={styles.center} />
       </View>
     </SafeAreaView>
   );
