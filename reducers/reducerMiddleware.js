@@ -233,14 +233,18 @@ export const reducerMiddleware = (rawStore) => {
         break;
       }
       case PREVIOUS_SCREEN: {
-        const previousScreen = rawStore.getState().userSettingsStore
-          .previousScreen;
-        const newPreviousScreen =
-          previousScreen === GAMEOVER_SCREEN ? MAIN_MENU : previousScreen;
+        const previousScreens = rawStore.getState().userSettingsStore
+          .previousScreens;
+        previousScreens.pop();
+        const previousScreen = previousScreens[previousScreens.length - 1];
 
         rawStore.dispatch({
           type: SWITCH_SCREEN,
-          payload: newPreviousScreen,
+          payload: previousScreen,
+        });
+        rawStore.dispatch({
+          type: PREVIOUS_SCREEN,
+          payload: previousScreens,
         });
         break;
       }

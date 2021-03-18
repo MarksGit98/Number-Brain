@@ -16,6 +16,7 @@ import { GameModeSelect } from "./gameModeSelect";
 import { GameOver } from "./gameOverScreen";
 import { Audio } from "expo-av";
 import { MusicButton } from "./mini-components/musicButton";
+import { useFonts } from "expo-font";
 export const ViewSelector = () => {
   const view = useSelector(screenSelector);
   const [backgroundMusic, setBackgroundMusic] = useState();
@@ -28,6 +29,9 @@ export const ViewSelector = () => {
     await bgMusic.playAsync();
     setBackgroundMusic(bgMusic);
   };
+  const [fontsLoaded] = useFonts({
+    digital: require("../fonts/joystix-monospace.ttf"),
+  });
 
   useEffect(() => {
     music ? playBackgroundMusic() : null;
@@ -52,5 +56,7 @@ export const ViewSelector = () => {
     <GameModeSelect />
   ) : view === GAMEOVER_SCREEN ? (
     <GameOver />
-  ) : null;
+  ) : (
+    <MainMenu />
+  );
 };

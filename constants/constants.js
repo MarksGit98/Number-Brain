@@ -91,8 +91,9 @@ export const TESTING_TIME = "3";
 
 //Colors and Styles
 export const tileColor = "#343435";
-export const backgroundColor = "#1C2833";
-export const buttonWheelColor = "#2F4F4F";
+export const backgroundColor = "#424953";
+export const buttonWheelColor = "#50545f";
+export const levelButtonColor = "#FFA62E";
 
 //Music and SFX
 export const BACKGROUND_MUSIC = "bgmusic";

@@ -5,24 +5,24 @@ import {
   TOGGLE_VOLUME,
   LOCAL_VOLUME,
   LOCAL_MUSIC,
+  GAME_SCREEN,
 } from "../constants/constants";
 import { initialState } from "./initialSettingsState";
 import { _storeData } from "../localStorage/storeData";
 
 export const userSettingsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PREVIOUS_SCREEN: {
-      return {
-        ...state,
-        previousScreen: state.currentScreen,
-        currentScreen: action.payload,
-      };
-    }
     case SWITCH_SCREEN: {
       return {
         ...state,
-        previousScreen: state.currentScreen,
+        previousScreens: [...state.previousScreens, action.payload],
         currentScreen: action.payload,
+      };
+    }
+    case PREVIOUS_SCREEN: {
+      return {
+        ...state,
+        previousScreens: action.payload,
       };
     }
     case TOGGLE_MUSIC: {
@@ -40,6 +40,8 @@ export const userSettingsReducer = (state = initialState, action) => {
       };
     }
     default:
-      return state;
+      return {
+        ...state,
+      };
   }
 };

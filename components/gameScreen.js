@@ -55,7 +55,6 @@ import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
 import { playSound } from "../constants/buttonClick";
 import { MusicButton } from "./mini-components/musicButton";
 import { VolumeButton } from "./mini-components/volumeButton";
-import { useFonts } from "expo-font";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
@@ -71,9 +70,7 @@ export const GameScreen = () => {
   const [prelimLoad, setPrelimLoad] = useState(false);
   const bigNumber = useSelector(bigNumberSelector);
   const volume = useSelector(volumeSelector);
-  const [fontsLoaded] = useFonts({
-    digital: require("../fonts/digital-7.ttf"),
-  });
+
   const setSettings = async () => {
     dispatch({ type: SET_SCORE, payload: 0 });
     const gameMode = await _retrieveData(LOCAL_GAMEMODE);

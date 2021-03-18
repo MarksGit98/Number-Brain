@@ -4,6 +4,7 @@ import {
   tileColor,
   backgroundColor,
   buttonWheelColor,
+  levelButtonColor,
 } from "../../constants/constants";
 export const styles = StyleSheet.create({
   bigNumber: {
@@ -159,19 +160,23 @@ export const styles = StyleSheet.create({
   levelBox: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "green",
-    height: 100,
-    width: 100,
-    margin: 10,
+    backgroundColor: levelButtonColor,
+    height: 90,
+    width: 90,
+    borderRadius: 50,
+    marginBottom: 12,
   },
 
   levelContainer: {
-    flex: 1,
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
+    marginLeft: "3%",
+    marginRight: "3%",
+    textAlign: "center",
+    display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
     paddingTop: 40,
+    alignContent: "space-between",
+    justifyContent: "space-evenly",
   },
 
   buttonWheel: {

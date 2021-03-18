@@ -33,6 +33,10 @@ export const screenSelector = (state) => {
   return state.userSettingsStore.currentScreen;
 };
 
+export const previousScreensSelector = (state) => {
+  return state.userSettingsStore.previousScreens;
+};
+
 export const difficultySelector = (state) => {
   return state.gameStore.difficulty;
 };
