@@ -79,7 +79,7 @@ export const MainMenu = () => {
             <View>
               <Text
                 style={[
-                  styles.smallWhiteText,
+                  styles.titleTextSmall,
                   difficulty === currentDifficulty
                     ? styles.difficultyOption
                     : null,

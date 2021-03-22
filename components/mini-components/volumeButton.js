@@ -34,8 +34,12 @@ export const VolumeButton = () => {
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
         <View style={[styles.volumeButtonPosition, styles.buttonWheel]}>
           <Image
-            style={[styles.volumeButton]}
-            source={require("../../assets/volumeOn.png")}
+            style={[styles.wheelIcon]}
+            source={
+              currentVolume
+                ? require("../../assets/speaker-on.png")
+                : require("../../assets/speaker-off.png")
+            }
           />
         </View>
       </TouchableWithoutFeedback>

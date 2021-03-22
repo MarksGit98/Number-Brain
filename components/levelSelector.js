@@ -29,6 +29,7 @@ import { _storeData } from "../localStorage/storeData";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { BackButton } from "./mini-components/backButton";
 import { playSound } from "../constants/buttonClick";
+import { HomeButton } from "./mini-components/homeButton";
 import Grid from "react-native-grid-component";
 
 export const LevelSelector = () => {
@@ -82,7 +83,9 @@ export const LevelSelector = () => {
     <View style={styles.mainView}>
       <ScrollView>
         <BackButton />
+        <HomeButton />
         <View style={styles.levelContainer}>
+          <Text style={styles.titleTextXXL}>LEVELS</Text>
           {levels.map((level) => (
             <TouchableWithoutFeedback
               key={level}

@@ -110,13 +110,6 @@ export const styles = StyleSheet.create({
     zIndex: 2,
   },
 
-  backButton: {
-    position: "relative",
-    marginTop: "25%",
-    height: 30,
-    width: 30,
-  },
-
   playButtonText: {
     fontSize: 70,
     color: "white",
@@ -146,7 +139,7 @@ export const styles = StyleSheet.create({
   },
 
   difficultyOptionsPosition: {
-    marginTop: "20%",
+    marginTop: "10%",
   },
 
   centerText: {
@@ -155,6 +148,49 @@ export const styles = StyleSheet.create({
 
   difficultyOption: {
     backgroundColor: "blue",
+  },
+
+  titleTextXS: {
+    fontFamily: "Digital",
+    fontSize: 25,
+    textShadow: "2px 2px #000",
+    color: "white",
+  },
+  titleTextSmall: {
+    fontFamily: "Digital",
+    fontSize: 35,
+    textShadow: "2px 2px #000",
+    color: "white",
+  },
+
+  titleTextMedium: {
+    fontFamily: "Digital",
+    fontSize: 45,
+    textShadow: "2px 2px #000",
+    color: "white",
+  },
+
+  titleTextLarge: {
+    fontFamily: "Digital",
+    fontSize: 50,
+    textShadow: "3px 3px #000",
+    color: "white",
+  },
+
+  titleTextXL: {
+    fontFamily: "Digital",
+    fontSize: 60,
+    textShadow: "3px 3px #000",
+    color: "white",
+    marginBottom: 10,
+  },
+
+  titleTextXXL: {
+    fontFamily: "Digital",
+    fontSize: 70,
+    textShadow: "4px 4px #000",
+    color: "white",
+    marginBottom: 10,
   },
 
   levelBox: {
@@ -174,9 +210,15 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingTop: 40,
     alignContent: "space-between",
     justifyContent: "space-evenly",
+  },
+
+  wheelIcon: {
+    position: "relative",
+    margin: "25%",
+    height: 32,
+    width: 32,
   },
 
   buttonWheel: {

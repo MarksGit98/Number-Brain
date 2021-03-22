@@ -1,19 +1,7 @@
-import React, {
-  useEffect,
-  useState
-} from "react";
-import {
-  Text,
-  View,
-  SafeAreaView
-} from "react-native";
-import {
-  useSelector,
-  useDispatch
-} from "react-redux";
-import {
-  styles
-} from "./styles/styles";
+import React, { useEffect, useState } from "react";
+import { Text, View, SafeAreaView } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { styles } from "./styles/styles";
 import {
   bigNumberSelector,
   levelSelector,
@@ -57,39 +45,17 @@ import {
   TIMETRIAL_MEDIUM,
   PUZZLE_SOLVE,
 } from "../constants/constants";
-import {
-  Symbols
-} from "./mini-components/symbols";
-import {
-  Tiles
-} from "./mini-components/tiles";
-import {
-  ReverseTurn
-} from "./mini-components/reverseTurn";
-import {
-  _retrieveData
-} from "../localStorage/retrieveData";
-import {
-  _storeData
-} from "../localStorage/storeData";
-import {
-  BackButton
-} from "./mini-components/backButton";
-import {
-  HomeButton
-} from "./mini-components/homeButton"
-import {
-  GenerateSinglePuzzle
-} from "../scripts/puzzlegenerator";
-import {
-  playSound
-} from "../constants/buttonClick";
-import {
-  MusicButton
-} from "./mini-components/musicButton";
-import {
-  VolumeButton
-} from "./mini-components/volumeButton";
+import { Symbols } from "./mini-components/symbols";
+import { Tiles } from "./mini-components/tiles";
+import { ReverseTurn } from "./mini-components/reverseTurn";
+import { _retrieveData } from "../localStorage/retrieveData";
+import { _storeData } from "../localStorage/storeData";
+import { BackButton } from "./mini-components/backButton";
+import { HomeButton } from "./mini-components/homeButton";
+import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
+import { playSound } from "../constants/buttonClick";
+import { MusicButton } from "./mini-components/musicButton";
+import { VolumeButton } from "./mini-components/volumeButton";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
@@ -109,75 +75,75 @@ export const GameScreen = () => {
   const setSettings = async () => {
     dispatch({
       type: SET_SCORE,
-      payload: 0
+      payload: 0,
     });
     const gameMode = await _retrieveData(LOCAL_GAMEMODE);
-    gameMode !== null ?
-      dispatch({
-        type: SELECT_GAMEMODE,
-        payload: gameMode
-      }) :
-      dispatch({
-        type: SELECT_GAMEMODE,
-        payload: CLASSIC
-      });
+    gameMode !== null
+      ? dispatch({
+          type: SELECT_GAMEMODE,
+          payload: gameMode,
+        })
+      : dispatch({
+          type: SELECT_GAMEMODE,
+          payload: CLASSIC,
+        });
     let difficulty = await _retrieveData(LOCAL_DIFFICULTY);
     if (gameMode === CLASSIC || gameMode === LIMITED) {
       if (difficulty === null || difficulty === "undefined") {
         difficulty = EASY;
       }
       const level = await _retrieveData(`${difficulty}${LOCAL_LEVEL}`);
-      level !== null && level !== "undefined" ?
-        loadLevel(level) :
-        loadLevel("1");
+      level !== null && level !== "undefined"
+        ? loadLevel(level)
+        : loadLevel("1");
     }
     const subGameMode =
-      gameMode === BLITZ ?
-      await _retrieveData(LOCAL_BLITZ_GAMEMODE) :
-      gameMode === TIMETRIAL ?
-      await _retrieveData(LOCAL_TIMETRIAL_GAMEMODE) :
-      null;
-    subGameMode !== null && subGameMode !== "undefined" ?
-      dispatch({
-        type: SELECT_SUBGAMEMODE,
-        payload: {
-          subGameMode: subGameMode,
-          gameMode: gameMode
-        },
-      }) :
-      gameMode === BLITZ ?
-      dispatch({
-        type: SELECT_SUBGAMEMODE,
-        payload: {
-          subGameMode: BLITZ_MEDIUM,
-          gameMode: gameMode
-        },
-      }) :
-      gameMode === TIMETRIAL ?
-      dispatch({
-        type: SELECT_SUBGAMEMODE,
-        payload: {
-          subGameMode: TIMETRIAL_MEDIUM,
-          gameMode: gameMode
-        },
-      }) :
-      null;
-    difficulty !== null && difficulty !== "undefined" ?
-      loadDifficulty(difficulty) :
-      loadDifficulty(EASY);
+      gameMode === BLITZ
+        ? await _retrieveData(LOCAL_BLITZ_GAMEMODE)
+        : gameMode === TIMETRIAL
+        ? await _retrieveData(LOCAL_TIMETRIAL_GAMEMODE)
+        : null;
+    subGameMode !== null && subGameMode !== "undefined"
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: {
+            subGameMode: subGameMode,
+            gameMode: gameMode,
+          },
+        })
+      : gameMode === BLITZ
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: {
+            subGameMode: BLITZ_MEDIUM,
+            gameMode: gameMode,
+          },
+        })
+      : gameMode === TIMETRIAL
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: {
+            subGameMode: TIMETRIAL_MEDIUM,
+            gameMode: gameMode,
+          },
+        })
+      : null;
+    difficulty !== null && difficulty !== "undefined"
+      ? loadDifficulty(difficulty)
+      : loadDifficulty(EASY);
   };
 
   const loadLevel = (level) => {
     dispatch({
       type: SELECT_LEVEL,
-      payload: level
+      payload: level,
     });
   };
 
   const loadDifficulty = (difficulty) => {
     dispatch({
       type: SELECT_DIFFICULTY,
-      payload: difficulty
+      payload: difficulty,
     });
     setLocalStorageLoaded(true);
   };
@@ -196,19 +162,19 @@ export const GameScreen = () => {
   useEffect(() => {
     if (currentGameMode !== CLASSIC || currentGameMode !== LIMITED) {
       if (seconds > 0 && localStorageLoaded) {
-        currentDifficulty === EASY ?
-          setCurrentPuzzle(
-            GenerateSinglePuzzle(currentDifficulty, EASY_MIN, EASY_MAX)
-          ) :
-          currentDifficulty === MEDIUM ?
-          setCurrentPuzzle(
-            GenerateSinglePuzzle(currentDifficulty, MEDIUM_MIN, MEDIUM_MAX)
-          ) :
-          currentDifficulty === HARD ?
-          setCurrentPuzzle(
-            GenerateSinglePuzzle(currentDifficulty, HARD_MIN, HARD_MAX)
-          ) :
-          null;
+        currentDifficulty === EASY
+          ? setCurrentPuzzle(
+              GenerateSinglePuzzle(currentDifficulty, EASY_MIN, EASY_MAX)
+            )
+          : currentDifficulty === MEDIUM
+          ? setCurrentPuzzle(
+              GenerateSinglePuzzle(currentDifficulty, MEDIUM_MIN, MEDIUM_MAX)
+            )
+          : currentDifficulty === HARD
+          ? setCurrentPuzzle(
+              GenerateSinglePuzzle(currentDifficulty, HARD_MIN, HARD_MAX)
+            )
+          : null;
         currentGameMode === BLITZ ? setSeconds(currentBlitzGameMode) : null;
       }
     }
@@ -262,114 +228,58 @@ export const GameScreen = () => {
       } else {
         dispatch({
           type: SWITCH_SCREEN,
-          payload: GAMEOVER_SCREEN
+          payload: GAMEOVER_SCREEN,
         });
       }
       return () => clearInterval(interval);
     }
   }, [seconds]);
 
-  return ( <
-    SafeAreaView style = {
-      styles.mainView
-    } >
-    <
-    View style = {
-      styles.gameScreenButtonContainer
-    } >
-    <
-    View style = {
-      styles.buttonWheelViewRow
-    } >
-    <
-    BackButton / >
-    <
-    HomeButton / >
-    <
-    /View> <
-    View style = {
-      styles.buttonWheelViewRow
-    } >
-    <
-    MusicButton / >
-    <
-    VolumeButton / >
-    <
-    /View> < /
-    View > <
-    View style = {
-      styles.gameScreenCenteredContent
-    } >
-    <
-    View style = {
-      styles.gameScreenText
-    } >
-    <
-    View >
-    <
-    Text style = {
-      styles.smallWhiteText
-    } >
-    GameMode: {
-      currentGameMode
-    } <
-    /Text> < /
-    View > {
-      currentGameMode !== CLASSIC && currentGameMode !== LIMITED ? ( <
-        View >
-        <
-        Text style = {
-          styles.smallWhiteText
-        } > Score: {
-          score
-        } < /Text> < /
-        View >
-      ) : null
-    } <
-    View > {
-      currentGameMode !== INFINITE &&
-      currentGameMode !== CLASSIC &&
-      currentGameMode !== LIMITED ? ( <
-        Text style = {
-          styles.smallWhiteText
-        } > {
-          seconds > 0 ? seconds : "TIME'S UP"
-        } <
-        /Text>
-      ) : ( <
-        Text style = {
-          styles.smallWhiteText
-        } > Level {
-          currentLevel
-        } < /Text>
-      )
-    } <
-    /View> < /
-    View > <
-    View style = {
-      [styles.bigTile, styles.unselectedTile]
-    } >
-    <
-    Text style = {
-      styles.extraLargeWhiteText
-    } > {
-      bigNumber
-    } < /Text> < /
-    View > <
-    View style = {
-      styles.tilesAndSymbolsRows
-    } >
-    <
-    Tiles / >
-    <
-    Symbols / >
-    <
-    /View> <
-    ReverseTurn style = {
-      styles.center
-    }
-    /> < /
-    View > <
-    /SafeAreaView>
+  return (
+    <SafeAreaView style={styles.mainView}>
+      <View style={styles.gameScreenButtonContainer}>
+        <View style={styles.buttonWheelViewRow}>
+          <BackButton />
+          <HomeButton />
+        </View>
+        <View style={styles.buttonWheelViewRow}>
+          <MusicButton />
+          <VolumeButton />
+        </View>
+      </View>
+      <View style={styles.gameScreenCenteredContent}>
+        <View style={styles.gameScreenText}>
+          <View>
+            <Text style={styles.smallWhiteText}>
+              GameMode: {currentGameMode}{" "}
+            </Text>
+          </View>
+          {currentGameMode !== CLASSIC && currentGameMode !== LIMITED ? (
+            <View>
+              <Text style={styles.smallWhiteText}> Score: {score} </Text>
+            </View>
+          ) : null}
+          <View>
+            {currentGameMode !== INFINITE &&
+            currentGameMode !== CLASSIC &&
+            currentGameMode !== LIMITED ? (
+              <Text style={styles.smallWhiteText}>
+                {seconds > 0 ? seconds : "TIME'S UP"}
+              </Text>
+            ) : (
+              <Text style={styles.smallWhiteText}> Level {currentLevel} </Text>
+            )}
+          </View>
+        </View>
+        <View style={[styles.bigTile, styles.unselectedTile]}>
+          <Text style={styles.extraLargeWhiteText}> {bigNumber} </Text>{" "}
+        </View>{" "}
+        <View style={styles.tilesAndSymbolsRows}>
+          <Tiles />
+          <Symbols />
+        </View>
+        <ReverseTurn style={styles.center} />
+      </View>
+    </SafeAreaView>
   );
 };

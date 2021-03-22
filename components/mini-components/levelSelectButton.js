@@ -28,7 +28,7 @@ export const LevelSelectButton = () => {
     <View style={[styles.bigButton, { backgroundColor: "red" }]}>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
         <View>
-          <Text style={styles.mediumWhiteText}>LEVEL SELECT</Text>
+          <Text style={styles.titleTextLarge}>LEVELS</Text>
         </View>
       </TouchableWithoutFeedback>
     </View>

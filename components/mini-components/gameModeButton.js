@@ -29,7 +29,7 @@ export default function GameModeButton() {
     <View style={[styles.bigButton, { backgroundColor: "green" }]}>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
         <View>
-          <Text style={styles.mediumWhiteText}>GAMEMODE</Text>
+          <Text style={styles.titleTextMedium}>GAMEMODE</Text>
         </View>
       </TouchableWithoutFeedback>
     </View>

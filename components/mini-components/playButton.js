@@ -30,7 +30,7 @@ export const PlayButton = (props) => {
     <View style={[styles.bigButton, { backgroundColor: "blue" }]}>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
         <View>
-          <Text style={styles.mediumWhiteText}>
+          <Text style={styles.titleTextLarge}>
             {again ? "PLAY AGAIN" : "PLAY"}
           </Text>
         </View>

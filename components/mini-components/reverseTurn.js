@@ -17,7 +17,7 @@ export const ReverseTurn = () => {
   return (
     <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
       <Image
-        style={styles.reverseTurnButton}
+        style={styles.wheelIcon}
         source={require("../../assets/back-arrow.png")}
       />
     </TouchableWithoutFeedback>

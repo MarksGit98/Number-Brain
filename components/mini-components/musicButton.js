@@ -33,10 +33,14 @@ export const MusicButton = () => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View style={[styles.musicButtonPosition, styles.buttonWheel]}>
+        <View style={styles.buttonWheel}>
           <Image
-            style={[styles.musicButton]}
-            source={require("../../assets/musicNote.svg")}
+            style={[styles.wheelIcon]}
+            source={
+              currentMusic
+                ? require("../../assets/music-note.png")
+                : require("../../assets/music-note-crossed-out.png")
+            }
           />
         </View>
       </TouchableWithoutFeedback>
