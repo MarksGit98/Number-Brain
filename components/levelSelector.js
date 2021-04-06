@@ -27,9 +27,11 @@ import {
 } from "../constants/constants";
 import { _storeData } from "../localStorage/storeData";
 import { _retrieveData } from "../localStorage/retrieveData";
-import { BackButton } from "./mini-components/backButton";
 import { playSound } from "../constants/buttonClick";
+import { BackButton } from "./mini-components/backButton";
+import { MusicButton } from "./mini-components/musicButton";
 import { HomeButton } from "./mini-components/homeButton";
+import { VolumeButton } from "./mini-components/volumeButton";
 import Grid from "react-native-grid-component";
 
 export const LevelSelector = () => {
@@ -82,8 +84,16 @@ export const LevelSelector = () => {
   return (
     <View style={styles.mainView}>
       <ScrollView>
-        <BackButton />
-        <HomeButton />
+        <View style={styles.buttonWheelContainer}>
+          <View style={styles.buttonWheelViewRow}>
+            <BackButton />
+            <MusicButton />
+          </View>
+          <View style={styles.buttonWheelViewRow}>
+            <HomeButton />
+            <VolumeButton />
+          </View>
+        </View>
         <View style={styles.levelContainer}>
           <Text style={styles.titleTextXXL}>LEVELS</Text>
           {levels.map((level) => (

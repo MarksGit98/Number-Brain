@@ -47,6 +47,9 @@ import {
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { BackButton } from "./mini-components/backButton";
+import { MusicButton } from "./mini-components/musicButton";
+import { HomeButton } from "./mini-components/homeButton";
+import { VolumeButton } from "./mini-components/volumeButton";
 import { playSound } from "../constants/buttonClick";
 export const GameModeSelect = () => {
   const dispatch = useDispatch();
@@ -119,7 +122,16 @@ export const GameModeSelect = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <BackButton />
+      <View style={styles.buttonWheelContainer}>
+        <View style={styles.buttonWheelViewRow}>
+          <BackButton />
+          <MusicButton />
+        </View>
+        <View style={styles.buttonWheelViewRow}>
+          <HomeButton />
+          <VolumeButton />
+        </View>
+      </View>
       <View style={styles.difficultyOptionsView}>
         <Text style={styles.titleTextMedium}>GAMEMODES</Text>
         {gameModeOptions.map((gameMode) => (

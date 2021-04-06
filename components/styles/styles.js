@@ -266,10 +266,10 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  gameScreenButtonContainer: {
+  buttonWheelContainer: {
     display: "flex",
     flexDirection: "column",
-    margin: "5%",
+    margin: "3%",
     justifyContent: "space-between",
   },
 

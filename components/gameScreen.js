@@ -237,7 +237,7 @@ export const GameScreen = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <View style={styles.gameScreenButtonContainer}>
+      <View style={styles.buttonWheelContainer}>
         <View style={styles.buttonWheelViewRow}>
           <BackButton />
           <MusicButton />
