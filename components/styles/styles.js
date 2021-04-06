@@ -38,6 +38,8 @@ export const styles = StyleSheet.create({
 
   center: {
     alignItems: "center",
+    textAlign: "center",
+    verticalAlign: "center",
   },
 
   mainView: {
@@ -55,17 +57,17 @@ export const styles = StyleSheet.create({
 
   symbolTile: {
     margin: 10,
-    height: "60%",
-    width: "60%",
+    height: 60,
+    width: 60,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 25,
+    borderRadius: "50%",
   },
 
   tile: {
     margin: 10,
-    height: 50,
-    width: 50,
+    height: 60,
+    width: 60,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
@@ -80,8 +82,9 @@ export const styles = StyleSheet.create({
   },
 
   bigTile: {
-    height: "40%",
-    width: "50%",
+    width: 200,
+    height: 200,
+    position: "relative",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 12,
@@ -101,7 +104,7 @@ export const styles = StyleSheet.create({
 
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
 
   reverseTurnButton: {
@@ -193,6 +196,14 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
+  titleTextXXXL: {
+    fontFamily: "Digital",
+    fontSize: 90,
+    textShadow: "4px 4px #000",
+    color: "white",
+    marginBottom: 10,
+  },
+
   levelBox: {
     justifyContent: "center",
     alignItems: "center",
@@ -245,6 +256,8 @@ export const styles = StyleSheet.create({
   buttonWheelViewRow: {
     flexDirection: "row",
     marginBottom: "2%",
+    display: "flex",
+    justifyContent: "space-between",
   },
 
   gameScreenCenteredContent: {
@@ -262,9 +275,6 @@ export const styles = StyleSheet.create({
 
   tilesAndSymbolsRows: {
     marginTop: "10%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
   },
 
   gameScreenText: {

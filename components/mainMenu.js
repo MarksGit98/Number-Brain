@@ -66,8 +66,13 @@ export const MainMenu = () => {
   const difficultyOptions = ["easy", "medium", "hard"];
   return (
     <SafeAreaView style={styles.mainView}>
-      <MusicButton />
-      <VolumeButton />
+      <View style={styles.buttonWheelViewRow}>
+        <MusicButton />
+      </View>
+      <View style={styles.buttonWheelViewRow}>
+        <VolumeButton />
+      </View>
+
       <View
         style={[styles.difficultyOptionsView, styles.difficultyOptionsPosition]}
       >

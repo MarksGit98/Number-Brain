@@ -240,45 +240,43 @@ export const GameScreen = () => {
       <View style={styles.gameScreenButtonContainer}>
         <View style={styles.buttonWheelViewRow}>
           <BackButton />
-          <HomeButton />
+          <MusicButton />
         </View>
         <View style={styles.buttonWheelViewRow}>
-          <MusicButton />
+          <HomeButton />
           <VolumeButton />
         </View>
       </View>
       <View style={styles.gameScreenCenteredContent}>
         <View style={styles.gameScreenText}>
           <View>
-            <Text style={styles.smallWhiteText}>
-              GameMode: {currentGameMode}{" "}
-            </Text>
+            <Text style={styles.titleTextXS}>GameMode: {currentGameMode} </Text>
           </View>
           {currentGameMode !== CLASSIC && currentGameMode !== LIMITED ? (
             <View>
-              <Text style={styles.smallWhiteText}> Score: {score} </Text>
+              <Text style={styles.titleTextXS}> Score: {score} </Text>
             </View>
           ) : null}
           <View>
             {currentGameMode !== INFINITE &&
             currentGameMode !== CLASSIC &&
             currentGameMode !== LIMITED ? (
-              <Text style={styles.smallWhiteText}>
+              <Text style={styles.titleTextXS}>
                 {seconds > 0 ? seconds : "TIME'S UP"}
               </Text>
             ) : (
-              <Text style={styles.smallWhiteText}> Level {currentLevel} </Text>
+              <Text style={styles.titleTextXS}> Level {currentLevel} </Text>
             )}
           </View>
         </View>
         <View style={[styles.bigTile, styles.unselectedTile]}>
-          <Text style={styles.extraLargeWhiteText}> {bigNumber} </Text>{" "}
-        </View>{" "}
+          <Text style={[styles.titleTextXXXL, styles.center]}>{bigNumber}</Text>
+        </View>
         <View style={styles.tilesAndSymbolsRows}>
           <Tiles />
           <Symbols />
         </View>
-        <ReverseTurn style={styles.center} />
+        <ReverseTurn />
       </View>
     </SafeAreaView>
   );
