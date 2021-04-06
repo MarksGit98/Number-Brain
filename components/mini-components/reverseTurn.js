@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableWithoutFeedback, Image } from "react-native";
+import { TouchableWithoutFeedback, Image, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../styles/styles";
 import { REVERSE_TURN, UNDO_TURN } from "../../constants/constants";
@@ -15,11 +15,15 @@ export const ReverseTurn = () => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-      <Image
-        style={styles.reverseTurnButton}
-        source={require("../../assets/back-arrow.png")}
-      />
-    </TouchableWithoutFeedback>
+    <View>
+      <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
+        <View style={[styles.symbolTile, styles.unselectedTile]}>
+          <Image
+            style={styles.wheelIcon}
+            source={require("../../assets/back-arrow.png")}
+          />
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
   );
 };

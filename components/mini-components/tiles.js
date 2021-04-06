@@ -47,7 +47,7 @@ export const Tiles = () => {
                   : [styles.tile, styles.unselectedTile]
               }
             >
-              <Text style={styles.smallWhiteText}>{tile}</Text>
+              <Text style={styles.titleTextSmall}>{tile}</Text>
             </View>
           </TouchableWithoutFeedback>
         ))}

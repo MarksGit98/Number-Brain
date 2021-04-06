@@ -46,7 +46,7 @@ import {
 } from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
-import { BackButton } from "./mini-components/backbutton";
+import { BackButton } from "./mini-components/backButton";
 import { playSound } from "../constants/buttonClick";
 export const GameModeSelect = () => {
   const dispatch = useDispatch();
@@ -121,6 +121,7 @@ export const GameModeSelect = () => {
     <SafeAreaView style={styles.mainView}>
       <BackButton />
       <View style={styles.difficultyOptionsView}>
+        <Text style={styles.titleTextMedium}>GAMEMODES</Text>
         {gameModeOptions.map((gameMode) => (
           <TouchableWithoutFeedback
             key={gameMode}
@@ -129,7 +130,7 @@ export const GameModeSelect = () => {
             <View>
               <Text
                 style={[
-                  styles.smallWhiteText,
+                  styles.titleTextSmall,
                   styles.centerText,
                   gameMode === currentGameMode ? styles.difficultyOption : null,
                 ]}
@@ -152,7 +153,7 @@ export const GameModeSelect = () => {
                                 style={[
                                   styles.centerText,
                                   styles.subGameModeDifficulty,
-                                  styles.smallWhiteText,
+                                  styles.titleTextXS,
                                   subGameMode === currentBlitzGameMode
                                     ? styles.difficultyOption
                                     : null,
@@ -169,7 +170,7 @@ export const GameModeSelect = () => {
                                 style={[
                                   styles.centerText,
                                   styles.subGameModeDifficulty,
-                                  styles.smallWhiteText,
+                                  styles.titleTextXS,
                                 ]}
                               >
                                 {subGameMode}s
@@ -192,7 +193,7 @@ export const GameModeSelect = () => {
                               <Text
                                 style={[
                                   styles.subGameModeDifficulty,
-                                  styles.smallWhiteText,
+                                  styles.titleTextXS,
                                   styles.centerText,
                                   subGameMode === currentTimeTrialGameMode
                                     ? styles.difficultyOption
@@ -209,7 +210,7 @@ export const GameModeSelect = () => {
                               <Text
                                 style={[
                                   styles.subGameModeDifficulty,
-                                  styles.smallWhiteText,
+                                  styles.titleTextXS,
                                   styles.centerText,
                                 ]}
                               >

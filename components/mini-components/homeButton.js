@@ -8,31 +8,28 @@ import {
   BUTTON_CLICK,
   SWITCH_SCREEN,
   TOGGLE_MUSIC,
+  MAIN_MENU,
 } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
-import {
-  volumeSelector,
-  previousScreensSelector,
-} from "../selectors/stateSelectors";
-export const BackButton = () => {
+import { volumeSelector } from "../selectors/stateSelectors";
+
+export const HomeButton = () => {
   const dispatch = useDispatch();
   const volume = useSelector(volumeSelector);
-  const previousScreens = useSelector(previousScreensSelector);
   const handleButtonClick = () => {
-    if (previousScreens.length > 0) {
-      if (volume) playSound(BUTTON_CLICK);
-      dispatch({ type: PREVIOUS_SCREEN });
-    } else {
-      if (volume) playSound(ERROR_CLICK);
-    }
+    if (volume) playSound(BUTTON_CLICK);
+    dispatch({
+      type: SWITCH_SCREEN,
+      payload: MAIN_MENU,
+    });
   };
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
         <View style={[styles.buttonWheel]}>
           <Image
-            style={styles.wheelIcon}
-            source={require("../../assets/back-arrow.png")}
+            style={[styles.wheelIcon]}
+            source={require("../../assets/home-icon.png")}
           />
         </View>
       </TouchableWithoutFeedback>

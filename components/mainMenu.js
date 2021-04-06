@@ -31,6 +31,7 @@ import { PlayButton } from "./mini-components/playButton";
 import { LevelSelectButton } from "./mini-components/levelSelectButton";
 import { playSound } from "../constants/buttonClick";
 import { VolumeButton } from "./mini-components/volumeButton";
+import { MusicButton } from "./mini-components/musicButton";
 
 export const MainMenu = () => {
   const dispatch = useDispatch();
@@ -65,8 +66,16 @@ export const MainMenu = () => {
   const difficultyOptions = ["easy", "medium", "hard"];
   return (
     <SafeAreaView style={styles.mainView}>
-      <VolumeButton />
-      <View style={styles.difficultyOptionsView}>
+      <View style={styles.buttonWheelViewRow}>
+        <MusicButton />
+      </View>
+      <View style={styles.buttonWheelViewRow}>
+        <VolumeButton />
+      </View>
+
+      <View
+        style={[styles.difficultyOptionsView, styles.difficultyOptionsPosition]}
+      >
         {difficultyOptions.map((difficulty) => (
           <TouchableWithoutFeedback
             key={difficulty}
@@ -75,7 +84,7 @@ export const MainMenu = () => {
             <View>
               <Text
                 style={[
-                  styles.smallWhiteText,
+                  styles.titleTextSmall,
                   difficulty === currentDifficulty
                     ? styles.difficultyOption
                     : null,

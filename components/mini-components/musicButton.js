@@ -4,20 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../styles/styles";
 import {
   BUTTON_CLICK,
-  TOGGLE_VOLUME,
-  LOCAL_VOLUME,
+  LOCAL_MUSIC,
+  TOGGLE_MUSIC,
 } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
-import { volumeSelector } from "../selectors/stateSelectors";
+import { musicSelector } from "../selectors/stateSelectors";
 import { _retrieveData } from "../../localStorage/retrieveData";
-export const VolumeButton = () => {
+
+export const MusicButton = () => {
   const dispatch = useDispatch();
-  const currentVolume = useSelector(volumeSelector);
+  const currentMusic = useSelector(musicSelector);
 
   const setSettings = async () => {
-    const volume = await _retrieveData(LOCAL_VOLUME);
-    if (currentVolume.toString() !== volume) {
-      dispatch({ type: TOGGLE_VOLUME });
+    const music = await _retrieveData(LOCAL_MUSIC);
+    if (currentMusic.toString() !== music) {
+      dispatch({ type: TOGGLE_MUSIC });
     }
   };
 
@@ -27,18 +28,18 @@ export const VolumeButton = () => {
 
   const handleButtonClick = () => {
     playSound(BUTTON_CLICK);
-    dispatch({ type: TOGGLE_VOLUME });
+    dispatch({ type: TOGGLE_MUSIC });
   };
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View style={[styles.volumeButtonPosition, styles.buttonWheel]}>
+        <View style={styles.buttonWheel}>
           <Image
             style={[styles.wheelIcon]}
             source={
-              currentVolume
-                ? require("../../assets/speaker-on.png")
-                : require("../../assets/speaker-off.png")
+              currentMusic
+                ? require("../../assets/music-note.png")
+                : require("../../assets/music-note-crossed-out.png")
             }
           />
         </View>

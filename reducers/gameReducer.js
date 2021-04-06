@@ -24,11 +24,13 @@ import {
   TIMETRIAL,
   INFINITE,
   SELECT_SUBGAMEMODE,
+  ERROR_CLICK,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 import { initialState } from "./initialGameState";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
+import { playSound } from "../constants/buttonClick";
 export const gameReducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECT_TILE_1: {
@@ -114,6 +116,7 @@ export const gameReducer = (state = initialState, action) => {
       };
     }
     case RESET_ON_INVALID_OPERATION: {
+      playSound(ERROR_CLICK);
       return {
         ...state,
         selectedTile1: { value: null, index: null },

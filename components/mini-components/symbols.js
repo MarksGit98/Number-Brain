@@ -65,7 +65,7 @@ export const Symbols = () => {
                       : [styles.symbolTile, styles.disabledTile]
                   }
                 >
-                  <Text style={styles.smallWhiteText}>
+                  <Text style={styles.titleTextSmall}>
                     {sign === "add"
                       ? "+"
                       : sign === "subtract"
@@ -90,7 +90,7 @@ export const Symbols = () => {
                       : [styles.symbolTile, styles.unselectedTile]
                   }
                 >
-                  <Text style={styles.smallWhiteText}>
+                  <Text style={styles.titleTextSmall}>
                     {sign === "add"
                       ? "+"
                       : sign === "subtract"

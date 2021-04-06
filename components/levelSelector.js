@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { puzzles } from "../puzzles/puzzles";
+// import { TextButton, RaisedTextButton } from "react-native-material-buttons";
 import {
   difficultySelector,
   levelSelector,
@@ -21,11 +22,15 @@ import {
   SELECT_DIFFICULTY,
   BUTTON_CLICK,
   ERROR_CLICK,
+  SWITCH_SCREEN,
+  GAME_SCREEN,
 } from "../constants/constants";
 import { _storeData } from "../localStorage/storeData";
 import { _retrieveData } from "../localStorage/retrieveData";
-import { BackButton } from "./mini-components/backbutton";
+import { BackButton } from "./mini-components/backButton";
 import { playSound } from "../constants/buttonClick";
+import { HomeButton } from "./mini-components/homeButton";
+import Grid from "react-native-grid-component";
 
 export const LevelSelector = () => {
   const dispatch = useDispatch();
@@ -66,12 +71,9 @@ export const LevelSelector = () => {
 
   const handleLevelChange = (level) => {
     try {
-      if (level !== currentLevel) {
-        if (volume) playSound(BUTTON_CLICK);
-        dispatch({ type: SELECT_LEVEL, payload: level });
-      } else {
-        if (volume) playSound(ERROR_CLICK);
-      }
+      if (volume) playSound(BUTTON_CLICK);
+      dispatch({ type: SELECT_LEVEL, payload: level });
+      dispatch({ type: SWITCH_SCREEN, payload: GAME_SCREEN });
     } catch (e) {
       console.log(e);
     }
@@ -81,7 +83,9 @@ export const LevelSelector = () => {
     <View style={styles.mainView}>
       <ScrollView>
         <BackButton />
+        <HomeButton />
         <View style={styles.levelContainer}>
+          <Text style={styles.titleTextXXL}>LEVELS</Text>
           {levels.map((level) => (
             <TouchableWithoutFeedback
               key={level}
