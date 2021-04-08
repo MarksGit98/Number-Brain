@@ -1,6 +1,17 @@
 {
   "expo": {
     "name": "Number-Brain",
+    "android": {
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~3347511713"
+      }
+    },
+    "ios": {
+      "supportsTablet": true,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
+      }
+    },
     "slug": "Number-Brain",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,12 +24,8 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
+    "assetBundlePatterns": ["**/*"],
+
     "web": {
       "favicon": "./assets/favicon.png"
     },

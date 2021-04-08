@@ -130,15 +130,15 @@ export const GameOver = () => {
   return (
     <SafeAreaView style={styles.mainView}>
       <View>
-        <Text style={styles.smallWhiteText}>GameMode: {currentGameMode}</Text>
+        <Text style={styles.titleTextSmall}>GameMode: {currentGameMode}</Text>
       </View>
       <View>
-        <Text style={styles.smallWhiteText}>
+        <Text style={styles.titleTextSmall}>
           Difficulty: {currentDifficulty}
         </Text>
       </View>
       <View>
-        <Text style={styles.smallWhiteText}>
+        <Text style={styles.titleTextSmall}>
           subGameMode:{" "}
           {currentGameMode === BLITZ
             ? currentBlitzGameMode
@@ -149,13 +149,13 @@ export const GameOver = () => {
         </Text>
       </View>
       <View>
-        <Text style={styles.smallWhiteText}>High Score: {highScore}</Text>
+        <Text style={styles.titleTextSmall}>High Score: {highScore}</Text>
       </View>
       <View>
-        <Text style={styles.smallWhiteText}>Score: {score}</Text>
+        <Text style={styles.titleTextSmall}>Score: {score}</Text>
       </View>
       <View>
-        <Text style={styles.smallWhiteText}>
+        <Text style={styles.titleTextSmall}>
           {congrats ? "NEW HIGH SCORE!" : null}
         </Text>
       </View>

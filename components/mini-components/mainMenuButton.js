@@ -30,7 +30,7 @@ export const MainMenuButton = () => {
     <View style={[styles.bigButton, { backgroundColor: "red" }]}>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
         <View>
-          <Text style={styles.mediumWhiteText}>MAIN MENU</Text>
+          <Text style={styles.titleTextSmall}>MAIN MENU</Text>
         </View>
       </TouchableWithoutFeedback>
     </View>

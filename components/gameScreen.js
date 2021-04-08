@@ -14,19 +14,13 @@ import {
 } from "./selectors/stateSelectors";
 import {
   INITIALIZE_ROUND,
-  LOCAL_DIFFICULTY,
-  LOCAL_LEVEL,
-  SELECT_LEVEL,
-  SELECT_DIFFICULTY,
   CLASSIC,
   LIMITED,
   TIMETRIAL,
   BLITZ,
-  LOCAL_GAMEMODE,
   EASY,
   MEDIUM,
   HARD,
-  SELECT_GAMEMODE,
   LOAD_PUZZLE,
   EASY_MIN,
   EASY_MAX,
@@ -38,11 +32,7 @@ import {
   GAMEOVER_SCREEN,
   SWITCH_SCREEN,
   SET_SCORE,
-  LOCAL_BLITZ_GAMEMODE,
-  SELECT_SUBGAMEMODE,
-  LOCAL_TIMETRIAL_GAMEMODE,
   INFINITE,
-  TIMETRIAL_MEDIUM,
   PUZZLE_SOLVE,
 } from "../constants/constants";
 import { Symbols } from "./mini-components/symbols";
@@ -71,79 +61,10 @@ export const GameScreen = () => {
   const [prelimLoad, setPrelimLoad] = useState(false);
   const bigNumber = useSelector(bigNumberSelector);
   const volume = useSelector(volumeSelector);
-
   const setSettings = async () => {
     dispatch({
       type: SET_SCORE,
       payload: 0,
-    });
-    const gameMode = await _retrieveData(LOCAL_GAMEMODE);
-    gameMode !== null
-      ? dispatch({
-          type: SELECT_GAMEMODE,
-          payload: gameMode,
-        })
-      : dispatch({
-          type: SELECT_GAMEMODE,
-          payload: CLASSIC,
-        });
-    let difficulty = await _retrieveData(LOCAL_DIFFICULTY);
-    if (gameMode === CLASSIC || gameMode === LIMITED) {
-      if (difficulty === null || difficulty === "undefined") {
-        difficulty = EASY;
-      }
-      const level = await _retrieveData(`${difficulty}${LOCAL_LEVEL}`);
-      level !== null && level !== "undefined"
-        ? loadLevel(level)
-        : loadLevel("1");
-    }
-    const subGameMode =
-      gameMode === BLITZ
-        ? await _retrieveData(LOCAL_BLITZ_GAMEMODE)
-        : gameMode === TIMETRIAL
-        ? await _retrieveData(LOCAL_TIMETRIAL_GAMEMODE)
-        : null;
-    subGameMode !== null && subGameMode !== "undefined"
-      ? dispatch({
-          type: SELECT_SUBGAMEMODE,
-          payload: {
-            subGameMode: subGameMode,
-            gameMode: gameMode,
-          },
-        })
-      : gameMode === BLITZ
-      ? dispatch({
-          type: SELECT_SUBGAMEMODE,
-          payload: {
-            subGameMode: BLITZ_MEDIUM,
-            gameMode: gameMode,
-          },
-        })
-      : gameMode === TIMETRIAL
-      ? dispatch({
-          type: SELECT_SUBGAMEMODE,
-          payload: {
-            subGameMode: TIMETRIAL_MEDIUM,
-            gameMode: gameMode,
-          },
-        })
-      : null;
-    difficulty !== null && difficulty !== "undefined"
-      ? loadDifficulty(difficulty)
-      : loadDifficulty(EASY);
-  };
-
-  const loadLevel = (level) => {
-    dispatch({
-      type: SELECT_LEVEL,
-      payload: level,
-    });
-  };
-
-  const loadDifficulty = (difficulty) => {
-    dispatch({
-      type: SELECT_DIFFICULTY,
-      payload: difficulty,
     });
     setLocalStorageLoaded(true);
   };
@@ -160,7 +81,7 @@ export const GameScreen = () => {
   }, []);
 
   useEffect(() => {
-    if (currentGameMode !== CLASSIC || currentGameMode !== LIMITED) {
+    if (currentGameMode !== CLASSIC && currentGameMode !== LIMITED) {
       if (seconds > 0 && localStorageLoaded) {
         currentDifficulty === EASY
           ? setCurrentPuzzle(

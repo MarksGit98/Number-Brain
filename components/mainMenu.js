@@ -8,16 +8,22 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
 import {
-  GAME_SCREEN,
-  LEVEL_SCREEN,
-  SELECT_DIFFICULTY,
-  SWITCH_SCREEN,
-  INITIALIZE_ROUND,
   LOCAL_DIFFICULTY,
   LOCAL_LEVEL,
   SELECT_LEVEL,
-  BUTTON_CLICK,
-  ERROR_CLICK,
+  SELECT_DIFFICULTY,
+  CLASSIC,
+  LIMITED,
+  TIMETRIAL,
+  BLITZ,
+  LOCAL_GAMEMODE,
+  EASY,
+  SELECT_GAMEMODE,
+  BLITZ_MEDIUM,
+  LOCAL_BLITZ_GAMEMODE,
+  SELECT_SUBGAMEMODE,
+  LOCAL_TIMETRIAL_GAMEMODE,
+  TIMETRIAL_MEDIUM,
 } from "../constants/constants";
 import {
   difficultySelector,
@@ -35,17 +41,84 @@ import { MusicButton } from "./mini-components/musicButton";
 import { BackButton } from "./mini-components/backButton";
 import { HomeButton } from "./mini-components/homeButton";
 
+import { AdMobBanner } from "expo-ads-admob";
+
 export const MainMenu = () => {
   const dispatch = useDispatch();
   const currentDifficulty = useSelector(difficultySelector);
   const volume = useSelector(volumeSelector);
+
   const setSettings = async () => {
+    const gameMode = await _retrieveData(LOCAL_GAMEMODE);
+    gameMode !== null
+      ? dispatch({
+          type: SELECT_GAMEMODE,
+          payload: gameMode,
+        })
+      : dispatch({
+          type: SELECT_GAMEMODE,
+          payload: CLASSIC,
+        });
     const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
-    difficulty !== null
-      ? dispatch({ type: SELECT_DIFFICULTY, payload: difficulty })
-      : dispatch({ type: SELECT_DIFFICULTY, payload: "easy" });
+
+    if (gameMode === CLASSIC || gameMode === LIMITED) {
+      if (difficulty === null || difficulty === "undefined") {
+        difficulty = EASY;
+      }
+      const level = await _retrieveData(`${difficulty}${LOCAL_LEVEL}`);
+      level !== null && level !== "undefined"
+        ? loadLevel(level)
+        : loadLevel("1");
+    }
+    const subGameMode =
+      gameMode === BLITZ
+        ? await _retrieveData(LOCAL_BLITZ_GAMEMODE)
+        : gameMode === TIMETRIAL
+        ? await _retrieveData(LOCAL_TIMETRIAL_GAMEMODE)
+        : null;
+    subGameMode !== null && subGameMode !== "undefined"
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: {
+            subGameMode: subGameMode,
+            gameMode: gameMode,
+          },
+        })
+      : gameMode === BLITZ
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: {
+            subGameMode: BLITZ_MEDIUM,
+            gameMode: gameMode,
+          },
+        })
+      : gameMode === TIMETRIAL
+      ? dispatch({
+          type: SELECT_SUBGAMEMODE,
+          payload: {
+            subGameMode: TIMETRIAL_MEDIUM,
+            gameMode: gameMode,
+          },
+        })
+      : null;
+    difficulty !== null && difficulty !== "undefined"
+      ? loadDifficulty(difficulty)
+      : loadDifficulty(EASY);
   };
 
+  const loadLevel = (level) => {
+    dispatch({
+      type: SELECT_LEVEL,
+      payload: level,
+    });
+  };
+
+  const loadDifficulty = (difficulty) => {
+    dispatch({
+      type: SELECT_DIFFICULTY,
+      payload: difficulty,
+    });
+  };
   useEffect(() => {
     setSettings();
   }, [currentDifficulty]);
@@ -63,6 +136,10 @@ export const MainMenu = () => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const bannerError = () => {
+    alert(e);
   };
 
   const difficultyOptions = ["easy", "medium", "hard"];
@@ -105,6 +182,12 @@ export const MainMenu = () => {
       <GameModeButton />
       <LevelSelectButton />
       <PlayButton />
+      <AdMobBanner
+        bannerSize="fullBanner"
+        adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+        servePersonalizedAds // true or false
+        onDidFailToReceiveAdWithError={(e) => bannerError(e)}
+      />
     </SafeAreaView>
   );
 };
