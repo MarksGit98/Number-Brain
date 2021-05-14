@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import "../../styles.css";
 import {
   tileColor,
   backgroundColor,
@@ -15,31 +14,30 @@ export const styles = StyleSheet.create({
   smallWhiteText: {
     fontSize: 40,
     color: "white",
-    fontFamily: "Digital",
+    fontFamily: "digital",
   },
 
   mediumWhiteText: {
     fontSize: 50,
     color: "white",
-    fontFamily: "Digital",
+    fontFamily: "digital",
   },
 
   largeWhiteText: {
     fontSize: 90,
     color: "white",
-    fontFamily: "Digital",
+    fontFamily: "digital",
   },
 
   extraLargeWhiteText: {
     fontSize: 130,
     color: "white",
-    fontFamily: "Digital",
+    fontFamily: "digital",
   },
 
   center: {
     alignItems: "center",
     textAlign: "center",
-    verticalAlign: "center",
   },
 
   mainView: {
@@ -61,7 +59,7 @@ export const styles = StyleSheet.create({
     width: 60,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: "50%",
+    borderRadius: 50,
   },
 
   tile: {
@@ -154,52 +152,52 @@ export const styles = StyleSheet.create({
   },
 
   titleTextXS: {
-    fontFamily: "Digital",
+    fontFamily: "digital",
     fontSize: 25,
-    textShadow: "2px 2px #000",
+    // textShadow: "2px 2px #000",
     color: "white",
   },
   titleTextSmall: {
-    fontFamily: "Digital",
+    fontFamily: "digital",
     fontSize: 35,
-    textShadow: "2px 2px #000",
+    // textShadow: "2px 2px #000",
     color: "white",
   },
 
   titleTextMedium: {
-    fontFamily: "Digital",
+    fontFamily: "digital",
     fontSize: 45,
-    textShadow: "2px 2px #000",
+    // textShadow: "2px 2px #000",
     color: "white",
   },
 
   titleTextLarge: {
-    fontFamily: "Digital",
+    fontFamily: "digital",
     fontSize: 50,
-    textShadow: "3px 3px #000",
+    // textShadow: "3px 3px #000",
     color: "white",
   },
 
   titleTextXL: {
-    fontFamily: "Digital",
+    fontFamily: "digital",
     fontSize: 60,
-    textShadow: "3px 3px #000",
+    // textShadow: "3px 3px #000",
     color: "white",
     marginBottom: 10,
   },
 
   titleTextXXL: {
-    fontFamily: "Digital",
+    fontFamily: "digital",
     fontSize: 70,
-    textShadow: "4px 4px #000",
+    // textShadow: "4px 4px #000",
     color: "white",
     marginBottom: 10,
   },
 
   titleTextXXXL: {
-    fontFamily: "Digital",
+    fontFamily: "digital",
     fontSize: 90,
-    textShadow: "4px 4px #000",
+    // textShadow: "4px 4px #000",
     color: "white",
     marginBottom: 10,
   },
