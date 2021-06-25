@@ -33,18 +33,26 @@ export const ViewSelector = () => {
     digital: require("../fonts/joystix-monospace.ttf"),
   });
 
-  useEffect(() => {
-    music ? playBackgroundMusic() : null;
-  }, [music]);
+  // useEffect(() => {
+  //   try {
+  //     music ? playBackgroundMusic() : null;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, [music]);
 
-  useEffect(() => {
-    if (!music && backgroundMusic) backgroundMusic.unloadAsync();
-    return backgroundMusic
-      ? () => {
-          backgroundMusic.unloadAsync();
-        }
-      : undefined;
-  }, [backgroundMusic, music]);
+  // useEffect(() => {
+  //   try {
+  //     if (!music && backgroundMusic) backgroundMusic.unloadAsync();
+  //     return backgroundMusic
+  //       ? () => {
+  //           backgroundMusic.unloadAsync();
+  //         }
+  //       : undefined;
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }, [backgroundMusic, music]);
 
   return view === MAIN_MENU ? (
     <MainMenu />

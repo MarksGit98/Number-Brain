@@ -32,7 +32,6 @@ import { BackButton } from "./mini-components/backButton";
 import { MusicButton } from "./mini-components/musicButton";
 import { HomeButton } from "./mini-components/homeButton";
 import { VolumeButton } from "./mini-components/volumeButton";
-import Grid from "react-native-grid-component";
 
 export const LevelSelector = () => {
   const dispatch = useDispatch();

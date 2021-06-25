@@ -1,3 +1,5 @@
+import { Dimensions } from "react-native";
+const { width, height } = Dimensions.get("window");
 import { StyleSheet } from "react-native";
 import {
   tileColor,
@@ -5,6 +7,7 @@ import {
   buttonWheelColor,
   levelButtonColor,
 } from "../../constants/constants";
+
 export const styles = StyleSheet.create({
   bigNumber: {
     fontSize: 90,
@@ -54,38 +57,38 @@ export const styles = StyleSheet.create({
   },
 
   symbolTile: {
-    margin: 10,
-    height: 60,
-    width: 60,
+    margin: 0.03 * width,
+    height: 0.07 * height,
+    width: 0.07 * height,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 50,
+    borderRadius: 0.08 * height,
   },
 
   tile: {
-    margin: 10,
-    height: 60,
-    width: 60,
+    margin: 0.03 * width,
+    height: 0.08 * height,
+    width: 0.08 * height,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
   },
 
   quantityTile: {
-    height: 12,
-    width: 12,
-    borderRadius: 50,
+    height: 0.02 * height,
+    width: 0.02 * height,
+    borderRadius: 0.01 * height,
     color: "white",
     backgroundColor: "#000",
   },
 
   bigTile: {
-    width: 200,
-    height: 200,
+    width: 0.25 * height,
+    height: 0.25 * height,
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 12,
+    borderRadius: 0.03 * height,
   },
 
   selectedTile1: {
@@ -106,8 +109,8 @@ export const styles = StyleSheet.create({
   },
 
   reverseTurnButton: {
-    height: 50,
-    width: 50,
+    height: 0.07 * height,
+    width: 0.07 * height,
     zIndex: 2,
   },
 
@@ -118,20 +121,25 @@ export const styles = StyleSheet.create({
   },
 
   bigButton: {
-    borderRadius: 40,
+    borderRadius: 0.03 * height,
     marginLeft: "auto",
     marginRight: "auto",
-    marginBottom: 20,
-    marginTop: 20,
-    height: 75,
-    width: 300,
+    marginBottom: 0.02 * height,
+    marginTop: 0.02 * height,
+    height: 0.1 * height,
+    width: 0.8 * width,
     justifyContent: "center",
     alignItems: "center",
   },
 
+  bottomAdBanner: {
+    position: "absolute",
+    bottom: 0,
+  },
+
   subGameModeDifficulty: {
-    marginLeft: 5,
-    marginRight: 5,
+    marginLeft: 0.01 * height,
+    marginRight: 0.01 * height,
   },
 
   difficultyOptionsView: {
@@ -140,7 +148,7 @@ export const styles = StyleSheet.create({
   },
 
   difficultyOptionsPosition: {
-    marginTop: "10%",
+    marginTop: 0.01 * height,
   },
 
   centerText: {
@@ -183,7 +191,7 @@ export const styles = StyleSheet.create({
     fontSize: 60,
     // textShadow: "3px 3px #000",
     color: "white",
-    marginBottom: 10,
+    marginBottom: 0.02 * height,
   },
 
   titleTextXXL: {
@@ -191,7 +199,7 @@ export const styles = StyleSheet.create({
     fontSize: 70,
     // textShadow: "4px 4px #000",
     color: "white",
-    marginBottom: 10,
+    marginBottom: 0.02 * height,
   },
 
   titleTextXXXL: {
@@ -199,22 +207,22 @@ export const styles = StyleSheet.create({
     fontSize: 90,
     // textShadow: "4px 4px #000",
     color: "white",
-    marginBottom: 10,
+    marginBottom: 0.02 * height,
   },
 
   levelBox: {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: levelButtonColor,
-    height: 90,
-    width: 90,
-    borderRadius: 50,
-    marginBottom: 12,
+    height: 0.25 * width,
+    width: 0.25 * width,
+    borderRadius: 0.13 * width,
+    margin: 0.03 * width,
   },
 
   levelContainer: {
-    marginLeft: "3%",
-    marginRight: "3%",
+    marginLeft: 0.03 * width,
+    marginRight: 0.03 * width,
     textAlign: "center",
     display: "flex",
     flexDirection: "row",
@@ -225,35 +233,34 @@ export const styles = StyleSheet.create({
 
   wheelIcon: {
     position: "relative",
-    margin: "25%",
-    height: 32,
-    width: 32,
+    height: 0.03 * height,
+    width: 0.03 * height,
   },
 
   buttonWheel: {
     backgroundColor: buttonWheelColor,
     opacity: 60,
-    height: 60,
-    width: 60,
-    borderRadius: 30,
+    height: 0.07 * height,
+    width: 0.07 * height,
+    borderRadius: 0.04 * height,
     alignItems: "center",
   },
 
   volumeButton: {
     opacity: 100,
-    width: 30,
+    width: 0.05 * width,
     height: "auto",
   },
 
   musicButton: {
     opacity: 100,
-    width: 30,
+    width: 0.05 * width,
     height: "auto",
   },
 
   buttonWheelViewRow: {
     flexDirection: "row",
-    marginBottom: "2%",
+    marginBottom: 0.01 * height,
     display: "flex",
     justifyContent: "space-between",
   },
@@ -267,17 +274,23 @@ export const styles = StyleSheet.create({
   buttonWheelContainer: {
     display: "flex",
     flexDirection: "column",
-    margin: "3%",
+    marginLeft: 0.03 * width,
+    marginRight: 0.03 * width,
+    marginTop: 0.03 * width,
     justifyContent: "space-between",
   },
 
   tilesAndSymbolsRows: {
-    marginTop: "10%",
+    marginTop: 0.02 * height,
   },
 
   gameScreenText: {
-    margin: "5%",
+    margin: 0.005 * height,
     alignContent: "center",
     textAlign: "center",
+  },
+
+  reverseTurnPlacement: {
+    marginTop: 0.02 * height,
   },
 });

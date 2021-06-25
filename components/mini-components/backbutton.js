@@ -6,8 +6,6 @@ import {
   ERROR_CLICK,
   PREVIOUS_SCREEN,
   BUTTON_CLICK,
-  SWITCH_SCREEN,
-  TOGGLE_MUSIC,
 } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
 import {

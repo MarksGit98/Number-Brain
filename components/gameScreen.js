@@ -197,7 +197,7 @@ export const GameScreen = () => {
           <Tiles />
           <Symbols />
         </View>
-        <ReverseTurn />
+        <ReverseTurn style={styles.reverseTurnPlacement} />
       </View>
     </SafeAreaView>
   );
