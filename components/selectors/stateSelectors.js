@@ -64,3 +64,7 @@ export const volumeSelector = (state) => {
 export const musicSelector = (state) => {
   return state.userSettingsStore.music;
 };
+
+export const solutionSelector = (state) => {
+  return state.gameStore.solution;
+};

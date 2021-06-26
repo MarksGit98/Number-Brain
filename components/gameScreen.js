@@ -46,6 +46,7 @@ import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
 import { playSound } from "../constants/buttonClick";
 import { MusicButton } from "./mini-components/musicButton";
 import { VolumeButton } from "./mini-components/volumeButton";
+import { HintButton } from "./mini-components/hintButton";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
@@ -198,6 +199,7 @@ export const GameScreen = () => {
           <Symbols />
         </View>
         <ReverseTurn style={styles.reverseTurnPlacement} />
+        <HintButton />
       </View>
     </SafeAreaView>
   );

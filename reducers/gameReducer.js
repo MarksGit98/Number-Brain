@@ -161,6 +161,7 @@ export const gameReducer = (state = initialState, action) => {
         symbols: puzzles[difficultyToLoad][levelToLoad].symbols,
         bigNumber: puzzles[difficultyToLoad][levelToLoad].bigNumber,
         turnHistory: [],
+        solution: puzzles[difficultyToLoad][levelToLoad].solution,
         won: false,
       };
     }
@@ -173,6 +174,7 @@ export const gameReducer = (state = initialState, action) => {
         symbols: action.payload.symbols,
         bigNumber: action.payload.bigNumber,
         turnHistory: [],
+        solution: action.payload.solution,
         won: false,
       };
     }
