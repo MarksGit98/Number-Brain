@@ -160,37 +160,37 @@ export const GameScreen = () => {
   return (
     <SafeAreaView style={styles.mainView}>
       <View style={styles.buttonWheelContainer}>
-        <View style={styles.buttonWheelViewRow}>
+        <View style={[styles.buttonWheelViewColumn, styles.leftColumn]}>
           <BackButton />
-          <MusicButton />
-        </View>
-        <View style={styles.buttonWheelViewRow}>
           <HomeButton />
-          <VolumeButton />
         </View>
-      </View>
-      <View style={styles.gameScreenCenteredContent}>
         <View style={styles.gameScreenText}>
           <View>
-            <Text style={styles.titleTextXS}>GameMode: {currentGameMode} </Text>
+            <Text style={[styles.titleTextSmall, styles.gameModeBanner]}>
+              {currentGameMode}
+            </Text>
           </View>
           {currentGameMode !== CLASSIC && currentGameMode !== LIMITED ? (
             <View>
-              <Text style={styles.titleTextXS}> Score: {score} </Text>
+              <Text style={styles.titleTextXS}> Score:{score} </Text>
             </View>
           ) : null}
           <View>
-            {currentGameMode !== INFINITE &&
-            currentGameMode !== CLASSIC &&
-            currentGameMode !== LIMITED ? (
+            {currentGameMode === BLITZ || currentGameMode === TIMETRIAL ? (
               <Text style={styles.titleTextXS}>
                 {seconds > 0 ? seconds : "TIME'S UP"}
               </Text>
-            ) : (
+            ) : currentGameMode !== INFINITE ? (
               <Text style={styles.titleTextXS}> Level {currentLevel} </Text>
-            )}
+            ) : null}
           </View>
         </View>
+        <View style={[styles.buttonWheelViewColumn, styles.rightColumn]}>
+          <MusicButton floatRight={true} />
+          <VolumeButton floatRight={true} />
+        </View>
+      </View>
+      <View style={styles.gameScreenCenteredContent}>
         <View style={[styles.bigTile, styles.unselectedTile]}>
           <Text style={[styles.titleTextXXXL, styles.center]}>{bigNumber}</Text>
         </View>

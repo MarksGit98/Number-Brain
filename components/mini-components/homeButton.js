@@ -13,7 +13,7 @@ import {
 import { playSound } from "../../constants/buttonClick";
 import { volumeSelector } from "../selectors/stateSelectors";
 
-export const HomeButton = () => {
+export const HomeButton = (props) => {
   const dispatch = useDispatch();
   const volume = useSelector(volumeSelector);
   const handleButtonClick = () => {
@@ -26,7 +26,12 @@ export const HomeButton = () => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View style={[styles.buttonWheel]}>
+        <View
+          style={[
+            styles.buttonWheel,
+            props.floatRight ? styles.rightColumn : null,
+          ]}
+        >
           <Image
             style={[styles.wheelIcon]}
             source={require("../../assets/home-icon.png")}

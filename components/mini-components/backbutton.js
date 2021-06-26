@@ -12,7 +12,7 @@ import {
   volumeSelector,
   previousScreensSelector,
 } from "../selectors/stateSelectors";
-export const BackButton = () => {
+export const BackButton = (props) => {
   const dispatch = useDispatch();
   const volume = useSelector(volumeSelector);
   const previousScreens = useSelector(previousScreensSelector);
@@ -27,7 +27,12 @@ export const BackButton = () => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View style={[styles.buttonWheel]}>
+        <View
+          style={[
+            styles.buttonWheel,
+            props.floatRight ? styles.rightColumn : null,
+          ]}
+        >
           <Image
             style={styles.wheelIcon}
             source={require("../../assets/back-arrow.png")}

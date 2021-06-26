@@ -137,6 +137,15 @@ export const styles = StyleSheet.create({
     bottom: 0,
   },
 
+  leftColumn: {
+    float: "left",
+  },
+
+  rightColumn: {
+    marginLeft: "auto",
+    marginRight: 0,
+  },
+
   subGameModeDifficulty: {
     marginLeft: 0.01 * height,
     marginRight: 0.01 * height,
@@ -167,7 +176,7 @@ export const styles = StyleSheet.create({
   },
   titleTextSmall: {
     fontFamily: "digital",
-    fontSize: 35,
+    fontSize: 32,
     // textShadow: "2px 2px #000",
     color: "white",
   },
@@ -244,6 +253,7 @@ export const styles = StyleSheet.create({
     width: 0.07 * height,
     borderRadius: 0.04 * height,
     alignItems: "center",
+    marginBottom: 0.01 * height,
   },
 
   volumeButton: {
@@ -258,11 +268,10 @@ export const styles = StyleSheet.create({
     height: "auto",
   },
 
-  buttonWheelViewRow: {
-    flexDirection: "row",
-    marginBottom: 0.01 * height,
-    display: "flex",
-    justifyContent: "space-between",
+  buttonWheelViewColumn: {
+    flex: 1,
+    flexDirection: "column",
+    alignContent: "space-between",
   },
 
   gameScreenCenteredContent: {
@@ -273,9 +282,10 @@ export const styles = StyleSheet.create({
 
   buttonWheelContainer: {
     display: "flex",
-    flexDirection: "column",
-    marginLeft: 0.03 * width,
-    marginRight: 0.03 * width,
+    flexDirection: "row",
+    paddingHorizontal: 10,
+    marginLeft: 0.02 * width,
+    marginRight: 0.02 * width,
     marginTop: 0.03 * width,
     justifyContent: "space-between",
   },
@@ -285,9 +295,12 @@ export const styles = StyleSheet.create({
   },
 
   gameScreenText: {
-    margin: 0.005 * height,
+    flex: 4,
+    textAlign: "center",
+    flexDirection: "column",
     alignContent: "center",
     textAlign: "center",
+    textAlignVertical: "middle",
   },
 
   reverseTurnPlacement: {

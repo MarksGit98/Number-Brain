@@ -11,7 +11,7 @@ import { playSound } from "../../constants/buttonClick";
 import { musicSelector } from "../selectors/stateSelectors";
 import { _retrieveData } from "../../localStorage/retrieveData";
 
-export const MusicButton = () => {
+export const MusicButton = (props) => {
   const dispatch = useDispatch();
   const currentMusic = useSelector(musicSelector);
 
@@ -33,7 +33,12 @@ export const MusicButton = () => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View style={styles.buttonWheel}>
+        <View
+          style={[
+            styles.buttonWheel,
+            props.floatRight ? styles.rightColumn : null,
+          ]}
+        >
           <Image
             style={[styles.wheelIcon]}
             source={
