@@ -25,6 +25,8 @@ import {
   INFINITE,
   SELECT_SUBGAMEMODE,
   ERROR_CLICK,
+  RESET_TILES,
+  INVALID_OPERATION_SOUND_PLAYED,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 import { initialState } from "./initialGameState";
@@ -116,12 +118,18 @@ export const gameReducer = (state = initialState, action) => {
       };
     }
     case RESET_ON_INVALID_OPERATION: {
-      playSound(ERROR_CLICK);
       return {
         ...state,
         selectedTile1: { value: null, index: null },
         selectedTile2: { value: null, index: null },
         selectedSymbol: { symbol: null, quantity: null },
+        error: true,
+      };
+    }
+    case INVALID_OPERATION_SOUND_PLAYED: {
+      return {
+        ...state,
+        error: false,
       };
     }
     case REVERSE_TURN: {
@@ -147,6 +155,39 @@ export const gameReducer = (state = initialState, action) => {
             prevTurn.symbol === DIVIDE
               ? state.symbols.divide + 1
               : state.symbols.divide,
+        },
+      };
+    }
+    case RESET_TILES: {
+      let subtraction = 0;
+      let addition = 0;
+      let multiplication = 0;
+      let division = 0;
+      let reset_tiles = state.tiles;
+      while (state.turnHistory.length > 0) {
+        const prevTurn = state.turnHistory.pop();
+        reset_tiles = prevTurn.tiles;
+        if (prevTurn.symbol === ADD) {
+          addition += 1;
+        } else if (prevTurn.symbol === SUBTRACT) {
+          subtraction += 1;
+        } else if (prevTurn.symbol === MULTIPLY) {
+          multiplication += 1;
+        } else if (prevTurn.symbol === DIVIDE) {
+          division += 1;
+        }
+      }
+      return {
+        ...state,
+        tiles: reset_tiles,
+        selectedTile1: { value: null, index: null },
+        selectedTile2: { value: null, index: null },
+        selectedSymbol: { symbol: null, quantity: null },
+        symbols: {
+          add: state.symbols.add + addition,
+          subtract: state.symbols.subtract + subtraction,
+          multiply: state.symbols.multiply + multiplication,
+          divide: state.symbols.divide + division,
         },
       };
     }

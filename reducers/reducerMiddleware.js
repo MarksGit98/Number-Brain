@@ -31,6 +31,7 @@ import {
   GAMEOVER_SCREEN,
   SWITCH_SCREEN,
   MAIN_MENU,
+  RESET_TILES,
 } from "../constants/constants";
 import { _storeData } from "../localStorage/storeData";
 
@@ -233,8 +234,8 @@ export const reducerMiddleware = (rawStore) => {
         break;
       }
       case PREVIOUS_SCREEN: {
-        const previousScreens = rawStore.getState().userSettingsStore
-          .previousScreens;
+        const previousScreens =
+          rawStore.getState().userSettingsStore.previousScreens;
         previousScreens.pop();
         const previousScreen = previousScreens[previousScreens.length - 1];
 

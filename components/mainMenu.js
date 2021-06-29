@@ -36,11 +36,7 @@ import GameModeButton from "./mini-components/gameModeButton";
 import { PlayButton } from "./mini-components/playButton";
 import { LevelSelectButton } from "./mini-components/levelSelectButton";
 import { playSound } from "../constants/buttonClick";
-import { VolumeButton } from "./mini-components/volumeButton";
-import { MusicButton } from "./mini-components/musicButton";
-import { BackButton } from "./mini-components/backButton";
-import { HomeButton } from "./mini-components/homeButton";
-
+import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 import { AdMobBanner } from "expo-ads-admob";
 
 export const MainMenu = () => {
@@ -145,17 +141,7 @@ export const MainMenu = () => {
   const difficultyOptions = ["easy", "medium", "hard"];
   return (
     <SafeAreaView style={styles.mainView}>
-      <View style={styles.buttonWheelContainer}>
-        <View style={styles.buttonWheelViewRow}>
-          <BackButton />
-          <MusicButton />
-        </View>
-        <View style={styles.buttonWheelViewRow}>
-          <HomeButton />
-          <VolumeButton />
-        </View>
-      </View>
-
+      <TopButtonWheelComponent />
       <View
         style={[styles.difficultyOptionsView, styles.difficultyOptionsPosition]}
       >

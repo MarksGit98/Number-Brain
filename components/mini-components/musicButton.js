@@ -8,11 +8,12 @@ import {
   TOGGLE_MUSIC,
 } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
-import { musicSelector } from "../selectors/stateSelectors";
+import { musicSelector, volumeSelector } from "../selectors/stateSelectors";
 import { _retrieveData } from "../../localStorage/retrieveData";
 
 export const MusicButton = (props) => {
   const dispatch = useDispatch();
+  const volume = useSelector(volumeSelector);
   const currentMusic = useSelector(musicSelector);
 
   const setSettings = async () => {
@@ -27,7 +28,7 @@ export const MusicButton = (props) => {
   }, []);
 
   const handleButtonClick = () => {
-    playSound(BUTTON_CLICK);
+    if (volume) playSound(BUTTON_CLICK);
     dispatch({ type: TOGGLE_MUSIC });
   };
   return (

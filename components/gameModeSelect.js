@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
+import { AdMobBanner } from "expo-ads-admob";
 import {
   GAME_SCREEN,
   LEVEL_SCREEN,
@@ -46,10 +47,7 @@ import {
 } from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
-import { BackButton } from "./mini-components/backButton";
-import { MusicButton } from "./mini-components/musicButton";
-import { HomeButton } from "./mini-components/homeButton";
-import { VolumeButton } from "./mini-components/volumeButton";
+import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 import { playSound } from "../constants/buttonClick";
 export const GameModeSelect = () => {
   const dispatch = useDispatch();
@@ -122,16 +120,7 @@ export const GameModeSelect = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <View style={styles.buttonWheelContainer}>
-        <View style={styles.buttonWheelViewRow}>
-          <BackButton />
-          <MusicButton />
-        </View>
-        <View style={styles.buttonWheelViewRow}>
-          <HomeButton />
-          <VolumeButton />
-        </View>
-      </View>
+      <TopButtonWheelComponent />
       <View style={styles.difficultyOptionsView}>
         <Text style={styles.titleTextMedium}>GAMEMODES</Text>
         {gameModeOptions.map((gameMode) => (
@@ -238,6 +227,14 @@ export const GameModeSelect = () => {
             </View>
           </TouchableWithoutFeedback>
         ))}
+      </View>
+      <View style={styles.bottomAdBanner}>
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+          servePersonalizedAds // true or false
+          onDidFailToReceiveAdWithError={(e) => bannerError(e)}
+        />
       </View>
     </SafeAreaView>
   );

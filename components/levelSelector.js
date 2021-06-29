@@ -25,13 +25,11 @@ import {
   SWITCH_SCREEN,
   GAME_SCREEN,
 } from "../constants/constants";
+import { AdMobBanner } from "expo-ads-admob";
 import { _storeData } from "../localStorage/storeData";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { playSound } from "../constants/buttonClick";
-import { BackButton } from "./mini-components/backButton";
-import { MusicButton } from "./mini-components/musicButton";
-import { HomeButton } from "./mini-components/homeButton";
-import { VolumeButton } from "./mini-components/volumeButton";
+import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 
 export const LevelSelector = () => {
   const dispatch = useDispatch();
@@ -83,16 +81,7 @@ export const LevelSelector = () => {
   return (
     <View style={styles.mainView}>
       <ScrollView>
-        <View style={styles.buttonWheelContainer}>
-          <View style={styles.buttonWheelViewRow}>
-            <BackButton />
-            <MusicButton />
-          </View>
-          <View style={styles.buttonWheelViewRow}>
-            <HomeButton />
-            <VolumeButton />
-          </View>
-        </View>
+        <TopButtonWheelComponent />
         <View style={styles.levelContainer}>
           <Text style={styles.titleTextXXL}>LEVELS</Text>
           {levels.map((level) => (
@@ -119,6 +108,14 @@ export const LevelSelector = () => {
           ))}
         </View>
       </ScrollView>
+      <View style={styles.bottomAdBanner}>
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+          servePersonalizedAds // true or false
+          onDidFailToReceiveAdWithError={(e) => bannerError(e)}
+        />
+      </View>
     </View>
   );
 };

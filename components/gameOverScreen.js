@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
+import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
+import { AdMobBanner } from "expo-ads-admob";
 import {
   bigNumberSelector,
   wonSelector,
@@ -33,20 +35,11 @@ import {
   MEDIUM,
   HARD,
   SELECT_GAMEMODE,
-  LOAD_PUZZLE,
-  EASY_MIN,
-  EASY_MAX,
-  MEDIUM_MIN,
-  MEDIUM_MAX,
-  HARD_MIN,
-  HARD_MAX,
-  BLITZ_30,
-  BLITZ_60,
-  BLITZ_90,
   LOCAL_BLITZ_GAMEMODE,
   LOCAL_TIMETRIAL_GAMEMODE,
   SELECT_SUBGAMEMODE,
   BLITZ_MEDIUM,
+  RESET_TILES,
 } from "../constants/constants";
 
 import { _retrieveData } from "../localStorage/retrieveData";
@@ -94,6 +87,7 @@ export const GameOver = () => {
   };
 
   useEffect(() => {
+    dispatch({ type: RESET_TILES });
     setSettings();
   }, []);
 
@@ -129,6 +123,7 @@ export const GameOver = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
+      <TopButtonWheelComponent />
       <View>
         <Text style={styles.titleTextSmall}>GameMode: {currentGameMode}</Text>
       </View>
@@ -161,6 +156,14 @@ export const GameOver = () => {
       </View>
       <PlayButton again={true} />
       <MainMenuButton />
+      <View style={styles.bottomAdBanner}>
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+          servePersonalizedAds // true or false
+          onDidFailToReceiveAdWithError={(e) => bannerError(e)}
+        />
+      </View>
     </SafeAreaView>
   );
 };

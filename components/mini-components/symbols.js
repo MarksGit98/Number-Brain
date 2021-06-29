@@ -47,7 +47,7 @@ export const Symbols = () => {
   };
 
   return (
-    <View top="20%" style={styles.row}>
+    <View style={styles.row}>
       {signs.map((sign) => {
         return (
           <TouchableWithoutFeedback

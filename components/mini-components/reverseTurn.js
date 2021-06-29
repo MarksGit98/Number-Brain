@@ -5,7 +5,7 @@ import { styles } from "../styles/styles";
 import { REVERSE_TURN, UNDO_TURN } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
 import { volumeSelector } from "../selectors/stateSelectors";
-export const ReverseTurn = () => {
+export const ReverseTurn = (props) => {
   const dispatch = useDispatch();
   const volume = useSelector(volumeSelector);
 
@@ -17,7 +17,12 @@ export const ReverseTurn = () => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View style={[styles.symbolTile, styles.unselectedTile]}>
+        <View
+          style={[
+            styles.buttonWheel,
+            props.floatRight ? styles.rightColumn : null,
+          ]}
+        >
           <Image
             style={styles.wheelIcon}
             source={require("../../assets/back-arrow.png")}

@@ -19,7 +19,8 @@ export const SET_SCORE = "setScore";
 export const SELECT_SUBGAMEMODE = "selectSubGameMode";
 export const TOGGLE_MUSIC = "toggleMusic";
 export const TOGGLE_VOLUME = "toggleVolume";
-
+export const RESET_TILES = "resetTiles";
+export const INVALID_OPERATION_SOUND_PLAYED = "invalidOperationSoundPlayed";
 //Views
 export const GAMEMODE_SCREEN = "gamemodeScreen";
 export const GAMEOVER_SCREEN = "gameOverScreen";

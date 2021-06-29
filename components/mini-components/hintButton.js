@@ -9,7 +9,7 @@ import {
 } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
 import { volumeSelector, solutionSelector } from "../selectors/stateSelectors";
-export const HintButton = () => {
+export const HintButton = (props) => {
   const volume = useSelector(volumeSelector);
   const solution = useSelector(solutionSelector);
   const handleButtonClick = () => {
@@ -19,7 +19,12 @@ export const HintButton = () => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View style={[styles.buttonWheel]}>
+        <View
+          style={[
+            styles.buttonWheel,
+            props.floatRight ? styles.rightColumn : null,
+          ]}
+        >
           <Image
             style={styles.wheelIcon}
             source={require("../../assets/hint-icon.png")}

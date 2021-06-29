@@ -2,30 +2,18 @@ import React from "react";
 import { TouchableWithoutFeedback, Image, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../styles/styles";
-import {
-  ERROR_CLICK,
-  PREVIOUS_SCREEN,
-  BUTTON_CLICK,
-  RESET_TILES,
-} from "../../constants/constants";
+import { RESET_TILES, UNDO_TURN } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
-import {
-  volumeSelector,
-  previousScreensSelector,
-} from "../selectors/stateSelectors";
-export const BackButton = (props) => {
+import { volumeSelector } from "../selectors/stateSelectors";
+export const ResetButton = (props) => {
   const dispatch = useDispatch();
   const volume = useSelector(volumeSelector);
-  const previousScreens = useSelector(previousScreensSelector);
+
   const handleButtonClick = () => {
-    if (previousScreens.length > 0) {
-      if (volume) playSound(BUTTON_CLICK);
-      dispatch({ type: RESET_TILES });
-      dispatch({ type: PREVIOUS_SCREEN });
-    } else {
-      if (volume) playSound(ERROR_CLICK);
-    }
+    dispatch({ type: RESET_TILES });
+    if (volume) playSound(UNDO_TURN);
   };
+
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
@@ -37,7 +25,7 @@ export const BackButton = (props) => {
         >
           <Image
             style={styles.wheelIcon}
-            source={require("../../assets/back-arrow.png")}
+            source={require("../../assets/reset-icon.png")}
           />
         </View>
       </TouchableWithoutFeedback>

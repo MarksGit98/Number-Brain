@@ -137,10 +137,6 @@ export const styles = StyleSheet.create({
     bottom: 0,
   },
 
-  leftColumn: {
-    float: "left",
-  },
-
   rightColumn: {
     marginLeft: "auto",
     marginRight: 0,
@@ -268,16 +264,8 @@ export const styles = StyleSheet.create({
     height: "auto",
   },
 
-  buttonWheelViewColumn: {
-    flex: 1,
-    flexDirection: "column",
-    alignContent: "space-between",
-  },
-
   gameScreenCenteredContent: {
-    alignContent: "center",
     alignItems: "center",
-    justifyContent: "space-between",
   },
 
   buttonWheelContainer: {
@@ -290,6 +278,14 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
+  buttonRow: {
+    width: width,
+    height: 0.1 * height,
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+  },
+
   tilesAndSymbolsRows: {
     marginTop: 0.02 * height,
   },
@@ -299,11 +295,5 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     flexDirection: "column",
     alignContent: "center",
-    textAlign: "center",
-    textAlignVertical: "middle",
-  },
-
-  reverseTurnPlacement: {
-    marginTop: 0.02 * height,
   },
 });

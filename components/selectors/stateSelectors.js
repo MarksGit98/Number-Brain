@@ -68,3 +68,7 @@ export const musicSelector = (state) => {
 export const solutionSelector = (state) => {
   return state.gameStore.solution;
 };
+
+export const errorOccurredSelector = (state) => {
+  return state.gameStore.error;
+};

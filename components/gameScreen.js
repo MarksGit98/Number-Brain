@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, SafeAreaView } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
 import {
@@ -11,7 +11,9 @@ import {
   blitzGameModeSelector,
   timeTrialGameModeSelector,
   volumeSelector,
+  errorOccurredSelector,
 } from "./selectors/stateSelectors";
+import { AdMobBanner } from "expo-ads-admob";
 import {
   INITIALIZE_ROUND,
   CLASSIC,
@@ -29,11 +31,14 @@ import {
   HARD_MIN,
   HARD_MAX,
   BLITZ_MEDIUM,
+  GAME_SCREEN,
   GAMEOVER_SCREEN,
   SWITCH_SCREEN,
   SET_SCORE,
   INFINITE,
   PUZZLE_SOLVE,
+  ERROR_CLICK,
+  INVALID_OPERATION_SOUND_PLAYED,
 } from "../constants/constants";
 import { Symbols } from "./mini-components/symbols";
 import { Tiles } from "./mini-components/tiles";
@@ -47,6 +52,8 @@ import { playSound } from "../constants/buttonClick";
 import { MusicButton } from "./mini-components/musicButton";
 import { VolumeButton } from "./mini-components/volumeButton";
 import { HintButton } from "./mini-components/hintButton";
+import { ResetButton } from "./mini-components/resetButton";
+import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
@@ -54,6 +61,7 @@ export const GameScreen = () => {
   const currentBlitzGameMode = useSelector(blitzGameModeSelector);
   const currentTimeTrialGameMode = useSelector(timeTrialGameModeSelector);
   const currentDifficulty = useSelector(difficultySelector);
+  const errorOccurred = useSelector(errorOccurredSelector);
   const [seconds, setSeconds] = useState(BLITZ_MEDIUM);
   const currentLevel = useSelector(levelSelector);
   const [currentPuzzle, setCurrentPuzzle] = useState(null);
@@ -81,6 +89,12 @@ export const GameScreen = () => {
     setSettings();
   }, []);
 
+  useEffect(() => {
+    if (errorOccurred) if (volume) playSound(ERROR_CLICK);
+    dispatch({
+      type: INVALID_OPERATION_SOUND_PLAYED,
+    });
+  }, [errorOccurred]);
   useEffect(() => {
     if (currentGameMode !== CLASSIC && currentGameMode !== LIMITED) {
       if (seconds > 0 && localStorageLoaded) {
@@ -159,38 +173,13 @@ export const GameScreen = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <View style={styles.buttonWheelContainer}>
-        <View style={[styles.buttonWheelViewColumn, styles.leftColumn]}>
-          <BackButton />
-          <HomeButton />
-        </View>
-        <View style={styles.gameScreenText}>
-          <View>
-            <Text style={[styles.titleTextSmall, styles.gameModeBanner]}>
-              {currentGameMode}
-            </Text>
-          </View>
-          {currentGameMode !== CLASSIC && currentGameMode !== LIMITED ? (
-            <View>
-              <Text style={styles.titleTextXS}> Score:{score} </Text>
-            </View>
-          ) : null}
-          <View>
-            {currentGameMode === BLITZ || currentGameMode === TIMETRIAL ? (
-              <Text style={styles.titleTextXS}>
-                {seconds > 0 ? seconds : "TIME'S UP"}
-              </Text>
-            ) : currentGameMode !== INFINITE ? (
-              <Text style={styles.titleTextXS}> Level {currentLevel} </Text>
-            ) : null}
-          </View>
-        </View>
-        <View style={[styles.buttonWheelViewColumn, styles.rightColumn]}>
-          <MusicButton floatRight={true} />
-          <VolumeButton floatRight={true} />
-        </View>
-      </View>
+      <TopButtonWheelComponent />
       <View style={styles.gameScreenCenteredContent}>
+        {currentGameMode === BLITZ || currentGameMode === TIMETRIAL ? (
+          <Text style={styles.titleTextXS}>
+            {seconds > 0 ? seconds : "TIME'S UP"}
+          </Text>
+        ) : null}
         <View style={[styles.bigTile, styles.unselectedTile]}>
           <Text style={[styles.titleTextXXXL, styles.center]}>{bigNumber}</Text>
         </View>
@@ -198,8 +187,19 @@ export const GameScreen = () => {
           <Tiles />
           <Symbols />
         </View>
-        <ReverseTurn style={styles.reverseTurnPlacement} />
+      </View>
+      <View styles={styles.buttonRow}>
+        <ResetButton />
+        <ReverseTurn />
         <HintButton />
+      </View>
+      <View style={styles.bottomAdBanner}>
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+          servePersonalizedAds // true or false
+          onDidFailToReceiveAdWithError={(e) => bannerError(e)}
+        />
       </View>
     </SafeAreaView>
   );
