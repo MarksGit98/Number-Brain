@@ -39,7 +39,7 @@ export const VolumeButton = (props) => {
           ]}
         >
           <Image
-            style={[styles.wheelIcon]}
+            style={[styles.wheelIconVolumeButton]}
             source={
               currentVolume
                 ? require("../../assets/speaker-on.png")

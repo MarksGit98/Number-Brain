@@ -7,8 +7,8 @@ import {
   Image,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { styles } from "./styles/styles";
-import { wonSelector } from "./selectors/stateSelectors";
+import { styles } from "../styles/styles";
+import { wonSelector } from "../selectors/stateSelectors";
 export const BigTile = () => {
   const bigNumber = useSelector(bigNumberSelector);
   const won = useSelector(wonSelector);

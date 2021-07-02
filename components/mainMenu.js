@@ -25,11 +25,7 @@ import {
   LOCAL_TIMETRIAL_GAMEMODE,
   TIMETRIAL_MEDIUM,
 } from "../constants/constants";
-import {
-  difficultySelector,
-  levelSelector,
-  volumeSelector,
-} from "./selectors/stateSelectors";
+import { difficultySelector, volumeSelector } from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import GameModeButton from "./mini-components/gameModeButton";
@@ -37,7 +33,7 @@ import { PlayButton } from "./mini-components/playButton";
 import { LevelSelectButton } from "./mini-components/levelSelectButton";
 import { playSound } from "../constants/buttonClick";
 import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
-import { AdMobBanner } from "expo-ads-admob";
+import { BannerAd } from "./ads/bannerAd";
 
 export const MainMenu = () => {
   const dispatch = useDispatch();
@@ -169,12 +165,7 @@ export const MainMenu = () => {
       <LevelSelectButton />
       <PlayButton />
       <View style={styles.bottomAdBanner}>
-        <AdMobBanner
-          bannerSize="fullBanner"
-          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
-          servePersonalizedAds // true or false
-          onDidFailToReceiveAdWithError={(e) => bannerError(e)}
-        />
+        <BannerAd />
       </View>
     </SafeAreaView>
   );

@@ -24,7 +24,7 @@ export const ResetButton = (props) => {
           ]}
         >
           <Image
-            style={styles.wheelIcon}
+            style={styles.wheelIconResetButton}
             source={require("../../assets/reset-icon.png")}
           />
         </View>

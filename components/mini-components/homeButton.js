@@ -33,7 +33,7 @@ export const HomeButton = (props) => {
           ]}
         >
           <Image
-            style={[styles.wheelIcon]}
+            style={[styles.wheelIconHomeButton]}
             source={require("../../assets/home-icon.png")}
           />
         </View>

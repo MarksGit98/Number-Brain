@@ -25,7 +25,7 @@ import {
   SWITCH_SCREEN,
   GAME_SCREEN,
 } from "../constants/constants";
-import { AdMobBanner } from "expo-ads-admob";
+import { BannerAd } from "./ads/bannerAd";
 import { _storeData } from "../localStorage/storeData";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { playSound } from "../constants/buttonClick";
@@ -109,12 +109,7 @@ export const LevelSelector = () => {
         </View>
       </ScrollView>
       <View style={styles.bottomAdBanner}>
-        <AdMobBanner
-          bannerSize="fullBanner"
-          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
-          servePersonalizedAds // true or false
-          onDidFailToReceiveAdWithError={(e) => bannerError(e)}
-        />
+        <BannerAd />
       </View>
     </View>
   );

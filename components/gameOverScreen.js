@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  SafeAreaView,
-  TouchableWithoutFeedback,
-  Image,
-} from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
 import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
-import { AdMobBanner } from "expo-ads-admob";
+import { BannerAd } from "./ads/bannerAd";
 import {
-  bigNumberSelector,
-  wonSelector,
   difficultySelector,
   gameModeSelector,
   scoreSelector,
@@ -20,20 +12,13 @@ import {
   timeTrialGameModeSelector,
 } from "./selectors/stateSelectors";
 import {
-  INITIALIZE_ROUND,
-  PREVIOUS_SCREEN,
   LOCAL_DIFFICULTY,
-  LOCAL_LEVEL,
-  SELECT_LEVEL,
   SELECT_DIFFICULTY,
   CLASSIC,
-  LIMITED,
   TIMETRIAL,
   BLITZ,
   LOCAL_GAMEMODE,
   EASY,
-  MEDIUM,
-  HARD,
   SELECT_GAMEMODE,
   LOCAL_BLITZ_GAMEMODE,
   LOCAL_TIMETRIAL_GAMEMODE,
@@ -46,6 +31,7 @@ import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { MainMenuButton } from "./mini-components/mainMenuButton";
 import { PlayButton } from "./mini-components/playButton";
+import { playInterstitialAds } from "./ads/playInterstitialAds";
 export const GameOver = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
@@ -89,6 +75,7 @@ export const GameOver = () => {
   useEffect(() => {
     dispatch({ type: RESET_TILES });
     setSettings();
+    playInterstitialAds();
   }, []);
 
   useEffect(() => {
@@ -157,12 +144,7 @@ export const GameOver = () => {
       <PlayButton again={true} />
       <MainMenuButton />
       <View style={styles.bottomAdBanner}>
-        <AdMobBanner
-          bannerSize="fullBanner"
-          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
-          servePersonalizedAds // true or false
-          onDidFailToReceiveAdWithError={(e) => bannerError(e)}
-        />
+        <BannerAd />
       </View>
     </SafeAreaView>
   );

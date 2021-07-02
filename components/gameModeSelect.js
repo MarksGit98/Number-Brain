@@ -7,19 +7,7 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
-import { AdMobBanner } from "expo-ads-admob";
 import {
-  GAME_SCREEN,
-  LEVEL_SCREEN,
-  SELECT_DIFFICULTY,
-  SWITCH_SCREEN,
-  INITIALIZE_ROUND,
-  LOCAL_DIFFICULTY,
-  LOCAL_LEVEL,
-  SELECT_LEVEL,
-  EASY,
-  MEDIUM,
-  HARD,
   CLASSIC,
   LIMITED,
   BLITZ,
@@ -49,6 +37,7 @@ import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 import { playSound } from "../constants/buttonClick";
+import { BannerAd } from "./ads/bannerAd";
 export const GameModeSelect = () => {
   const dispatch = useDispatch();
   const currentGameMode = useSelector(gameModeSelector);
@@ -229,12 +218,7 @@ export const GameModeSelect = () => {
         ))}
       </View>
       <View style={styles.bottomAdBanner}>
-        <AdMobBanner
-          bannerSize="fullBanner"
-          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
-          servePersonalizedAds // true or false
-          onDidFailToReceiveAdWithError={(e) => bannerError(e)}
-        />
+        <BannerAd />
       </View>
     </SafeAreaView>
   );

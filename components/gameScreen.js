@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, SafeAreaView, StyleSheet } from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
 import {
@@ -13,7 +13,6 @@ import {
   volumeSelector,
   errorOccurredSelector,
 } from "./selectors/stateSelectors";
-import { AdMobBanner } from "expo-ads-admob";
 import {
   INITIALIZE_ROUND,
   CLASSIC,
@@ -45,15 +44,12 @@ import { Tiles } from "./mini-components/tiles";
 import { ReverseTurn } from "./mini-components/reverseTurn";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
-import { BackButton } from "./mini-components/backButton";
-import { HomeButton } from "./mini-components/homeButton";
 import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
 import { playSound } from "../constants/buttonClick";
-import { MusicButton } from "./mini-components/musicButton";
-import { VolumeButton } from "./mini-components/volumeButton";
 import { HintButton } from "./mini-components/hintButton";
 import { ResetButton } from "./mini-components/resetButton";
 import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
+import { BannerAd } from "./ads/bannerAd";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
@@ -68,6 +64,7 @@ export const GameScreen = () => {
   const [localStorageLoaded, setLocalStorageLoaded] = useState(false);
   const [solvedFirstPuzzle, setSolvedFirstPuzzle] = useState(false);
   const [prelimLoad, setPrelimLoad] = useState(false);
+  const [countdownToInterstitial, setCountdownToInterstitial] = useState(0);
   const bigNumber = useSelector(bigNumberSelector);
   const volume = useSelector(volumeSelector);
   const setSettings = async () => {
@@ -183,23 +180,26 @@ export const GameScreen = () => {
         <View style={[styles.bigTile, styles.unselectedTile]}>
           <Text style={[styles.titleTextXXXL, styles.center]}>{bigNumber}</Text>
         </View>
-        <View style={styles.tilesAndSymbolsRows}>
+        <View style={styles.margin}>
           <Tiles />
           <Symbols />
         </View>
-      </View>
-      <View styles={styles.buttonRow}>
-        <ResetButton />
-        <ReverseTurn />
-        <HintButton />
+        <View style={styles.margin}>
+          <View style={[styles.row, { justifyContent: "space-evenly" }]}>
+            <View style={styles.leftRightMargin}>
+              <ResetButton />
+            </View>
+            <View style={styles.leftRightMargin}>
+              <ReverseTurn />
+            </View>
+            <View style={styles.leftRightMargin}>
+              <HintButton />
+            </View>
+          </View>
+        </View>
       </View>
       <View style={styles.bottomAdBanner}>
-        <AdMobBanner
-          bannerSize="fullBanner"
-          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
-          servePersonalizedAds // true or false
-          onDidFailToReceiveAdWithError={(e) => bannerError(e)}
-        />
+        <BannerAd />
       </View>
     </SafeAreaView>
   );

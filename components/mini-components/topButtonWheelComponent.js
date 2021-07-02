@@ -27,7 +27,7 @@ export const TopButtonWheelComponent = () => {
   const currentGameMode = useSelector(gameModeSelector);
   return (
     <View style={styles.buttonWheelContainer}>
-      <View style={[styles.leftColumn]}>
+      <View>
         <BackButton />
         <HomeButton />
       </View>

@@ -27,6 +27,8 @@ import {
   ERROR_CLICK,
   RESET_TILES,
   INVALID_OPERATION_SOUND_PLAYED,
+  RESET_AD_COUNTDOWN,
+  INCREMENT_AD_COUNTDOWN,
 } from "../constants/constants";
 import { puzzles } from "../puzzles/puzzles";
 import { initialState } from "./initialGameState";
@@ -257,6 +259,18 @@ export const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         subGameModes: newSubGameModes,
+      };
+    }
+    case RESET_AD_COUNTDOWN: {
+      return {
+        ...state,
+        countdownToInterstitial: 0,
+      };
+    }
+    case INCREMENT_AD_COUNTDOWN: {
+      return {
+        ...state,
+        countdownToInterstitial: state.countdownToInterstitial + 1,
       };
     }
     default:

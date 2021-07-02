@@ -21,6 +21,8 @@ export const TOGGLE_MUSIC = "toggleMusic";
 export const TOGGLE_VOLUME = "toggleVolume";
 export const RESET_TILES = "resetTiles";
 export const INVALID_OPERATION_SOUND_PLAYED = "invalidOperationSoundPlayed";
+export const RESET_AD_COUNTDOWN = "resetAdCountdown";
+export const INCREMENT_AD_COUNTDOWN = "incrementAdCountdown";
 //Views
 export const GAMEMODE_SCREEN = "gamemodeScreen";
 export const GAMEOVER_SCREEN = "gameOverScreen";

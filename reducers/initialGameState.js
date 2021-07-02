@@ -40,6 +40,7 @@ export const initialState = {
   hintTile2: { value: null, index: null },
   hintSymbol: { symbol: null, quantity: null },
   solution: [],
+  countdownToInterstitial: 0,
   error: false,
   won: false,
 };

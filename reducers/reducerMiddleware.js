@@ -32,9 +32,11 @@ import {
   SWITCH_SCREEN,
   MAIN_MENU,
   RESET_TILES,
+  RESET_AD_COUNTDOWN,
+  INCREMENT_AD_COUNTDOWN,
 } from "../constants/constants";
 import { _storeData } from "../localStorage/storeData";
-
+import { playInterstitialAds } from "../components/ads/playInterstitialAds";
 import { puzzles } from "../puzzles/puzzles";
 export const reducerMiddleware = (rawStore) => {
   const dispatch = (action) => {
@@ -207,6 +209,24 @@ export const reducerMiddleware = (rawStore) => {
           Number(rawStore.getState().gameStore.currentLevel) + 1
         );
         const nextDifficulty = difficulty === EASY ? MEDIUM : HARD;
+        const countdownToInterstitial =
+          rawStore.getState().gameStore.countdownToInterstitial;
+        if (
+          gameMode === CLASSIC ||
+          gameMode === LIMITED ||
+          gameMode === INFINITE
+        ) {
+          if (countdownToInterstitial >= 3) {
+            playInterstitialAds();
+            rawStore.dispatch({
+              type: RESET_AD_COUNTDOWN,
+            });
+          } else {
+            rawStore.dispatch({
+              type: INCREMENT_AD_COUNTDOWN,
+            });
+          }
+        }
         if (
           gameMode === BLITZ ||
           gameMode === TIMETRIAL ||

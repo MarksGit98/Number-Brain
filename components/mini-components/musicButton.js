@@ -41,7 +41,7 @@ export const MusicButton = (props) => {
           ]}
         >
           <Image
-            style={[styles.wheelIcon]}
+            style={[styles.wheelIconMusicButton]}
             source={
               currentMusic
                 ? require("../../assets/music-note.png")

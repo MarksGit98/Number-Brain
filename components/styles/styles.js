@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
 
   mainView: {
     backgroundColor: backgroundColor,
-    flex: 1,
+    height: height,
   },
 
   unselectedTile: {
@@ -108,6 +108,11 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  buttonRow: {
+    display: "flex",
+    flexDirection: "row",
+  },
+
   reverseTurnButton: {
     height: 0.07 * height,
     width: 0.07 * height,
@@ -134,6 +139,8 @@ export const styles = StyleSheet.create({
 
   bottomAdBanner: {
     position: "absolute",
+    width: width,
+    height: 0.1 * height,
     bottom: 0,
   },
 
@@ -236,10 +243,39 @@ export const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
 
-  wheelIcon: {
-    position: "relative",
-    height: 0.03 * height,
-    width: 0.03 * height,
+  wheelIconReverseTurn: {
+    width: 0.08 * width,
+    height: 0.04 * height,
+  },
+
+  wheelIconBackButton: {
+    width: 0.08 * width,
+    height: 0.04 * height,
+  },
+
+  wheelIconHintButton: {
+    width: 0.08 * width,
+    height: 0.04 * height,
+  },
+
+  wheelIconHomeButton: {
+    width: 0.08 * width,
+    height: 0.04 * height,
+  },
+
+  wheelIconMusicButton: {
+    width: 0.08 * width,
+    height: 0.04 * height,
+  },
+
+  wheelIconResetButton: {
+    width: 0.08 * width,
+    height: 0.035 * height,
+  },
+
+  wheelIconVolumeButton: {
+    width: 0.08 * width,
+    height: 0.035 * height,
   },
 
   buttonWheel: {
@@ -249,6 +285,7 @@ export const styles = StyleSheet.create({
     width: 0.07 * height,
     borderRadius: 0.04 * height,
     alignItems: "center",
+    justifyContent: "center",
     marginBottom: 0.01 * height,
   },
 
@@ -278,16 +315,8 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  buttonRow: {
-    width: width,
-    height: 0.1 * height,
-    display: "flex",
-    flexWrap: "wrap",
-    flexDirection: "row",
-  },
-
-  tilesAndSymbolsRows: {
-    marginTop: 0.02 * height,
+  margin: {
+    margin: 0.02 * height,
   },
 
   gameScreenText: {
@@ -295,5 +324,9 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     flexDirection: "column",
     alignContent: "center",
+  },
+  leftRightMargin: {
+    marginLeft: 0.03 * width,
+    marginRight: 0.03 * width,
   },
 });

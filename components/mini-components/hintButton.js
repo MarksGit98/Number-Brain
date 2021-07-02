@@ -26,7 +26,7 @@ export const HintButton = (props) => {
           ]}
         >
           <Image
-            style={styles.wheelIcon}
+            style={styles.wheelIconHintButton}
             source={require("../../assets/hint-icon.png")}
           />
         </View>

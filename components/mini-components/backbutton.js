@@ -36,8 +36,8 @@ export const BackButton = (props) => {
           ]}
         >
           <Image
-            style={styles.wheelIcon}
-            source={require("../../assets/back-arrow.png")}
+            style={styles.wheelIconBackButton}
+            source={require("../../assets/back-button.png")}
           />
         </View>
       </TouchableWithoutFeedback>

@@ -46,20 +46,18 @@ export const Tiles = () => {
   const displayTileRows = () => {
     if (difficulty === EASY) {
       return (
-        <View style={styles.tiles}>
-          <View style={styles.row}>
-            {tiles &&
-              tiles.map((tile, index) => (
-                <TouchableWithoutFeedback
-                  key={index}
-                  onPress={() => handleTileSelection(index)}
-                >
-                  <View style={getTileStyle(tile, index)}>
-                    <Text style={styles.titleTextSmall}>{tile}</Text>
-                  </View>
-                </TouchableWithoutFeedback>
-              ))}
-          </View>
+        <View style={styles.row}>
+          {tiles &&
+            tiles.map((tile, index) => (
+              <TouchableWithoutFeedback
+                key={index}
+                onPress={() => handleTileSelection(index)}
+              >
+                <View style={getTileStyle(tile, index)}>
+                  <Text style={styles.titleTextSmall}>{tile}</Text>
+                </View>
+              </TouchableWithoutFeedback>
+            ))}
         </View>
       );
     } else if (difficulty === MEDIUM || difficulty === HARD) {
