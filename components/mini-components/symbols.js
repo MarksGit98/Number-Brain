@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -37,6 +37,7 @@ export const Symbols = () => {
   const symbols = useSelector(symbolSelector);
   const currentGamemode = useSelector(gameModeSelector);
   const volume = useSelector(volumeSelector);
+  const [buttonDepressed, setButtonDepressed] = useState(false);
   const handleSymbolSelection = (sign) => {
     dispatch({ type: SELECT_SYMBOL, payload: sign });
     if (volume) {
@@ -46,65 +47,59 @@ export const Symbols = () => {
     }
   };
 
+  const displaySymbols = (sign) => {
+    return (
+      <View
+        style={[
+          styles.symbolTile,
+          selectedSymbol.symbol === sign
+            ? styles.selectedSymbol
+            : currentGamemode === LIMITED && symbols[`${sign}`] > 0
+            ? styles.unselectedTile
+            : styles.disabledTile,
+        ]}
+      >
+        <View style={styles.outerSymbolTile}>
+          <Text style={styles.titleTextSmall}>
+            {sign === "add"
+              ? "+"
+              : sign === "subtract"
+              ? "-"
+              : sign === "multiply"
+              ? "x"
+              : sign === "divide"
+              ? "/"
+              : null}
+          </Text>
+        </View>
+      </View>
+    );
+  };
   return (
-    <View style={styles.row}>
+    <View style={[styles.row]}>
       {signs.map((sign) => {
         return (
-          <TouchableWithoutFeedback
-            key={sign}
-            onPress={() => handleSymbolSelection(sign)}
-          >
+          <View style={styles.symbolsContainer} key={sign}>
             {currentGamemode === LIMITED ? (
-              <View>
-                <View
-                  style={
-                    selectedSymbol.symbol === sign
-                      ? [styles.symbolTile, styles.selectedSymbol]
-                      : symbols[`${sign}`] > 0
-                      ? [styles.symbolTile, styles.unselectedTile]
-                      : [styles.symbolTile, styles.disabledTile]
-                  }
-                >
-                  <Text style={styles.titleTextSmall}>
-                    {sign === "add"
-                      ? "+"
-                      : sign === "subtract"
-                      ? "-"
-                      : sign === "multiply"
-                      ? "x"
-                      : sign === "divide"
-                      ? "/"
-                      : null}
-                  </Text>
-                </View>
-                <View styles={styles.quantityTile}>
-                  <Text styles={styles.smallWhiteText}>{symbols[sign]}</Text>
-                </View>
+              <View style={styles.quantityTile}>
+                <Text style={styles.extraSmallWhiteText}>{symbols[sign]}</Text>
               </View>
-            ) : (
-              <View>
-                <View
-                  style={
-                    selectedSymbol.symbol === sign
-                      ? [styles.symbolTile, styles.selectedSymbol]
-                      : [styles.symbolTile, styles.unselectedTile]
-                  }
-                >
-                  <Text style={styles.titleTextSmall}>
-                    {sign === "add"
-                      ? "+"
-                      : sign === "subtract"
-                      ? "-"
-                      : sign === "multiply"
-                      ? "x"
-                      : sign === "divide"
-                      ? "/"
-                      : null}
-                  </Text>
-                </View>
-              </View>
-            )}
-          </TouchableWithoutFeedback>
+            ) : null}
+            <View>
+              <TouchableWithoutFeedback
+                style={[
+                  styles.pushableButton,
+                  buttonDepressed ? styles.depressedButton : null,
+                ]}
+                key={sign}
+                onPress={() => handleSymbolSelection(sign)}
+                onPressIn={() => setButtonDepressed(true)}
+                onPressOut={() => setButtonDepressed(false)}
+              >
+                {displaySymbols(sign)}
+              </TouchableWithoutFeedback>
+            </View>
+          </View>
         );
       })}
     </View>

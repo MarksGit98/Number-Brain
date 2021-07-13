@@ -92,6 +92,7 @@ export const GameScreen = () => {
       type: INVALID_OPERATION_SOUND_PLAYED,
     });
   }, [errorOccurred]);
+
   useEffect(() => {
     if (currentGameMode !== CLASSIC && currentGameMode !== LIMITED) {
       if (seconds > 0 && localStorageLoaded) {
@@ -184,17 +185,15 @@ export const GameScreen = () => {
           <Tiles />
           <Symbols />
         </View>
-        <View style={styles.margin}>
-          <View style={[styles.row, { justifyContent: "space-evenly" }]}>
-            <View style={styles.leftRightMargin}>
-              <ResetButton />
-            </View>
-            <View style={styles.leftRightMargin}>
-              <ReverseTurn />
-            </View>
-            <View style={styles.leftRightMargin}>
-              <HintButton />
-            </View>
+        <View style={[styles.row, { justifyContent: "space-evenly" }]}>
+          <View style={styles.leftRightMargin}>
+            <ResetButton />
+          </View>
+          <View style={styles.leftRightMargin}>
+            <ReverseTurn />
+          </View>
+          <View style={styles.leftRightMargin}>
+            <HintButton />
           </View>
         </View>
       </View>

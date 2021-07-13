@@ -24,6 +24,8 @@ import {
   SELECT_SUBGAMEMODE,
   LOCAL_TIMETRIAL_GAMEMODE,
   TIMETRIAL_MEDIUM,
+  BUTTON_CLICK,
+  ERROR_CLICK,
 } from "../constants/constants";
 import { difficultySelector, volumeSelector } from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
@@ -34,6 +36,7 @@ import { LevelSelectButton } from "./mini-components/levelSelectButton";
 import { playSound } from "../constants/buttonClick";
 import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 import { BannerAd } from "./ads/bannerAd";
+import { Button } from "./mini-components/3Dbutton";
 
 export const MainMenu = () => {
   const dispatch = useDispatch();
@@ -164,6 +167,7 @@ export const MainMenu = () => {
       <GameModeButton />
       <LevelSelectButton />
       <PlayButton />
+      <Button />
       <View style={styles.bottomAdBanner}>
         <BannerAd />
       </View>

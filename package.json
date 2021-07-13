@@ -9,24 +9,26 @@
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.1.0",
+    "@expo/webpack-config": "^0.12.82",
     "@react-native-async-storage/async-storage": "^1.13.0",
-    "@react-native-community/async-storage": "~1.12.0",
     "adb": "^0.2.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "event-emitter": "^0.3.5",
-    "expo": "^41.0.1",
-    "expo-ads-admob": "~10.0.4",
-    "expo-av": "~9.1.2",
-    "expo-cli": "^3.21.1",
-    "expo-font": "~9.1.0",
+    "expo": "^42.0.0",
+    "expo-ads-admob": "~10.1.2",
+    "expo-av": "~9.2.3",
+    "expo-cli": "^4.7.3",
+    "expo-font": "~9.2.1",
     "expo-status-bar": "~1.0.4",
     "react": "16.13.1",
     "react-art": "^17.0.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native-gesture-handler": "^1.10.3",
     "react-native-global-props": "^1.1.5",
     "react-native-grid-component": "^2.0.1",
     "react-native-material-buttons": "^0.6.0",
+    "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-viewport-units": "^0.0.5",
     "react-native-web": "~0.13.12",
@@ -37,10 +39,18 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
-    "babel-preset-expo": "8.3.0",
+    "babel-preset-expo": "^8.3.0",
     "react-app-rewired": "^2.1.8",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0"
   },
-  "private": true
+  "private": true,
+  "babel": {
+    "presets": [
+      "module:metro-react-native-babel-preset"
+    ],
+    "plugins": [
+      "react-native-reanimated/plugin"
+    ]
+  }
 }

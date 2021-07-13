@@ -14,6 +14,11 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  extraSmallWhiteText: {
+    fontSize: 20,
+    color: "white",
+    fontFamily: "digital",
+  },
   smallWhiteText: {
     fontSize: 40,
     color: "white",
@@ -83,8 +88,8 @@ export const styles = StyleSheet.create({
   },
 
   bigTile: {
-    width: 0.25 * height,
-    height: 0.25 * height,
+    width: 0.23 * height,
+    height: 0.23 * height,
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
@@ -106,6 +111,7 @@ export const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "center",
+    margin: 0,
   },
 
   buttonRow: {
@@ -140,8 +146,7 @@ export const styles = StyleSheet.create({
   bottomAdBanner: {
     position: "absolute",
     width: width,
-    height: 0.1 * height,
-    bottom: 0,
+    bottom: 0.01 * height,
   },
 
   rightColumn: {
@@ -245,37 +250,37 @@ export const styles = StyleSheet.create({
 
   wheelIconReverseTurn: {
     width: 0.08 * width,
-    height: 0.04 * height,
+    height: 0.042 * height,
   },
 
   wheelIconBackButton: {
     width: 0.08 * width,
-    height: 0.04 * height,
+    height: 0.025 * height,
   },
 
   wheelIconHintButton: {
     width: 0.08 * width,
-    height: 0.04 * height,
+    height: 0.043 * height,
   },
 
   wheelIconHomeButton: {
-    width: 0.08 * width,
-    height: 0.04 * height,
+    width: 0.075 * width,
+    height: 0.035 * height,
   },
 
   wheelIconMusicButton: {
     width: 0.08 * width,
-    height: 0.04 * height,
+    height: 0.035 * height,
   },
 
   wheelIconResetButton: {
     width: 0.08 * width,
-    height: 0.035 * height,
+    height: 0.045 * height,
   },
 
   wheelIconVolumeButton: {
     width: 0.08 * width,
-    height: 0.035 * height,
+    height: 0.032 * height,
   },
 
   buttonWheel: {
@@ -316,7 +321,7 @@ export const styles = StyleSheet.create({
   },
 
   margin: {
-    margin: 0.02 * height,
+    margin: 0.01 * height,
   },
 
   gameScreenText: {
@@ -328,5 +333,23 @@ export const styles = StyleSheet.create({
   leftRightMargin: {
     marginLeft: 0.03 * width,
     marginRight: 0.03 * width,
+    marginTop: 0,
+    marginBottom: 0,
+  },
+
+  depressedButton: {
+    transform: [{ translateY: 50 }],
+  },
+  symbolsContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  outerSymbolTile: {
+    flex: 1,
+    padding: 10,
+    borderRadius: 14,
+    backgroundColor: "rgba(0,0,0,0.65)",
   },
 });
