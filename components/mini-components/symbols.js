@@ -30,6 +30,7 @@ import {
 } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
 import { volumeSelector } from "../selectors/stateSelectors";
+import { DepthButton } from "./3Dbutton.js";
 export const Symbols = () => {
   const dispatch = useDispatch();
   const signs = ["add", "subtract", "multiply", "divide"];
@@ -37,7 +38,6 @@ export const Symbols = () => {
   const symbols = useSelector(symbolSelector);
   const currentGamemode = useSelector(gameModeSelector);
   const volume = useSelector(volumeSelector);
-  const [buttonDepressed, setButtonDepressed] = useState(false);
   const handleSymbolSelection = (sign) => {
     dispatch({ type: SELECT_SYMBOL, payload: sign });
     if (volume) {
@@ -85,20 +85,12 @@ export const Symbols = () => {
                 <Text style={styles.extraSmallWhiteText}>{symbols[sign]}</Text>
               </View>
             ) : null}
-            <View>
-              <TouchableWithoutFeedback
-                style={[
-                  styles.pushableButton,
-                  buttonDepressed ? styles.depressedButton : null,
-                ]}
-                key={sign}
-                onPress={() => handleSymbolSelection(sign)}
-                onPressIn={() => setButtonDepressed(true)}
-                onPressOut={() => setButtonDepressed(false)}
-              >
-                {displaySymbols(sign)}
-              </TouchableWithoutFeedback>
-            </View>
+            <DepthButton
+              key={sign}
+              sign={sign}
+              handleSelection={handleSymbolSelection}
+              buttonColor="red"
+            ></DepthButton>
           </View>
         );
       })}

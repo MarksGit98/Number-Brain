@@ -4,6 +4,7 @@ import {
   Text,
   View,
   interpolate,
+  Image,
   TouchableWithoutFeedback,
 } from "react-native";
 
@@ -12,11 +13,12 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   Easing,
+  withDelay,
 } from "react-native-reanimated";
 
-export const Button = () => {
+export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
+  const [selected, setSelected] = useState(false);
   const borderRadius = useSharedValue(12);
-  const marginBottom = useSharedValue(0);
   const marginTop = useSharedValue(-12);
   const paddingTop = useSharedValue(0);
   const paddingRight = useSharedValue(0);
@@ -33,57 +35,173 @@ export const Button = () => {
     return {
       marginTop: marginTop.value,
       paddingBottom: paddingBottom.value,
-      marginBottom: marginBottom.value,
-    };
-  }, []);
-
-  const depthStyle = useAnimatedStyle(() => {
-    return {
-      marginBottom: marginBottom.value,
       paddingTop: paddingTop.value,
       paddingRight: paddingRight.value,
       paddingLeft: paddingLeft.value,
     };
-  }, []);
+  });
 
-  const [selected, setSelected] = useState(false);
-
-  const handlePress = () => {
-    setSelected((value) => !value);
+  const handlePressOut = () => {
+    const initialEffectDuration = 40;
+    const delayedEffectDuration = 80;
+    marginTop.value = withTiming(0, {
+      duration: initialEffectDuration,
+      easing: Easing.bounce,
+    });
+    paddingTop.value = withTiming(0, {
+      duration: initialEffectDuration,
+      easing: Easing.bounce,
+    });
+    paddingRight.value = withTiming(0, {
+      duration: initialEffectDuration,
+      easing: Easing.bounce,
+    });
+    paddingLeft.value = withTiming(0, {
+      duration: initialEffectDuration,
+      easing: Easing.bounce,
+    });
+    paddingBottom.value = withTiming(0, {
+      duration: initialEffectDuration,
+      easing: Easing.bounce,
+    });
+    borderRadius.value = withTiming(16, {
+      duration: initialEffectDuration,
+      easing: Easing.bounce,
+    });
     if (!selected) {
-      marginTop.value = withTiming(0, { duration: 100, easing: Easing.linear });
-      paddingBottom.value = withTiming(0, {
-        duration: 100,
-        easing: Easing.linear,
-      });
-      borderRadius.value = withTiming(16, {
-        duration: 100,
-        easing: Easing.linear,
-      });
-    } else {
-      marginTop.value = withTiming(-12, {
-        duration: 100,
-        easing: Easing.bounce,
-      });
-      paddingBottom.value = withTiming(12, {
-        duration: 100,
-        easing: Easing.bounce,
-      });
-      borderRadius.value = withTiming(12, {
-        duration: 100,
-        easing: Easing.bounce,
-      });
+      borderRadius.value = withDelay(
+        initialEffectDuration - 5,
+        withTiming(12, {
+          duration: delayedEffectDuration,
+          easing: Easing.bounce,
+        })
+      );
+      paddingBottom.value = withDelay(
+        initialEffectDuration - 5,
+        withTiming(12, {
+          duration: delayedEffectDuration,
+          easing: Easing.bounce,
+        })
+      );
+      marginTop.value = withDelay(
+        initialEffectDuration - 5,
+        withTiming(-12, {
+          duration: delayedEffectDuration,
+          easing: Easing.bounce,
+        })
+      );
+      paddingTop.value = withDelay(
+        initialEffectDuration - 5,
+        withTiming(0, {
+          duration: delayedEffectDuration,
+          easing: Easing.bounce,
+        })
+      );
+      paddingRight.value = withDelay(
+        initialEffectDuration - 5,
+        withTiming(0, {
+          duration: delayedEffectDuration,
+          easing: Easing.bounce,
+        })
+      );
+      paddingLeft.value = withDelay(
+        initialEffectDuration - 5,
+        withTiming(0, {
+          duration: delayedEffectDuration,
+          easing: Easing.bounce,
+        })
+      );
     }
+  };
+  const handlePressIn = () => {
+    setSelected((value) => !value);
+    if (selected) {
+      handleSelection(sign);
+    }
+    const initialEffectDuration = 60;
+    const delayedEffectDuration = 30;
+    borderRadius.value = withTiming(16, {
+      duration: initialEffectDuration,
+      easing: Easing.linear,
+    });
+    paddingBottom.value = withTiming(0, {
+      duration: initialEffectDuration,
+      easing: Easing.linear,
+    });
+    marginTop.value = withTiming(0, {
+      duration: initialEffectDuration,
+      easing: Easing.linear,
+    });
+    paddingTop.value = withDelay(
+      initialEffectDuration - 2,
+      withTiming(6, {
+        duration: delayedEffectDuration,
+        easing: Easing.linear,
+      })
+    );
+    paddingRight.value = withDelay(
+      initialEffectDuration - 2,
+      withTiming(6, {
+        duration: delayedEffectDuration,
+        easing: Easing.linear,
+      })
+    );
+    paddingLeft.value = withDelay(
+      initialEffectDuration - 2,
+      withTiming(6, {
+        duration: delayedEffectDuration,
+        easing: Easing.linear,
+      })
+    );
+    paddingBottom.value = withDelay(
+      initialEffectDuration - 2,
+      withTiming(0, {
+        duration: delayedEffectDuration,
+        easing: Easing.linear,
+      })
+    );
+    marginTop.value = withDelay(
+      initialEffectDuration - 2,
+      withTiming(0, {
+        duration: delayedEffectDuration,
+        easing: Easing.linear,
+      })
+    );
   };
 
   return (
     <View style={styles.buttonContainer}>
-      <TouchableWithoutFeedback onPress={() => handlePress()}>
+      <TouchableWithoutFeedback
+        onPressIn={() => handlePressIn()}
+        onPressOut={() => handlePressOut()}
+      >
         <View style={styles.button3D}>
           <View style={styles.button3DOuter}>
             <Animated.View style={[styles.height, heightStyle]}>
-              <Animated.View style={[styles.inner, innerStyle]}>
-                <Text style={styles.white}>Airhorn</Text>
+              <Animated.View
+                style={[
+                  styles.inner,
+                  innerStyle,
+                  { backgroundColor: buttonColor },
+                ]}
+              >
+                <Image
+                  style={
+                    (styles.wheelIconBackButton,
+                    { height: "100%", width: "auto" })
+                  }
+                  source={
+                    sign === "add"
+                      ? require(`../../assets/add-sign.png`)
+                      : sign === "subtract"
+                      ? require(`../../assets/subtract-sign.png`)
+                      : sign === "multiply"
+                      ? require(`../../assets/multiply-sign.png`)
+                      : sign === "divide"
+                      ? require(`../../assets/divide-sign.png`)
+                      : null
+                  }
+                />
               </Animated.View>
             </Animated.View>
           </View>
@@ -101,24 +219,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button3D: {
-    height: 80,
-    width: 180,
+    height: 120,
+    width: 120,
   },
   button3DOuter: {
     flex: 1,
     padding: 10,
     borderRadius: 14,
-    backgroundColor: "rgba(0,0,0,0.65)",
+    backgroundColor: "rgba(0,0,0,.65)",
   },
   height: {
     borderRadius: 16,
-    backgroundColor: "rgba(255,0,0,0.5)",
+    backgroundColor: "rgba(255,0,0,.5)",
   },
   inner: {
-    backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
-    height: 60,
+    height: 100,
   },
   white: {
     color: "#FFF",
