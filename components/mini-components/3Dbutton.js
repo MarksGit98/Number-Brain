@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Dimensions } from "react-native";
+
 import {
   StyleSheet,
   Text,
@@ -17,7 +19,10 @@ import Animated, {
 } from "react-native-reanimated";
 
 export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
+  const { width, height } = Dimensions.get("window");
   const [selected, setSelected] = useState(false);
+  const imageHeight = useSharedValue(0.09 * height);
+  const imageWidth = useSharedValue(0.09 * height);
   const borderRadius = useSharedValue(12);
   const marginTop = useSharedValue(-12);
   const paddingTop = useSharedValue(0);
@@ -29,7 +34,7 @@ export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
     return {
       borderRadius: borderRadius.value,
     };
-  }, []);
+  });
 
   const heightStyle = useAnimatedStyle(() => {
     return {
@@ -41,9 +46,52 @@ export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
     };
   });
 
+  const symbolStyle = useAnimatedStyle(() => {
+    return {
+      height: imageHeight.value,
+      width: imageWidth.value,
+    };
+  });
+
+  const styles = StyleSheet.create({
+    buttonContainer: {
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    button3D: {
+      height: 120,
+      width: 140,
+    },
+    button3DOuter: {
+      flex: 1,
+      padding: 10,
+      borderRadius: 14,
+      backgroundColor: "rgba(0,0,0,.65)",
+    },
+    height: {
+      borderRadius: 16,
+      backgroundColor: "rgba(255,0,0,.5)",
+    },
+    inner: {
+      backgroundColor: buttonColor,
+      alignItems: "center",
+      justifyContent: "center",
+      height: 100,
+    },
+    white: {
+      color: "#FFF",
+      fontWeight: "bold",
+      fontSize: 20,
+    },
+  });
+
   const handlePressOut = () => {
     const initialEffectDuration = 40;
     const delayedEffectDuration = 80;
+    const initialImageScaleConstant = 0.086;
+    const delayedImageScaleConstant = 0.09;
     marginTop.value = withTiming(0, {
       duration: initialEffectDuration,
       easing: Easing.bounce,
@@ -65,6 +113,14 @@ export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
       easing: Easing.bounce,
     });
     borderRadius.value = withTiming(16, {
+      duration: initialEffectDuration,
+      easing: Easing.bounce,
+    });
+    imageHeight.value = withTiming(height * initialImageScaleConstant, {
+      duration: initialEffectDuration,
+      easing: Easing.bounce,
+    });
+    imageWidth.value = withTiming(height * initialImageScaleConstant, {
       duration: initialEffectDuration,
       easing: Easing.bounce,
     });
@@ -111,6 +167,20 @@ export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
           easing: Easing.bounce,
         })
       );
+      imageHeight.value = withDelay(
+        initialEffectDuration - 5,
+        withTiming(height * delayedImageScaleConstant, {
+          duration: initialEffectDuration,
+          easing: Easing.bounce,
+        })
+      );
+      imageWidth.value = withDelay(
+        initialEffectDuration - 5,
+        withTiming(height * delayedImageScaleConstant, {
+          duration: initialEffectDuration,
+          easing: Easing.bounce,
+        })
+      );
     }
   };
   const handlePressIn = () => {
@@ -120,6 +190,8 @@ export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
     }
     const initialEffectDuration = 60;
     const delayedEffectDuration = 30;
+    const initialImageScaleConstant = 0.086;
+    const delayedImageScaleConstant = 0.084;
     borderRadius.value = withTiming(16, {
       duration: initialEffectDuration,
       easing: Easing.linear,
@@ -129,6 +201,14 @@ export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
       easing: Easing.linear,
     });
     marginTop.value = withTiming(0, {
+      duration: initialEffectDuration,
+      easing: Easing.linear,
+    });
+    imageHeight.value = withTiming(height * initialImageScaleConstant, {
+      duration: initialEffectDuration,
+      easing: Easing.linear,
+    });
+    imageWidth.value = withTiming(height * initialImageScaleConstant, {
       duration: initialEffectDuration,
       easing: Easing.linear,
     });
@@ -167,6 +247,20 @@ export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
         easing: Easing.linear,
       })
     );
+    imageHeight.value = withDelay(
+      initialEffectDuration - 2,
+      withTiming(height * delayedImageScaleConstant, {
+        duration: initialEffectDuration,
+        easing: Easing.linear,
+      })
+    );
+    imageWidth.value = withDelay(
+      initialEffectDuration - 2,
+      withTiming(height * delayedImageScaleConstant, {
+        duration: initialEffectDuration,
+        easing: Easing.linear,
+      })
+    );
   };
 
   return (
@@ -178,18 +272,10 @@ export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
         <View style={styles.button3D}>
           <View style={styles.button3DOuter}>
             <Animated.View style={[styles.height, heightStyle]}>
-              <Animated.View
-                style={[
-                  styles.inner,
-                  innerStyle,
-                  { backgroundColor: buttonColor },
-                ]}
-              >
-                <Image
-                  style={
-                    (styles.wheelIconBackButton,
-                    { height: "100%", width: "auto" })
-                  }
+              <Animated.View style={[styles.inner, innerStyle]}>
+                <Animated.Image
+                  resizeMode="contain"
+                  style={symbolStyle}
                   source={
                     sign === "add"
                       ? require(`../../assets/add-sign.png`)
@@ -210,36 +296,3 @@ export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  button3D: {
-    height: 120,
-    width: 120,
-  },
-  button3DOuter: {
-    flex: 1,
-    padding: 10,
-    borderRadius: 14,
-    backgroundColor: "rgba(0,0,0,.65)",
-  },
-  height: {
-    borderRadius: 16,
-    backgroundColor: "rgba(255,0,0,.5)",
-  },
-  inner: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: 100,
-  },
-  white: {
-    color: "#FFF",
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-});
