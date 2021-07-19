@@ -85,6 +85,9 @@ export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
       fontWeight: "bold",
       fontSize: 20,
     },
+    imageColor: {
+      tintColor: "white",
+    },
   });
 
   const handlePressOut = () => {
@@ -275,7 +278,7 @@ export const DepthButton = ({ sign, buttonColor, handleSelection }) => {
               <Animated.View style={[styles.inner, innerStyle]}>
                 <Animated.Image
                   resizeMode="contain"
-                  style={symbolStyle}
+                  style={[styles.imageColor, symbolStyle]}
                   source={
                     sign === "add"
                       ? require(`../../assets/add-sign.png`)

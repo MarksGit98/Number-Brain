@@ -342,7 +342,6 @@ export const styles = StyleSheet.create({
   },
   symbolsContainer: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
