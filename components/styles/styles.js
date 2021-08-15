@@ -63,11 +63,6 @@ export const styles = StyleSheet.create({
 
   symbolTile: {
     margin: 0.03 * width,
-    height: 0.07 * height,
-    width: 0.07 * height,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 0.08 * height,
   },
 
   tile: {
@@ -324,12 +319,30 @@ export const styles = StyleSheet.create({
     margin: 0.01 * height,
   },
 
+  tilesRow: {
+    marginBottom: height * 0.03,
+  },
+
+  symbolsRow: {
+    // flex: 1,
+    // flexDirection: "row",
+    // justifyContent: "space-between",
+    marginTop: height * 0.05,
+    marginBottom: height * 0.03,
+  },
+
+  gameScreenButtonWheels: {
+    justifyContent: "space-evenly",
+    marginTop: height * 0.02,
+  },
+
   gameScreenText: {
     flex: 4,
     textAlign: "center",
     flexDirection: "column",
     alignContent: "center",
   },
+
   leftRightMargin: {
     marginLeft: 0.03 * width,
     marginRight: 0.03 * width,
@@ -344,11 +357,5 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  outerSymbolTile: {
-    flex: 1,
-    padding: 10,
-    borderRadius: 14,
-    backgroundColor: "rgba(0,0,0,0.65)",
   },
 });

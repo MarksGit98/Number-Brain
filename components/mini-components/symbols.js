@@ -12,6 +12,7 @@ import {
   gameModeSelector,
   selectedSymbolSelector,
   symbolSelector,
+  volumeSelector,
 } from "../selectors/stateSelectors";
 import {
   SELECT_SYMBOL,
@@ -29,7 +30,6 @@ import {
   ERROR_CLICK,
 } from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
-import { volumeSelector } from "../selectors/stateSelectors";
 import { DepthButton } from "./3Dbutton.js";
 export const Symbols = () => {
   const dispatch = useDispatch();
@@ -39,6 +39,7 @@ export const Symbols = () => {
   const currentGamemode = useSelector(gameModeSelector);
   const volume = useSelector(volumeSelector);
   const handleSymbolSelection = (sign) => {
+    // console.log(sign, "SELECTED");
     dispatch({ type: SELECT_SYMBOL, payload: sign });
     if (volume) {
       if (currentGamemode === LIMITED) {
@@ -88,7 +89,8 @@ export const Symbols = () => {
             <DepthButton
               key={sign}
               sign={sign}
-              handleSelection={handleSymbolSelection}
+              depressed={selectedSymbol.symbol === sign}
+              propagateSelection={(sign) => handleSymbolSelection(sign)}
               buttonColor="red"
             ></DepthButton>
           </View>

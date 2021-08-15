@@ -132,10 +132,6 @@ export const MainMenu = () => {
     }
   };
 
-  const bannerError = () => {
-    alert(e);
-  };
-
   const difficultyOptions = ["easy", "medium", "hard"];
   return (
     <SafeAreaView style={styles.mainView}>
@@ -169,7 +165,8 @@ export const MainMenu = () => {
       <DepthButton
         sign={"add"}
         buttonColor={"red"}
-        handleSelection={(e) => console.log(e)}
+        depressed={false}
+        propagateSelection={(sign) => console.log(sign)}
       />
       <View style={styles.bottomAdBanner}>
         <BannerAd />
