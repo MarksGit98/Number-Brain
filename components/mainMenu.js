@@ -36,7 +36,6 @@ import { LevelSelectButton } from "./mini-components/levelSelectButton";
 import { playSound } from "../constants/buttonClick";
 import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 import { BannerAd } from "./ads/bannerAd";
-import { DepthButton } from "./mini-components/3Dbutton";
 export const MainMenu = () => {
   const dispatch = useDispatch();
   const currentDifficulty = useSelector(difficultySelector);
@@ -162,12 +161,6 @@ export const MainMenu = () => {
       <GameModeButton />
       <LevelSelectButton />
       <PlayButton />
-      <DepthButton
-        sign={"add"}
-        buttonColor={"red"}
-        depressed={false}
-        propagateSelection={(sign) => console.log(sign)}
-      />
       <View style={styles.bottomAdBanner}>
         <BannerAd />
       </View>
