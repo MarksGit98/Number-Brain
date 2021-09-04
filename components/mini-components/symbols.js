@@ -39,7 +39,6 @@ export const Symbols = () => {
   const currentGamemode = useSelector(gameModeSelector);
   const volume = useSelector(volumeSelector);
   const handleSymbolSelection = (sign) => {
-    // console.log(sign, "SELECTED");
     dispatch({ type: SELECT_SYMBOL, payload: sign });
     if (volume) {
       if (currentGamemode === LIMITED) {

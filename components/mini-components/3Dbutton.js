@@ -134,7 +134,6 @@ export const DepthButton = ({
 
   useEffect(() => {
     if (!isMount) {
-      console.log(selectedSymbol.symbol);
       if (selectedSymbol.symbol !== sign && selected) {
         setSelected((value) => !value);
       }
