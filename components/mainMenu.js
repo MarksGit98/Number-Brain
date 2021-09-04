@@ -24,6 +24,8 @@ import {
   SELECT_SUBGAMEMODE,
   LOCAL_TIMETRIAL_GAMEMODE,
   TIMETRIAL_MEDIUM,
+  BUTTON_CLICK,
+  ERROR_CLICK,
 } from "../constants/constants";
 import { difficultySelector, volumeSelector } from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
@@ -34,7 +36,6 @@ import { LevelSelectButton } from "./mini-components/levelSelectButton";
 import { playSound } from "../constants/buttonClick";
 import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 import { BannerAd } from "./ads/bannerAd";
-
 export const MainMenu = () => {
   const dispatch = useDispatch();
   const currentDifficulty = useSelector(difficultySelector);
@@ -128,10 +129,6 @@ export const MainMenu = () => {
     } catch (e) {
       console.log(e);
     }
-  };
-
-  const bannerError = () => {
-    alert(e);
   };
 
   const difficultyOptions = ["easy", "medium", "hard"];
