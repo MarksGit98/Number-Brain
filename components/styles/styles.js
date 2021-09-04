@@ -9,11 +9,6 @@ import {
 } from "../../constants/constants";
 
 export const styles = StyleSheet.create({
-  bigNumber: {
-    fontSize: 90,
-    justifyContent: "center",
-  },
-
   extraSmallWhiteText: {
     fontSize: 20,
     color: "white",
@@ -66,25 +61,44 @@ export const styles = StyleSheet.create({
   },
 
   tile: {
-    margin: 0.03 * width,
-    height: 0.08 * height,
-    width: 0.08 * height,
+    marginLeft: 0.03 * width,
+    marginRight: 0.03 * width,
+    marginBottom: 0.012 * width,
+    marginTop: 0.012 * width,
+    height: 0.075 * height,
+    width: 0.075 * height,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
   },
 
+  tileBox: {
+    display: "flex",
+    height: 0.14 * height,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   quantityTile: {
-    height: 0.02 * height,
-    width: 0.02 * height,
-    borderRadius: 0.01 * height,
+    display: "flex",
+    height: 0.03 * height,
+    width: 0.03 * height,
+    marginBottom: 0.043 * height,
+    marginLeft: 0.06 * height,
+    borderRadius: 0.02 * height,
+    justifyContent: "center",
+    alignItems: "center",
     color: "white",
-    backgroundColor: "#000",
+    backgroundColor: "black",
+  },
+
+  centerText: {
+    textAlign: "center",
   },
 
   bigTile: {
-    width: 0.23 * height,
-    height: 0.23 * height,
+    width: 0.21 * height,
+    height: 0.21 * height,
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
@@ -104,9 +118,15 @@ export const styles = StyleSheet.create({
   },
 
   row: {
+    width: 0.95 * width,
     flexDirection: "row",
     justifyContent: "center",
-    margin: 0,
+  },
+
+  symbolRow: {
+    width: 0.95 * width,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
   buttonRow: {
@@ -124,18 +144,6 @@ export const styles = StyleSheet.create({
     fontSize: 70,
     color: "white",
     justifyContent: "center",
-  },
-
-  bigButton: {
-    borderRadius: 0.03 * height,
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginBottom: 0.02 * height,
-    marginTop: 0.02 * height,
-    height: 0.1 * height,
-    width: 0.8 * width,
-    justifyContent: "center",
-    alignItems: "center",
   },
 
   bottomAdBanner: {
@@ -303,6 +311,7 @@ export const styles = StyleSheet.create({
 
   gameScreenCenteredContent: {
     alignItems: "center",
+    textAlign: "center",
   },
 
   buttonWheelContainer: {
@@ -320,20 +329,17 @@ export const styles = StyleSheet.create({
   },
 
   tilesRow: {
-    marginBottom: height * 0.03,
+    marginBottom: height * 0.015,
   },
 
   symbolsRow: {
-    // flex: 1,
-    // flexDirection: "row",
-    // justifyContent: "space-between",
-    marginTop: height * 0.05,
-    marginBottom: height * 0.03,
+    marginTop: height * 0.02,
+    marginBottom: height * 0.04,
   },
 
   gameScreenButtonWheels: {
     justifyContent: "space-evenly",
-    marginTop: height * 0.02,
+    marginTop: height * 0.01,
   },
 
   gameScreenText: {
@@ -353,9 +359,9 @@ export const styles = StyleSheet.create({
   depressedButton: {
     transform: [{ translateY: 50 }],
   },
-  symbolsContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  symbolContainer: {
+    display: "flex",
+    flexDirection: "column",
+    flexWrap: "wrap",
   },
 });

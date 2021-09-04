@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   View,
@@ -16,16 +16,7 @@ import {
 } from "../selectors/stateSelectors";
 import {
   SELECT_SYMBOL,
-  ADD,
-  SUBTRACT,
-  MULTIPLY,
-  DIVIDE,
-  CLASSIC,
   LIMITED,
-  TIMETRIAL,
-  BLITZ,
-  SYMBOL_ENABLED_SELECT_SOUND,
-  SYMBOL_DISABLED_SELECT_SOUND,
   SYMBOL_TAP,
   ERROR_CLICK,
 } from "../../constants/constants";
@@ -47,39 +38,11 @@ export const Symbols = () => {
     }
   };
 
-  const displaySymbols = (sign) => {
-    return (
-      <View
-        style={[
-          styles.symbolTile,
-          selectedSymbol.symbol === sign
-            ? styles.selectedSymbol
-            : currentGamemode === LIMITED && symbols[`${sign}`] > 0
-            ? styles.unselectedTile
-            : styles.disabledTile,
-        ]}
-      >
-        <View style={styles.outerSymbolTile}>
-          <Text style={styles.titleTextSmall}>
-            {sign === "add"
-              ? "+"
-              : sign === "subtract"
-              ? "-"
-              : sign === "multiply"
-              ? "x"
-              : sign === "divide"
-              ? "/"
-              : null}
-          </Text>
-        </View>
-      </View>
-    );
-  };
   return (
-    <View style={[styles.row]}>
+    <View style={[styles.symbolRow]}>
       {signs.map((sign) => {
         return (
-          <View style={styles.symbolsContainer} key={sign}>
+          <View style={styles.symbolContainer} key={sign}>
             {currentGamemode === LIMITED ? (
               <View style={styles.quantityTile}>
                 <Text style={styles.extraSmallWhiteText}>{symbols[sign]}</Text>
@@ -87,6 +50,7 @@ export const Symbols = () => {
             ) : null}
             <DepthButton
               key={sign}
+              type={"Symbol"}
               sign={sign}
               depressed={selectedSymbol.symbol === sign}
               propagateSelection={(sign) => handleSymbolSelection(sign)}

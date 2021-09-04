@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Dimensions } from "react-native";
-import { selectedSymbolSelector } from "../selectors/stateSelectors";
-import { useSelector, useDispatch } from "react-redux";
 import {
-  StyleSheet,
-  Text,
-  View,
-  interpolate,
-  Image,
-  TouchableWithoutFeedback,
-} from "react-native";
+  gameModeSelector,
+  selectedSymbolSelector,
+  symbolSelector,
+} from "../selectors/stateSelectors";
+import { useSelector, useDispatch } from "react-redux";
+import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
 
 import Animated, {
   useSharedValue,
@@ -20,6 +17,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 export const DepthButton = ({
+  type,
   sign,
   buttonColor,
   depressed,
@@ -34,6 +32,8 @@ export const DepthButton = ({
   };
   const { width, height } = Dimensions.get("window");
   const selectedSymbol = useSelector(selectedSymbolSelector);
+  const gameMode = useSelector(gameModeSelector);
+  const symbols = useSelector(symbolSelector);
   const [selected, setSelected] = useState(depressed);
   const isMount = useIsMount();
   const pressOutDurationInitial = 40;
@@ -140,63 +140,72 @@ export const DepthButton = ({
     }
   }, [selectedSymbol]);
 
+  useEffect(() => {
+    if (symbols[sign] === 0) {
+      pressInAnimation(true);
+    } else {
+      pressOutAnimationNotSelected();
+    }
+  }, [symbols]);
   const pressOutAnimationNotSelected = () => {
-    borderRadius.value = withDelay(
-      pressOutDurationInitial - 5,
-      withTiming(unpressedBorderRadius, {
-        duration: pressOutDurationDelayed,
-        easing: Easing.bounce,
-      })
-    );
-    paddingBottom.value = withDelay(
-      pressOutDurationInitial - 5,
-      withTiming(paddingBottomLifted, {
-        duration: pressOutDurationDelayed,
-        easing: Easing.bounce,
-      })
-    );
-    marginTop.value = withDelay(
-      pressOutDurationInitial - 5,
-      withTiming(marginTopLifted, {
-        duration: pressOutDurationDelayed,
-        easing: Easing.bounce,
-      })
-    );
-    paddingTop.value = withDelay(
-      pressOutDurationInitial - 5,
-      withTiming(0, {
-        duration: pressOutDurationDelayed,
-        easing: Easing.bounce,
-      })
-    );
-    paddingRight.value = withDelay(
-      pressOutDurationInitial - 5,
-      withTiming(0, {
-        duration: pressOutDurationDelayed,
-        easing: Easing.bounce,
-      })
-    );
-    paddingLeft.value = withDelay(
-      pressOutDurationInitial - 5,
-      withTiming(0, {
-        duration: pressOutDurationDelayed,
-        easing: Easing.bounce,
-      })
-    );
-    imageHeight.value = withDelay(
-      pressOutDurationInitial - 5,
-      withTiming(liftedImageHeight, {
-        duration: pressOutDurationDelayed,
-        easing: Easing.bounce,
-      })
-    );
-    imageWidth.value = withDelay(
-      pressOutDurationInitial - 5,
-      withTiming(liftedImageHeight, {
-        duration: pressOutDurationDelayed,
-        easing: Easing.bounce,
-      })
-    );
+    if (symbols[sign] !== 0) {
+      borderRadius.value = withDelay(
+        pressOutDurationInitial - 5,
+        withTiming(unpressedBorderRadius, {
+          duration: pressOutDurationDelayed,
+          easing: Easing.bounce,
+        })
+      );
+      paddingBottom.value = withDelay(
+        pressOutDurationInitial - 5,
+        withTiming(paddingBottomLifted, {
+          duration: pressOutDurationDelayed,
+          easing: Easing.bounce,
+        })
+      );
+      marginTop.value = withDelay(
+        pressOutDurationInitial - 5,
+        withTiming(marginTopLifted, {
+          duration: pressOutDurationDelayed,
+          easing: Easing.bounce,
+        })
+      );
+      paddingTop.value = withDelay(
+        pressOutDurationInitial - 5,
+        withTiming(0, {
+          duration: pressOutDurationDelayed,
+          easing: Easing.bounce,
+        })
+      );
+      paddingRight.value = withDelay(
+        pressOutDurationInitial - 5,
+        withTiming(0, {
+          duration: pressOutDurationDelayed,
+          easing: Easing.bounce,
+        })
+      );
+      paddingLeft.value = withDelay(
+        pressOutDurationInitial - 5,
+        withTiming(0, {
+          duration: pressOutDurationDelayed,
+          easing: Easing.bounce,
+        })
+      );
+      imageHeight.value = withDelay(
+        pressOutDurationInitial - 5,
+        withTiming(liftedImageHeight, {
+          duration: pressOutDurationDelayed,
+          easing: Easing.bounce,
+        })
+      );
+      imageWidth.value = withDelay(
+        pressOutDurationInitial - 5,
+        withTiming(liftedImageHeight, {
+          duration: pressOutDurationDelayed,
+          easing: Easing.bounce,
+        })
+      );
+    }
   };
 
   const pressOutAnimationSelected = () => {
@@ -234,7 +243,7 @@ export const DepthButton = ({
     });
   };
 
-  const pressInAnimation = () => {
+  const pressInAnimation = (disabled = false) => {
     borderRadius.value = withTiming(depressedBorderRadius, {
       duration: pressInDurationInitial,
       easing: Easing.linear,
@@ -255,55 +264,57 @@ export const DepthButton = ({
       duration: pressInDurationInitial,
       easing: Easing.linear,
     });
-    paddingTop.value = withDelay(
-      pressInDurationInitial - 2,
-      withTiming(paddingDepressed, {
-        duration: pressInDurationDelayed,
-        easing: Easing.linear,
-      })
-    );
-    paddingRight.value = withDelay(
-      pressInDurationInitial - 2,
-      withTiming(paddingDepressed, {
-        duration: pressInDurationDelayed,
-        easing: Easing.linear,
-      })
-    );
-    paddingLeft.value = withDelay(
-      pressInDurationInitial - 2,
-      withTiming(paddingDepressed, {
-        duration: pressInDurationDelayed,
-        easing: Easing.linear,
-      })
-    );
-    paddingBottom.value = withDelay(
-      pressInDurationInitial - 2,
-      withTiming(0, {
-        duration: pressInDurationDelayed,
-        easing: Easing.linear,
-      })
-    );
-    marginTop.value = withDelay(
-      pressInDurationInitial - 2,
-      withTiming(0, {
-        duration: pressInDurationDelayed,
-        easing: Easing.linear,
-      })
-    );
-    imageHeight.value = withDelay(
-      pressInDurationInitial - 2,
-      withTiming(depressedImageHeight, {
-        duration: pressInDurationDelayed,
-        easing: Easing.linear,
-      })
-    );
-    imageWidth.value = withDelay(
-      pressInDurationInitial - 2,
-      withTiming(depressedImageHeight, {
-        duration: pressInDurationDelayed,
-        easing: Easing.linear,
-      })
-    );
+    if (!disabled) {
+      paddingTop.value = withDelay(
+        pressInDurationInitial - 2,
+        withTiming(paddingDepressed, {
+          duration: pressInDurationDelayed,
+          easing: Easing.linear,
+        })
+      );
+      paddingRight.value = withDelay(
+        pressInDurationInitial - 2,
+        withTiming(paddingDepressed, {
+          duration: pressInDurationDelayed,
+          easing: Easing.linear,
+        })
+      );
+      paddingLeft.value = withDelay(
+        pressInDurationInitial - 2,
+        withTiming(paddingDepressed, {
+          duration: pressInDurationDelayed,
+          easing: Easing.linear,
+        })
+      );
+      paddingBottom.value = withDelay(
+        pressInDurationInitial - 2,
+        withTiming(0, {
+          duration: pressInDurationDelayed,
+          easing: Easing.linear,
+        })
+      );
+      marginTop.value = withDelay(
+        pressInDurationInitial - 2,
+        withTiming(0, {
+          duration: pressInDurationDelayed,
+          easing: Easing.linear,
+        })
+      );
+      imageHeight.value = withDelay(
+        pressInDurationInitial - 2,
+        withTiming(depressedImageHeight, {
+          duration: pressInDurationDelayed,
+          easing: Easing.linear,
+        })
+      );
+      imageWidth.value = withDelay(
+        pressInDurationInitial - 2,
+        withTiming(depressedImageHeight, {
+          duration: pressInDurationDelayed,
+          easing: Easing.linear,
+        })
+      );
+    }
   };
 
   const handlePressOut = () => {
@@ -313,20 +324,31 @@ export const DepthButton = ({
     }
   };
   const handlePressIn = () => {
-    setSelected((value) => !value);
-    pressInAnimation();
+    if (symbols[sign] !== 0) {
+      setSelected((value) => !value);
+      pressInAnimation();
+    }
   };
 
   return (
     <View style={styles.buttonContainer}>
       <TouchableWithoutFeedback
+        disabled={symbols[sign] === 0}
         onPressIn={() => handlePressIn()}
         onPressOut={() => handlePressOut()}
       >
         <View style={styles.button3D}>
           <View style={styles.button3DOuter}>
             <Animated.View style={[styles.height, heightStyle]}>
-              <Animated.View style={[styles.inner, innerStyle]}>
+              <Animated.View
+                style={[
+                  styles.inner,
+                  innerStyle,
+                  {
+                    backgroundColor: symbols[sign] === 0 ? "gray" : buttonColor,
+                  },
+                ]}
+              >
                 <Animated.Image
                   resizeMode="contain"
                   style={[styles.imageColor, symbolStyle]}

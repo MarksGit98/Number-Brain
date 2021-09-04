@@ -106,3 +106,5 @@ export const TILE_TAP = "tileTap";
 export const PUZZLE_SOLVE = "puzzleSolve";
 export const BUTTON_CLICK = "buttonClick";
 export const UNDO_TURN = "undoTurn";
+
+//Depth Button Constants

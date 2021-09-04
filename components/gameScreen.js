@@ -50,6 +50,7 @@ import { HintButton } from "./mini-components/hintButton";
 import { ResetButton } from "./mini-components/resetButton";
 import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 import { BannerAd } from "./ads/bannerAd";
+import { BigTile } from "./mini-components/bigTile";
 export const GameScreen = () => {
   const dispatch = useDispatch();
   const score = useSelector(scoreSelector);
@@ -178,27 +179,15 @@ export const GameScreen = () => {
             {seconds > 0 ? seconds : "TIME'S UP"}
           </Text>
         ) : null}
-        <View style={[styles.bigTile, styles.unselectedTile]}>
-          <Text style={[styles.titleTextXXXL, styles.center]}>{bigNumber}</Text>
-        </View>
-        <View style={[styles.margin]}>
-          <View style={styles.tilesRow}>
-            <Tiles />
-          </View>
-          <View style={styles.symbolsRow}>
-            <Symbols />
-          </View>
+        <BigTile />
+        <View style={styles.margin}>
+          <Tiles />
+          <Symbols />
         </View>
         <View style={[styles.row, styles.gameScreenButtonWheels]}>
-          <View style={styles.leftRightMargin}>
-            <ResetButton />
-          </View>
-          <View style={styles.leftRightMargin}>
-            <ReverseTurn />
-          </View>
-          <View style={styles.leftRightMargin}>
-            <HintButton />
-          </View>
+          <ResetButton />
+          <ReverseTurn />
+          <HintButton />
         </View>
       </View>
       <View style={styles.bottomAdBanner}>

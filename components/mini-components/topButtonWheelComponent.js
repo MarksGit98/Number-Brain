@@ -33,23 +33,19 @@ export const TopButtonWheelComponent = () => {
       </View>
       {screen === GAME_SCREEN ? (
         <View style={styles.gameScreenText}>
-          <View>
-            <Text style={[styles.titleTextSmall, styles.gameModeBanner]}>
-              {currentGameMode}
-            </Text>
-          </View>
+          <Text style={[styles.titleTextSmall, styles.centerText]}>
+            {currentGameMode}
+          </Text>
           {currentGameMode !== CLASSIC && currentGameMode !== LIMITED ? (
-            <View>
-              <Text style={styles.titleTextXS}> Score:{score} </Text>
-            </View>
+            <Text style={styles.titleTextXS}> Score:{score} </Text>
           ) : null}
-          <View>
-            {currentGameMode !== INFINITE &&
-            currentGameMode !== BLITZ &&
-            currentGameMode !== TIMETRIAL ? (
-              <Text style={styles.titleTextXS}> Level {currentLevel} </Text>
-            ) : null}
-          </View>
+          {currentGameMode !== INFINITE &&
+          currentGameMode !== BLITZ &&
+          currentGameMode !== TIMETRIAL ? (
+            <Text style={[styles.titleTextXS, styles.centerText]}>
+              Level {currentLevel}
+            </Text>
+          ) : null}
         </View>
       ) : null}
       <View style={[styles.rightColumn]}>
