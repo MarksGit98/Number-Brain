@@ -7,7 +7,7 @@ import {
 } from "../selectors/stateSelectors";
 import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
-
+import { LIMITED } from "../../constants/constants";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -141,14 +141,14 @@ export const DepthButton = ({
   }, [selectedSymbol]);
 
   useEffect(() => {
-    if (symbols[sign] === 0) {
+    if (gameMode === LIMITED && symbols[sign] === 0) {
       pressInAnimation(true);
     } else {
       pressOutAnimationNotSelected();
     }
   }, [symbols]);
   const pressOutAnimationNotSelected = () => {
-    if (symbols[sign] !== 0) {
+    if (!(gameMode === LIMITED && symbols[sign] === 0)) {
       borderRadius.value = withDelay(
         pressOutDurationInitial - 5,
         withTiming(unpressedBorderRadius, {
@@ -324,7 +324,7 @@ export const DepthButton = ({
     }
   };
   const handlePressIn = () => {
-    if (symbols[sign] !== 0) {
+    if (!(gameMode === LIMITED && symbols[sign] === 0)) {
       setSelected((value) => !value);
       pressInAnimation();
     }
@@ -333,7 +333,7 @@ export const DepthButton = ({
   return (
     <View style={styles.buttonContainer}>
       <TouchableWithoutFeedback
-        disabled={symbols[sign] === 0}
+        disabled={gameMode === LIMITED && symbols[sign] === 0}
         onPressIn={() => handlePressIn()}
         onPressOut={() => handlePressOut()}
       >
@@ -345,7 +345,10 @@ export const DepthButton = ({
                   styles.inner,
                   innerStyle,
                   {
-                    backgroundColor: symbols[sign] === 0 ? "gray" : buttonColor,
+                    backgroundColor:
+                      gameMode === LIMITED && symbols[sign] === 0
+                        ? "gray"
+                        : buttonColor,
                   },
                 ]}
               >
