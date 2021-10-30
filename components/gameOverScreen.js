@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Text, View, SafeAreaView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles/styles";
-import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 import { BannerAd } from "./ads/bannerAd";
 import {
   difficultySelector,
@@ -10,6 +9,7 @@ import {
   scoreSelector,
   blitzGameModeSelector,
   timeTrialGameModeSelector,
+  premiumStatusSelector,
 } from "./selectors/stateSelectors";
 import {
   LOCAL_DIFFICULTY,
@@ -32,8 +32,10 @@ import { _storeData } from "../localStorage/storeData";
 import { MainMenuButton } from "./mini-components/mainMenuButton";
 import { PlayButton } from "./mini-components/playButton";
 import { playInterstitialAds } from "./ads/playInterstitialAds";
+import { UpperScreen } from "./mini-components/upperScreen";
 export const GameOver = () => {
   const dispatch = useDispatch();
+  const premiumStatus = useSelector(premiumStatusSelector);
   const score = useSelector(scoreSelector);
   const currentGameMode = useSelector(gameModeSelector);
   const currentBlitzGameMode = useSelector(blitzGameModeSelector);
@@ -75,7 +77,7 @@ export const GameOver = () => {
   useEffect(() => {
     dispatch({ type: RESET_TILES });
     setSettings();
-    playInterstitialAds();
+    if (!premiumStatus) playInterstitialAds();
   }, []);
 
   useEffect(() => {
@@ -110,7 +112,7 @@ export const GameOver = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <TopButtonWheelComponent />
+      <UpperScreen />
       <View>
         <Text style={styles.titleTextSmall}>GameMode: {currentGameMode}</Text>
       </View>
@@ -143,9 +145,11 @@ export const GameOver = () => {
       </View>
       <PlayButton again={true} />
       <MainMenuButton />
-      <View style={styles.bottomAdBanner}>
-        <BannerAd />
-      </View>
+      {!premiumStatus ? (
+        <View style={styles.bottomAdBanner}>
+          <BannerAd />
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 };

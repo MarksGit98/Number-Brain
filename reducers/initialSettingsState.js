@@ -5,4 +5,5 @@ export const initialState = {
   previousScreens: [MAIN_MENU],
   volume: true,
   music: true,
+  premium: false,
 };

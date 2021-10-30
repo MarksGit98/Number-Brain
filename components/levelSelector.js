@@ -5,6 +5,7 @@ import { puzzles } from "../puzzles/puzzles";
 import {
   difficultySelector,
   levelSelector,
+  premiumStatusSelector,
   volumeSelector,
 } from "./selectors/stateSelectors";
 import {
@@ -29,7 +30,8 @@ import { BannerAd } from "./ads/bannerAd";
 import { _storeData } from "../localStorage/storeData";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { playSound } from "../constants/buttonClick";
-import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
+import { UpperScreen } from "./mini-components/upperScreen";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const LevelSelector = () => {
   const dispatch = useDispatch();
@@ -37,6 +39,7 @@ export const LevelSelector = () => {
   const currentLevel = useSelector(levelSelector);
   const currentDifficulty = useSelector(difficultySelector);
   const volume = useSelector(volumeSelector);
+  const premiumStatus = useSelector(premiumStatusSelector);
   const setSettings = async () => {
     const difficulty = await _retrieveData(LOCAL_DIFFICULTY);
     difficulty !== null
@@ -79,9 +82,9 @@ export const LevelSelector = () => {
   };
 
   return (
-    <View style={styles.mainView}>
+    <SafeAreaView style={styles.mainView}>
       <ScrollView>
-        <TopButtonWheelComponent />
+        <UpperScreen />
         <View style={styles.levelContainer}>
           <Text style={styles.titleTextXXL}>LEVELS</Text>
           {levels.map((level) => (
@@ -108,9 +111,11 @@ export const LevelSelector = () => {
           ))}
         </View>
       </ScrollView>
-      <View style={styles.bottomAdBanner}>
-        <BannerAd />
-      </View>
-    </View>
+      {!premiumStatus ? (
+        <View style={styles.bottomAdBanner}>
+          <BannerAd />
+        </View>
+      ) : null}
+    </SafeAreaView>
   );
 };

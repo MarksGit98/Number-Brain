@@ -27,17 +27,22 @@ import {
   BUTTON_CLICK,
   ERROR_CLICK,
 } from "../constants/constants";
-import { difficultySelector, volumeSelector } from "./selectors/stateSelectors";
+import {
+  difficultySelector,
+  volumeSelector,
+  premiumStatusSelector,
+} from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
 import GameModeButton from "./mini-components/gameModeButton";
 import { PlayButton } from "./mini-components/playButton";
 import { LevelSelectButton } from "./mini-components/levelSelectButton";
 import { playSound } from "../constants/buttonClick";
-import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 import { BannerAd } from "./ads/bannerAd";
+import { UpperScreen } from "./mini-components/upperScreen";
 export const MainMenu = () => {
   const dispatch = useDispatch();
+  const premiumStatus = useSelector(premiumStatusSelector);
   const currentDifficulty = useSelector(difficultySelector);
   const volume = useSelector(volumeSelector);
 
@@ -134,7 +139,7 @@ export const MainMenu = () => {
   const difficultyOptions = ["easy", "medium", "hard"];
   return (
     <SafeAreaView style={styles.mainView}>
-      <TopButtonWheelComponent />
+      <UpperScreen />
       <View
         style={[styles.difficultyOptionsView, styles.difficultyOptionsPosition]}
       >
@@ -161,9 +166,11 @@ export const MainMenu = () => {
       <GameModeButton />
       <LevelSelectButton />
       <PlayButton />
-      <View style={styles.bottomAdBanner}>
-        <BannerAd />
-      </View>
+      {!premiumStatus ? (
+        <View style={styles.bottomAdBanner}>
+          <BannerAd />
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 };

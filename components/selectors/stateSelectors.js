@@ -72,3 +72,7 @@ export const solutionSelector = (state) => {
 export const errorOccurredSelector = (state) => {
   return state.gameStore.error;
 };
+
+export const premiumStatusSelector = (state) => {
+  return state.userSettingsStore.premium;
+};

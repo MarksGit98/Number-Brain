@@ -40,7 +40,7 @@ export const HintButton = (props) => {
         >
           <Image
             style={styles.wheelIconHintButton}
-            source={require("../../assets/hint-icon.png")}
+            source={require("../../assets/hint-icon.png").downloadAsync()}
           />
         </View>
       </TouchableWithoutFeedback>

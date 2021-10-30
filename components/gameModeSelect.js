@@ -35,9 +35,9 @@ import {
 } from "./selectors/stateSelectors";
 import { _retrieveData } from "../localStorage/retrieveData";
 import { _storeData } from "../localStorage/storeData";
-import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 import { playSound } from "../constants/buttonClick";
 import { BannerAd } from "./ads/bannerAd";
+import { UpperScreen } from "./mini-components/upperScreen";
 export const GameModeSelect = () => {
   const dispatch = useDispatch();
   const currentGameMode = useSelector(gameModeSelector);
@@ -109,7 +109,7 @@ export const GameModeSelect = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <TopButtonWheelComponent />
+      <UpperScreen />
       <View style={styles.difficultyOptionsView}>
         <Text style={styles.titleTextMedium}>GAMEMODES</Text>
         {gameModeOptions.map((gameMode) => (

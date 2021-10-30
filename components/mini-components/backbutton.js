@@ -13,7 +13,7 @@ import {
   volumeSelector,
   previousScreensSelector,
 } from "../selectors/stateSelectors";
-export const BackButton = (props) => {
+export const BackButton = () => {
   const dispatch = useDispatch();
   const volume = useSelector(volumeSelector);
   const previousScreens = useSelector(previousScreensSelector);
@@ -29,15 +29,10 @@ export const BackButton = (props) => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View
-          style={[
-            styles.buttonWheel,
-            props.floatRight ? styles.rightColumn : null,
-          ]}
-        >
+        <View style={[styles.buttonWheel]}>
           <Image
             style={styles.wheelIconBackButton}
-            source={require("../../assets/back-button.png")}
+            source={require("../../assets/back-button.png").downloadAsync()}
           />
         </View>
       </TouchableWithoutFeedback>

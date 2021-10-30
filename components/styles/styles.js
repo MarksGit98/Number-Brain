@@ -41,6 +41,7 @@ export const styles = StyleSheet.create({
   center: {
     alignItems: "center",
     textAlign: "center",
+    justifyContent: "center",
   },
 
   mainView: {
@@ -60,11 +61,15 @@ export const styles = StyleSheet.create({
     margin: 0.03 * width,
   },
 
+  removeAdsButton: {
+    width: 0.6 * width,
+    height: 0.06 * height,
+    borderRadius: 0.015 * height,
+    backgroundColor: "orange",
+  },
+
   tile: {
-    marginLeft: 0.03 * width,
-    marginRight: 0.03 * width,
-    marginBottom: 0.012 * width,
-    marginTop: 0.012 * width,
+    margin: 0.025 * width,
     height: 0.075 * height,
     width: 0.075 * height,
     justifyContent: "center",
@@ -99,7 +104,6 @@ export const styles = StyleSheet.create({
   bigTile: {
     width: 0.21 * height,
     height: 0.21 * height,
-    position: "relative",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 0.03 * height,
@@ -150,11 +154,6 @@ export const styles = StyleSheet.create({
     position: "absolute",
     width: width,
     bottom: 0.01 * height,
-  },
-
-  rightColumn: {
-    marginLeft: "auto",
-    marginRight: 0,
   },
 
   subGameModeDifficulty: {
@@ -309,9 +308,20 @@ export const styles = StyleSheet.create({
     height: "auto",
   },
 
-  gameScreenCenteredContent: {
-    alignItems: "center",
-    textAlign: "center",
+  buttonWheelColumnContainer: {
+    margin: 0.03 * width,
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+  },
+
+  upperScreen: {
+    display: "flex",
+    flexDirection: "row",
+  },
+
+  upperText: {
+    marginTop: 0.02 * height,
   },
 
   buttonWheelContainer: {
@@ -325,7 +335,15 @@ export const styles = StyleSheet.create({
   },
 
   margin: {
-    margin: 0.01 * height,
+    margin: 0.04 * height,
+  },
+
+  topMargin: {
+    marginTop: 0.04 * height,
+  },
+
+  halfMargin: {
+    margin: 0.02 * height,
   },
 
   tilesRow: {
@@ -339,14 +357,16 @@ export const styles = StyleSheet.create({
 
   gameScreenButtonWheels: {
     justifyContent: "space-evenly",
-    marginTop: height * 0.01,
+    marginTop: height * 0.05,
   },
 
-  gameScreenText: {
+  gameScreenTextAndBigTile: {
+    display: "flex",
     flex: 4,
     textAlign: "center",
     flexDirection: "column",
     alignContent: "center",
+    justifyContent: "center",
   },
 
   leftRightMargin: {

@@ -5,7 +5,8 @@ import {
   TOGGLE_VOLUME,
   LOCAL_VOLUME,
   LOCAL_MUSIC,
-  GAME_SCREEN,
+  PREMIUM,
+  TOGGLE_PREMIUM,
 } from "../constants/constants";
 import { initialState } from "./initialSettingsState";
 import { _storeData } from "../localStorage/storeData";
@@ -37,6 +38,13 @@ export const userSettingsReducer = (state = initialState, action) => {
       return {
         ...state,
         volume: !state.volume,
+      };
+    }
+    case TOGGLE_PREMIUM: {
+      _storeData(`${PREMIUM}`, action.payload.toString());
+      return {
+        ...state,
+        premium: action.payload,
       };
     }
     default:

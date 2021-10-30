@@ -10,7 +10,7 @@ import {
 import { playSound } from "../../constants/buttonClick";
 import { volumeSelector } from "../selectors/stateSelectors";
 import { _retrieveData } from "../../localStorage/retrieveData";
-export const VolumeButton = (props) => {
+export const VolumeButton = () => {
   const dispatch = useDispatch();
   const currentVolume = useSelector(volumeSelector);
 
@@ -32,12 +32,7 @@ export const VolumeButton = (props) => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View
-          style={[
-            styles.buttonWheel,
-            props.floatRight ? styles.rightColumn : null,
-          ]}
-        >
+        <View style={[styles.buttonWheel]}>
           <Image
             style={[styles.wheelIconVolumeButton]}
             source={

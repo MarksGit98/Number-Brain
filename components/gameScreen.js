@@ -12,6 +12,7 @@ import {
   timeTrialGameModeSelector,
   volumeSelector,
   errorOccurredSelector,
+  premiumStatusSelector,
 } from "./selectors/stateSelectors";
 import {
   INITIALIZE_ROUND,
@@ -48,11 +49,15 @@ import { GenerateSinglePuzzle } from "../scripts/puzzlegenerator";
 import { playSound } from "../constants/buttonClick";
 import { HintButton } from "./mini-components/hintButton";
 import { ResetButton } from "./mini-components/resetButton";
-import { TopButtonWheelComponent } from "./mini-components/topButtonWheelComponent";
 import { BannerAd } from "./ads/bannerAd";
 import { BigTile } from "./mini-components/bigTile";
+import { GameUpperBanner } from "./mini-components/gameUpperBanner";
+import { TopLeftButtonWheels } from "./mini-components/topLeftButtonWheels";
+import { TopRightButtonWheels } from "./mini-components/topRightButtonWheels";
+import { UpperScreen } from "./mini-components/upperScreen";
 export const GameScreen = () => {
   const dispatch = useDispatch();
+  const premiumStatus = useSelector(premiumStatusSelector);
   const score = useSelector(scoreSelector);
   const currentGameMode = useSelector(gameModeSelector);
   const currentBlitzGameMode = useSelector(blitzGameModeSelector);
@@ -172,16 +177,16 @@ export const GameScreen = () => {
 
   return (
     <SafeAreaView style={styles.mainView}>
-      <TopButtonWheelComponent />
-      <View style={styles.gameScreenCenteredContent}>
-        {currentGameMode === BLITZ || currentGameMode === TIMETRIAL ? (
-          <Text style={styles.titleTextXS}>
-            {seconds > 0 ? seconds : "TIME'S UP"}
-          </Text>
-        ) : null}
-        <BigTile />
+      <UpperScreen />
+      <View style={styles.center}>
         <View style={styles.margin}>
           <Tiles />
+        </View>
+        <View
+          style={
+            currentGameMode === LIMITED ? styles.halfMargin : styles.margin
+          }
+        >
           <Symbols />
         </View>
         <View style={[styles.row, styles.gameScreenButtonWheels]}>
@@ -190,9 +195,11 @@ export const GameScreen = () => {
           <HintButton />
         </View>
       </View>
-      <View style={styles.bottomAdBanner}>
-        <BannerAd />
-      </View>
+      {!premiumStatus ? (
+        <View style={styles.bottomAdBanner}>
+          <BannerAd />
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 };

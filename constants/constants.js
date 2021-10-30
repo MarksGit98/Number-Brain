@@ -30,6 +30,7 @@ export const LEVEL_SCREEN = "levelScreen";
 export const GAME_SCREEN = "gameScreen";
 export const PREVIOUS_SCREEN = "previousScreen";
 export const SWITCH_SCREEN = "switchScreen";
+export const PREMIUM_SCREEN = "premiumScreen";
 
 //Gamemodes
 export const CLASSIC = "classic";
@@ -108,3 +109,7 @@ export const BUTTON_CLICK = "buttonClick";
 export const UNDO_TURN = "undoTurn";
 
 //Depth Button Constants
+
+//Microtransaction Constants
+export const PREMIUM = "premium";
+export const TOGGLE_PREMIUM = "toggle_premium";

@@ -11,7 +11,7 @@ import { playSound } from "../../constants/buttonClick";
 import { musicSelector, volumeSelector } from "../selectors/stateSelectors";
 import { _retrieveData } from "../../localStorage/retrieveData";
 
-export const MusicButton = (props) => {
+export const MusicButton = () => {
   const dispatch = useDispatch();
   const volume = useSelector(volumeSelector);
   const currentMusic = useSelector(musicSelector);
@@ -34,18 +34,13 @@ export const MusicButton = (props) => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View
-          style={[
-            styles.buttonWheel,
-            props.floatRight ? styles.rightColumn : null,
-          ]}
-        >
+        <View style={[styles.buttonWheel]}>
           <Image
             style={[styles.wheelIconMusicButton]}
             source={
               currentMusic
-                ? require("../../assets/music-note.png")
-                : require("../../assets/music-note-crossed-out.png")
+                ? require("../../assets/music-note.png").downloadAsync()
+                : require("../../assets/music-note-crossed-out.png").downloadAsync()
             }
           />
         </View>
