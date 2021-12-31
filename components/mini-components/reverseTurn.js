@@ -25,7 +25,7 @@ export const ReverseTurn = (props) => {
         >
           <Image
             style={styles.wheelIconReverseTurn}
-            source={require("../../assets/reverse-turn-arrow.png").downloadAsync()}
+            source={require("../../assets/reverse-turn-arrow.png")}
           />
         </View>
       </TouchableWithoutFeedback>

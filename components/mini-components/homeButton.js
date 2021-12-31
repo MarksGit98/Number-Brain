@@ -26,7 +26,7 @@ export const HomeButton = () => {
         <View style={[styles.buttonWheel]}>
           <Image
             style={[styles.wheelIconHomeButton]}
-            source={require("../../assets/home-icon.png").downloadAsync()}
+            source={require("../../assets/home-icon.png")}
           />
         </View>
       </TouchableWithoutFeedback>

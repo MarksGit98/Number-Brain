@@ -2,30 +2,32 @@ import React from "react";
 import { TouchableWithoutFeedback, Image, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../styles/styles";
-import { RESET_TILES, UNDO_TURN } from "../../constants/constants";
+import {
+  BUTTON_CLICK,
+  SWITCH_SCREEN,
+  MAIN_MENU,
+  PREMIUM_SCREEN,
+} from "../../constants/constants";
 import { playSound } from "../../constants/buttonClick";
 import { volumeSelector } from "../selectors/stateSelectors";
-export const ResetButton = (props) => {
+
+export const PremiumButton = () => {
   const dispatch = useDispatch();
   const volume = useSelector(volumeSelector);
-
   const handleButtonClick = () => {
-    dispatch({ type: RESET_TILES });
-    if (volume) playSound(UNDO_TURN);
+    if (volume) playSound(BUTTON_CLICK);
+    dispatch({
+      type: SWITCH_SCREEN,
+      payload: PREMIUM_SCREEN,
+    });
   };
-
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => handleButtonClick()}>
-        <View
-          style={[
-            styles.buttonWheel,
-            props.floatRight ? styles.rightColumn : null,
-          ]}
-        >
+        <View style={[styles.buttonWheel]}>
           <Image
-            style={styles.wheelIconResetButton}
-            source={require("../../assets/reset-icon.png")}
+            style={[styles.wheelIconHomeButton]}
+            source={require("../../assets/premium.png")}
           />
         </View>
       </TouchableWithoutFeedback>

@@ -39,8 +39,8 @@ export const MusicButton = () => {
             style={[styles.wheelIconMusicButton]}
             source={
               currentMusic
-                ? require("../../assets/music-note.png").downloadAsync()
-                : require("../../assets/music-note-crossed-out.png").downloadAsync()
+                ? require("../../assets/music-note.png")
+                : require("../../assets/music-note-crossed-out.png")
             }
           />
         </View>

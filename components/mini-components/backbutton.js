@@ -32,7 +32,7 @@ export const BackButton = () => {
         <View style={[styles.buttonWheel]}>
           <Image
             style={styles.wheelIconBackButton}
-            source={require("../../assets/back-button.png").downloadAsync()}
+            source={require("../../assets/back-button.png")}
           />
         </View>
       </TouchableWithoutFeedback>
